@@ -52,12 +52,12 @@
                                              alt="status-users">
                                         <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
                                                   alt="like-icon"></p>
-                                        <p class="is-size-4"> <?php echo $this->_db->countLikes($idea->id_idea())?></p>
+                                        <p class="is-size-4"> <?php echo $this->_db->countLikes($idea->id_idea())?> like(s)</p>
                                     </div>
                                 </div>
                                 <div class="column is-9">
                                     <div class="sujet">
-                                        <h1 class="block title is-size-3"> Sujet : <?php echo $idea->subject()?> like(s)</h1>
+                                        <h1 class="block title is-size-3"> Sujet : <?php echo $idea->subject()?></h1>
                                         <p><?php echo $idea->text()?>
 
                                         </p>
