@@ -127,7 +127,6 @@ class Db{
         return $list_ideas;
     }
 
-<<<<<<< HEAD
     public function select_users(){
         $query = 'SELECT * from users';
         $ps = $this->_db->prepare($query);
@@ -138,7 +137,6 @@ class Db{
         }
         return $list_users;
     }
-=======
     public function countLikes($id_idea){
         $query = 'SELECT id_idea from votes WHERE id_idea=:id_idea';
         $ps = $this->_db->prepare($query);
@@ -147,5 +145,4 @@ class Db{
         return $ps->rowcount();
     }
 
->>>>>>> 95ac8d5fef2344907aab6f854c3a01a92b49b12b
 }
