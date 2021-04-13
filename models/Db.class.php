@@ -182,4 +182,13 @@ class Db{
         $ps->execute();
     }
 
+    public function vote_exist($id_user,$id_idea){
+        $query = 'SELECT * from votes WHERE id_user=:id_user AND id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
 }

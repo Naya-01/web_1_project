@@ -1,4 +1,4 @@
-<div class="background-color">
+
     <section id="contenu">
         <div class="rows">
 
@@ -44,7 +44,7 @@
                     <div class="rows"> <!--les idées-->
 
                         <?php foreach ($tabIdeas as $i => $idea){ ?>
-                        <div class="row box has-background-grey-light"><!--une idée-->
+                        <div class="row box background-color"><!--une idée-->
                             <div class="columns">
                                 <div class="column is-2">
                                     <div class="pseudo has-text-black">
@@ -88,4 +88,4 @@
 
         </div>
     </section>
-</div>
+

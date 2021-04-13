@@ -18,8 +18,12 @@ class AccueilController{
         $tabIdeas = $this->_db->select_ideas();
         $notification_like="no";
         if(!empty($_POST['form_like'])){
-            $notification_like="like ajouté";
-            $this->_db->insert_vote($_SESSION['id_user'],$_POST['like_id_idea']);
+            if($this->_db->vote_exist($_SESSION['id_user'],$_POST['like_id_idea'])){
+                $notification_like="vous avez deja voté pour cette idée!!!";
+            }else{
+                $notification_like="like ajouté";
+                $this->_db->insert_vote($_SESSION['id_user'],$_POST['like_id_idea']);
+            }
         }
 
 

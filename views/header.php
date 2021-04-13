@@ -10,7 +10,7 @@
 <body>
 <?php if ($header_footer) { ?>
     <header>
-        <nav class="navbar is-primary" id="navbar">
+        <nav class="navbar is-info" id="navbar">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="index.php?action=accueil">
                         <img src="views/img/logo-blanc.png" alt="Youreview-logo">
