@@ -1,5 +1,5 @@
-<div class="background-color">
-    <section id="contenu">
+
+<section id="contenu">
         <div class="row" id="home-title">
             <h1 class="title is-1">Partage ton idée avec les autres !</h1>
         </div>
@@ -9,7 +9,7 @@
         <?php } ?>
 
         <div class="column" id="form_idea">
-            <form action="?action=newIdea" method="post">
+            <form action="?action=newIdea" method="post" class="box background-color">
                 <div class="rows">
                     <div class="row block">
                         <label class="label is-size-4">Sujet : <input class="button-width input" type="text"
@@ -32,4 +32,3 @@
             </form>
         </div>
     </section>
-</div>
