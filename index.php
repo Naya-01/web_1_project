@@ -18,14 +18,25 @@ spl_autoload_register('chargerClasse');
 # Connexion à la db;
 $db=Db::getInstance();
 
+
 # S'il n'y a pas de variable GET 'action' dans l'URL, elle est créée ici à la valeur 'accueil'
 if (empty($_GET['action'])) {
     $_GET['action'] = 'login';
 }
 $header_footer=true;
+
 if(empty($_SESSION['authentifie'])){
     $header_footer=false;
+} else {
+    $_SESSION['admin'] = $db->is_admin($_SESSION['id_user']);
+    $_SESSION['disabled']= $db->is_disabled($_SESSION['id_user']);
+    if ($_SESSION['disabled'] == 1) {
+        $_SESSION = array();
+        header("Location: index.php?action=login");
+        die();
+    }
 }
+
 include(VIEWS_PATH. 'header.php');
 
 
