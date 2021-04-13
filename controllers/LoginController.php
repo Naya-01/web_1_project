@@ -34,8 +34,11 @@ class LoginController
                 # Une variable de session $_SESSION['authentifie'] est créée
                 $_SESSION['authentifie'] = 'ok';
                 $_SESSION['email'] = $_POST['email_login'];
-                $_SESSION['id_user']= $this->_db->getIdUser($_POST['email_login']);
+                $_SESSION['id_user'] = $this->_db->getIdUser($_POST['email_login']);
                 $_SESSION['username']= $this->_db->getUsername($_SESSION['id_user']);
+                $_SESSION['admin']= $this->_db->is_admin($_SESSION['id_user']);
+                $_SESSION['disabled']= $this->_db->is_disabled($_SESSION['id_user']);
+                if ($_SESSION['disabled'] == 1) $_SESSION = array();
                 # Redirection HTTP pour demander la page admin
                 header("Location: index.php?action=accueil");
                 die();

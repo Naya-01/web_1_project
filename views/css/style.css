@@ -117,3 +117,18 @@ p{
     width: 80%;
     margin: auto;
 }
+
+
+/*******************GESTION UTILISATEUR************************/
+.gestion_user_title {
+    text-align: center;
+    margin-top: 3%;
+}
+
+.gestion_user_block {
+    margin: 10%;
+}
+
+.infos {
+    margin-left: 20%;
+}

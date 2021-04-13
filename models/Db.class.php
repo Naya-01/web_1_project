@@ -43,6 +43,24 @@ class Db{
         $ps->execute();
     }
 
+    public function is_admin($id_user)
+    {
+        $query = 'SELECT * from users WHERE id_user=:id_user AND admin = 1';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    public function is_disabled($id_user)
+    {
+        $query = 'SELECT * from users WHERE id_user=:id_user AND disable = 1';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
     public function valider_user($username, $password)
     {
         $query = 'SELECT password from users WHERE username=:username';
@@ -109,6 +127,16 @@ class Db{
         return $list_ideas;
     }
 
+    public function select_users(){
+        $query = 'SELECT * from users';
+        $ps = $this->_db->prepare($query);
+        $ps->execute();
+        $list_users= array();
+        while($row = $ps->fetch()){
+            $list_users[]= new User($row->id_user, $row->email, $row->username, $row->password, $row->picture, $row->admin, $row->disable);
+        }
+        return $list_users;
+    }
     public function countLikes($id_idea){
         $query = 'SELECT id_idea from votes WHERE id_idea=:id_idea';
         $ps = $this->_db->prepare($query);
@@ -126,3 +154,6 @@ class Db{
     }
 
 }
+
+
+
