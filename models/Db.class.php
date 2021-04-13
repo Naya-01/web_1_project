@@ -162,4 +162,15 @@ class Db{
         return ($ps->rowcount() != 0);
     }
 
+    public function select_idea($id_idea){
+        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        $row = $ps->fetch();
+        $idea = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,
+            $row->refused_date,$row->closed_date);
+        return $idea;
+    }
+
 }

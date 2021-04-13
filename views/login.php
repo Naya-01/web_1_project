@@ -17,7 +17,7 @@
                 </div>
             </div>
             <?php if($condition){ ?>
-            <div class="box" id="notif-message">
+            <div class="box" id="notif-login">
                 <div class="field">
                     <p class="has-text-black"><?php echo $notification ?></p>
                 </div>
