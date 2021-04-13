@@ -16,6 +16,16 @@ class AccueilController{
             die();
         }
         $tabIdeas = $this->_db->select_ideas();
+        $notification_like="no";
+        if(!empty($_POST['form_like'])){
+            $notification_like="like ajouté";
+            $this->_db->insert_vote($_SESSION['id_user'],$_POST['like_id_idea']);
+        }
+
+
+
+
+
         require_once(VIEWS_PATH . 'accueil.php');
     }
 }

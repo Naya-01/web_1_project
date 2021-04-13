@@ -117,4 +117,12 @@ class Db{
         return $ps->rowcount();
     }
 
+    public function insert_vote($id_user,$id_idea){
+        $query = 'INSERT INTO votes (id_user,id_idea) values (:id_user,:id_idea)';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+    }
+
 }
