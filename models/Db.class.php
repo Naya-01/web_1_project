@@ -176,4 +176,8 @@ class Db{
         $ps->execute();
     }
 
+    public function oucouc() {
+        return "oucouc";
+    }
+
 }
