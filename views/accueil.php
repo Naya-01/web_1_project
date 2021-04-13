@@ -52,7 +52,7 @@
                                              alt="status-users">
                                         <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
                                                   alt="like-icon"></p>
-                                        <p class="is-size-4"> 26 likes</p>
+                                        <p class="is-size-4"> <?php echo $this->_db->countLikes($idea->id_idea())?> like(s)</p>
                                     </div>
                                 </div>
                                 <div class="column is-9">

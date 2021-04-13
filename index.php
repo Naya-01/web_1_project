@@ -22,9 +22,9 @@ $db=Db::getInstance();
 if (empty($_GET['action'])) {
     $_GET['action'] = 'login';
 }
-$header_footer=false;
-if($_GET['action'] != 'login'){
-    $header_footer=true;
+$header_footer=true;
+if(empty($_SESSION['authentifie'])){
+    $header_footer=false;
 }
 include(VIEWS_PATH. 'header.php');
 
