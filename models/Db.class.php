@@ -108,4 +108,13 @@ class Db{
         }
         return $list_ideas;
     }
+
+    public function countLikes($id_idea){
+        $query = 'SELECT id_idea from votes WHERE id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return $ps->rowcount();
+    }
+
 }
