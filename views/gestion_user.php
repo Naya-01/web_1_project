@@ -4,6 +4,7 @@
 <div class="gestion_user_block">
     <?php foreach ($tabUsers as $i => $user){ ?>
     <?php if ($user->admin() == 1) $admin = "Administrateur"; else $admin = "Utilisateur" ?>
+    <?php if ($user->disabled() == 0) $disable = "actif"; else $disable = "inactif" ?>
     <div class="row box has-background-grey-light"><!--une idée-->
         <div class="columns">
             <div class="column is-2">
@@ -17,16 +18,16 @@
                 <div class="column content is-normal">
                     <p class="block is-size-5"> ID : <?php echo $user->id()?></p>
                     <p class="block is-size-5"> Email : <?php echo $user->html_email()?></p>
-                    <p class="block is-size-5"><?php echo $admin ?></p>
+                    <p class="block is-size-5"><?php echo $admin . " " . $disable ?></p>
                 </div>
             </div>
 
             <div class="column">
                 <div class="navbar-end">
-                    <div class="buttons are-medium">
-                        <button class="button">Privilégier</button>
-                        <button class="button">Désactiver</button>
-                    </div>
+                        <form class="buttons are-medium" action="index.php?action=gestion_user" method="post">
+                        <button value="privilege" class="button">Privilégier</button>
+                        <button value="desactiver" class="button">Désactiver</button>
+                        </form>
                 </div>
             </div>
         </div>

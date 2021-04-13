@@ -42,6 +42,10 @@ class User{
         return $this->_admin;
     }
 
+    public function disabled(){
+        return $this->_disable;
+    }
+
     public function html_id(){
         return htmlspecialchars($this->_id_user);
     }

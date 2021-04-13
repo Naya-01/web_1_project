@@ -16,7 +16,6 @@ class GestionUtilisateurController {
             die();
         }
         $tabUsers = $this->_db->select_users();
-        $admin = "Utilisateur";
         require_once(VIEWS_PATH . 'gestion_user.php');
     }
 }
