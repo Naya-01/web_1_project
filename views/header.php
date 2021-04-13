@@ -34,7 +34,7 @@
                             </a>
                             <?php } ?>
                             <a class="button is-danger" href="index.php?action=logout">
-                                Deconnexion
+                                Déconnexion
                             </a>
                         </div>
                     </div>

@@ -135,7 +135,7 @@ p{
 }
 
 .gestion_user_block {
-    margin: 10%;
+    margin: 5% 10% 10% 10%;
 }
 
 .infos {
@@ -143,14 +143,12 @@ p{
 }
 
 /*******************GESTION IDEA************************/
-/*
-.infos_ideas, .navbar-end {
-    margin-left: 0%;
-    background-color: red;
-}
-*/
 
 .idea_button {
     margin-left: 0em;
     text-align: center;
+}
+
+.table input {
+    right: 0;
 }
