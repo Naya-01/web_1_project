@@ -143,9 +143,21 @@ class Db{
     }
 
     public function select_ideas(){
-        $query = 'SELECT * from ideas WHERE status!=:status';
+        $query = 'SELECT * from ideas WHERE status != :status';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "T");
+        $ps->execute();
+        $list_ideas= array();
+        while($row = $ps->fetch()){
+            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
+                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+        }
+        return $list_ideas;
+    }
+
+    public function select_T_ideas(){
+        $query = 'SELECT * from ideas';
+        $ps = $this->_db->prepare($query);
         $ps->execute();
         $list_ideas= array();
         while($row = $ps->fetch()){
@@ -200,6 +212,38 @@ class Db{
         $idea = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,
             $row->refused_date,$row->closed_date);
         return $idea;
+    }
+
+    public function setStatus($id_idea, $status) {
+        $query = 'UPDATE ideas SET status = :status WHERE id_idea = :id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':status', $status);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+    }
+
+    public function setRefusedDate($id_idea) {
+        $query = 'UPDATE ideas SET refused_date = :refused_date WHERE id_idea = :id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':refused_date', NOW);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+    }
+
+    public function setAcceptedDate($id_idea) {
+        $query = 'UPDATE ideas SET accepted_date = :accepted_date WHERE id_idea = :id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':accepted_date', NOW);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+    }
+
+    public function setClosedDate($id_idea) {
+        $query = 'UPDATE ideas SET closed_date = :closed_date WHERE id_idea = :id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':closed_date', NOW);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
     }
 
 }

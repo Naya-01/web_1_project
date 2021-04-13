@@ -3,6 +3,7 @@
 </div>
 <div class="gestion_user_block">
     <?php foreach ($tabIdeas as $i => $idea){ ?>
+        <?php if ($idea->status() == 'T') { ?>
         <div class="row box has-background-grey-light background-color"><!--une personne-->
             <div class="columns">
                 <div class="column is-2">
@@ -28,18 +29,20 @@
                     </div>
                 </div>
 
+
                 <div class="table-container">
                     <table class="table">
                         <form class="buttons are-medium" action="index.php?action=gestion_idea" method="post">
                             <input type="hidden" name="idea_gestion_id" value="<?php echo $idea->html_id_idea()?>">
-                            <input class="button is-danger is-light is-small" name="desactiver" type="submit" value="Refuser">
-                            <input class="button is-danger is-light is-small" name="privilegier" type="submit" value="Désactiver">
-                            <input class="button is-danger is-light is-small" name="desactiver" type="submit" value="Accepter">
-                            <input class="button is-danger is-light is-small" name="privilegier" type="submit" value="Fermer">
+                            <input class="button is-danger is-light is-small" name="refuser" type="submit" value="Refuser">
+                            <input class="button is-danger is-light is-small" name="desactiver" type="submit" value="Désactiver">
+                            <input class="button is-danger is-light is-small" name="accepter" type="submit" value="Accepter">
+                            <input class="button is-danger is-light is-small" name="fermer" type="submit" value="Fermer">
                         </form>
                     </table>
                 </div>
             </div>
         </div>
+        <?php } ?>
     <?php } ?>
 </div>

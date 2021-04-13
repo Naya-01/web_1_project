@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>YOUReview</title>
     <link rel="stylesheet" type="text/css" href="<?php echo VIEWS_PATH ?>css/bulma/css/bulma.css">
     <link rel="stylesheet" type="text/css" href="<?php echo VIEWS_PATH ?>css/style.css">
 </head>
