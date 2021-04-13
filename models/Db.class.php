@@ -43,6 +43,28 @@ class Db{
         $ps->execute();
     }
 
+    public function modify_disable($id_user)
+    {
+        if ($this->is_disabled($id_user) == 1) $disable = 0;
+        else $disable = 1;
+        $query = 'UPDATE users SET disable = :disable WHERE id_user = :id_user';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':disable', $disable);
+        $ps->execute();
+    }
+
+    public function modify_admin($id_user) {
+        if ($this->is_admin($id_user)) $admin = 0;
+        else $admin = 1;
+        $query = 'UPDATE users SET admin = :admin WHERE id_user = :id_user';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':admin', $admin);
+        $ps->execute();
+    }
+
+
     public function is_admin($id_user)
     {
         $query = 'SELECT * from users WHERE id_user=:id_user AND admin = 1';
@@ -72,6 +94,7 @@ class Db{
         $hash = $ps->fetch()->password;
         return password_verify($password, $hash);
     }
+
     public function valider_email($email, $password)
     {
         $query = 'SELECT password from users WHERE email=:email';
@@ -83,6 +106,7 @@ class Db{
         $hash = $ps->fetch()->password;
         return password_verify($password, $hash);
     }
+
     public function email_exists($email){
         $query = 'SELECT * from users WHERE email=:email';
         $ps = $this->_db->prepare($query);
@@ -90,6 +114,7 @@ class Db{
         $ps->execute();
         return ($ps->rowcount() != 0);
     }
+
     public function getUsername($id){
         $query = 'SELECT username from users WHERE id_user=:id';
         $ps = $this->_db->prepare($query);
@@ -97,6 +122,7 @@ class Db{
         $ps->execute();
         return $ps->fetch()->username;
     }
+
     public function getIdUser($email){
         $query = 'SELECT id_user from users WHERE email=:email';
         $ps = $this->_db->prepare($query);
@@ -104,6 +130,7 @@ class Db{
         $ps->execute();
         return $ps->fetch()->id_user;
     }
+
     public function insert_idea($id_user, $subject, $text)
     {
         $query = 'INSERT INTO ideas (id_user,subject,text,status,submitted_date) values (:id_user,:subject,:text,"T",:submitted_date)';
@@ -114,6 +141,7 @@ class Db{
         $ps->bindValue(':submitted_date', NOW);
         $ps->execute();
     }
+
     public function select_ideas(){
         $query = 'SELECT * from ideas WHERE status!=:status';
         $ps = $this->_db->prepare($query);
@@ -137,6 +165,7 @@ class Db{
         }
         return $list_users;
     }
+
     public function countLikes($id_idea){
         $query = 'SELECT id_idea from votes WHERE id_idea=:id_idea';
         $ps = $this->_db->prepare($query);
