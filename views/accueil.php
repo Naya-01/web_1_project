@@ -7,6 +7,8 @@
                 <h1 class="title is-1">Partage ton idée avec les autres !</h1>
             </div>
             <div class="row" id="home-text">
+                <p><?php echo $notification_like ?> </p>
+                <p>salut</p>
                 <p>Vous désirez m'aider dans le progression de ma chaine youtube ? <br>
                     Alors n'hésitez pas à donner des idées pour l'amélioration de celle-ci !!</p>
             </div>
@@ -50,8 +52,11 @@
                                                               alt="picture-user"> <?php echo $this->_db->getUsername($idea->id_user()) ?> </p>
                                         <img class="icon is-medium" src="views/img/etat/<?php echo $idea->status()?>.ico"
                                              alt="status-users">
-                                        <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
-                                                  alt="like-icon"></p>
+                                        <form action="?action=accueil" method="post">
+                                            <input type="hidden" name="like_id_idea" value="<?php echo $idea->id_idea()?>">
+                                            <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
+                                                      alt="like-icon" name="form_like"></p>
+                                        </form>
                                         <p class="is-size-4"> <?php echo $this->_db->countLikes($idea->id_idea())?> like(s)</p>
                                     </div>
                                 </div>

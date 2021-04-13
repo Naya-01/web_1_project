@@ -126,6 +126,7 @@ class Db{
         }
         return $list_ideas;
     }
+
     public function select_users(){
         $query = 'SELECT * from users';
         $ps = $this->_db->prepare($query);
@@ -136,8 +137,35 @@ class Db{
         }
         return $list_users;
     }
-    /* fjhcqsuijqri ss*/
+    public function countLikes($id_idea){
+        $query = 'SELECT id_idea from votes WHERE id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return $ps->rowcount();
+    }
 
+    public function insert_vote($id_user,$id_idea){
+        $query = 'INSERT INTO votes (id_user,id_idea) values (:id_user,:id_idea)';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+    }
+    public function rayan($id_user,$id_idea){
+        $query = 'INSERT INTO votes (id_user,id_idea) values (:id_user,:id_idea)';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+    }
 
+    public function franswa($id_user,$id_idea){
+        $query = 'INSERT INTO votes (id_user,id_idea) values (:id_user,:id_idea)';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+    }
 
 }

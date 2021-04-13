@@ -5,7 +5,7 @@
                 <div class="pseudo has-text-black">
                     <p class="block"><img class="icon" src="views/img/profil.ico"
                                           alt="picture-user">Rayan</p>
-                    <img class="icon is-medium" src="views/img/etat/cercle-vert.ico"
+                    <img class="icon is-medium" src="views/img/etat/A.ico"
                          alt="status-users">
                     <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico" alt="like-icon"></p>
                     <p class="is-size-4"> 26 likes</p>
