@@ -39,7 +39,7 @@ p{
 #connexion-form input[type="submit"],#register-form input[type="submit"]{
     margin-bottom: 15px;
 }
-#notif-message{
+#notif-login{
     margin-top: 13px;
     width: auto;
     margin-bottom: auto;
@@ -62,6 +62,7 @@ p{
     min-height: 100px;
 }
 #home-text{
+    text-align: center;
     min-height: 150px;
 }
 .idea{
@@ -102,6 +103,12 @@ p{
 .sujet{
     word-break: normal;
 }
+
+.notif-home{
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
 /*******************PAGE NEW IDEA************************/
 
 

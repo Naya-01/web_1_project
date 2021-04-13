@@ -3,25 +3,26 @@
         <div class="column is-1 ">
             <div class="pseudo has-text-black">
                 <p class="block"><img class="icon" src="views/img/profil.ico"
-                                      alt="picture-user">Rayan</p>
-                <img class="icon is-medium" src="views/img/etat/A.ico"
+                                      alt="picture-user"><?php echo $this->_db->getUsername($idea->id_user()) ?></p>
+                <img class="icon is-medium" src="views/img/etat/<?php echo $idea->status()?>.ico"
                      alt="status-users">
-                <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico" alt="like-icon"></p>
-                <p class="is-size-4"> 26 likes</p>
+                <form action="?action=idea&id_idea=<?php echo $idea->id_idea() ?>" method="post">
+                    <input type="hidden" name="like_id_idea" value="<?php echo $idea->id_idea()?>">
+                    <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
+                              alt="like-icon" name="form_like[]"></p>
+                </form>
+                <p class="is-size-4"> <?php echo $this->_db->countLikes($idea->id_idea())?> like(s)</p>
             </div>
         </div>
         <div class="column is-9">
-            <h1 class="block title is-size-3"> Sujet : DES LIVES AVEC MICHOU</h1>
-            <p>Vous désirez m'aider dans la progression de ma chaine youtube ?
-                Alors n'hésitez pas à donner des idées pour l'amélioration de ma
-                chaine.
-                Ma chaine Youtube est orientée dans le multigaming et le
-                divertissement.
-                La meilleure idée se verra attribuer une récompense!!</p>
+            <h1 class="block title is-size-3"> Sujet : <?php echo $idea->subject()?></h1>
+            <p>
+                <?php echo $idea->text()?>
+            </p>
         </div>
         <div class="column">
             <div class="navbar-end">
-                <a class="button is-link is-small" href="index.php?action=idea">
+                <a class="button is-link is-small" href="index.php?action=idea&id_idea=<?php echo $idea->id_idea() ?>">
                     Repondre
                 </a>
             </div>

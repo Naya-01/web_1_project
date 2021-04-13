@@ -7,8 +7,9 @@
                 <h1 class="title is-1">Partage ton idée avec les autres !</h1>
             </div>
             <div class="row" id="home-text">
-                <p><?php echo $notification_like ?> </p>
-                <p>salut</p>
+                <?php if($notification_like!=""){ ?>
+                <p class="box has-background-danger notif-home" ><?php echo $notification_like ?> </p>
+                <?php } ?>
                 <p>Vous désirez m'aider dans le progression de ma chaine youtube ? <br>
                     Alors n'hésitez pas à donner des idées pour l'amélioration de celle-ci !!</p>
             </div>
@@ -70,7 +71,8 @@
                                 </div>
                                 <div class="column">
                                     <div class="navbar-end">
-                                        <a class="button is-link is-small" href="index.php?action=idea">
+                                        <input type="hidden" name="answer_idea" value="<?php echo $idea->id_idea()?>">
+                                        <a class="button is-link is-small" href="index.php?action=idea&id_idea=<?php echo $idea->id_idea() ?>">
                                             Repondre
                                         </a>
                                     </div>
