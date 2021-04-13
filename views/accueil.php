@@ -8,6 +8,7 @@
             </div>
             <div class="row" id="home-text">
                 <p><?php echo $notification_like ?> </p>
+                <p>salut</p>
                 <p>Vous désirez m'aider dans le progression de ma chaine youtube ? <br>
                     Alors n'hésitez pas à donner des idées pour l'amélioration de celle-ci !!</p>
             </div>
