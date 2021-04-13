@@ -28,6 +28,7 @@ if($_GET['action'] != 'login'){
 }
 include(VIEWS_PATH. 'header.php');
 
+
 switch ($_GET['action']) {
     case 'admin':
         require_once(CONTROLLERS_PATH.'AdminController.php');
@@ -49,11 +50,13 @@ switch ($_GET['action']) {
         require_once(CONTROLLERS_PATH.'ideaController.php');
         $controller = new ideaController($db);
         break;
+    case 'gestion_user':
+        require_once(CONTROLLERS_PATH.'GestionUtilisateurController.php');
+        $controller = new GestionUtilisateurController($db);
+        break;
     default:
-//        require_once(CONTROLLERS_PATH . 'LoginController.php');
-//        $controller = new LoginController($db);
-        require_once(CONTROLLERS_PATH.'AccueilController.php');
-        $controller = new AccueilController($db);
+        require_once(CONTROLLERS_PATH . 'LoginController.php');
+        $controller = new LoginController($db);
         break;
 }
 

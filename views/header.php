@@ -25,6 +25,14 @@
                             <a class="button is-dark" href="https://bulma.io/">
                                 Profil
                             </a>
+                            <?php if ($_SESSION['admin']) {?>
+                            <a class="button is-danger" href="index.php?action=gestion_user">
+                                Utilisateurs
+                            </a>
+                            <a class="button is-danger" href="https://bulma.io/">
+                                Postes
+                            </a>
+                            <?php } ?>
                             <a class="button is-danger" href="index.php?action=logout">
                                 Deconnexion
                             </a>

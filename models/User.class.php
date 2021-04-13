@@ -38,6 +38,10 @@ class User{
         return $this->_picture;
     }
 
+    public function admin(){
+        return $this->_admin;
+    }
+
     public function html_id(){
         return htmlspecialchars($this->_id_user);
     }
