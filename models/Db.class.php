@@ -168,4 +168,12 @@ class Db{
         $ps->execute();
     }
 
+    public function lune($id_user,$id_idea){
+        $query = 'INSERT INTO votes (id_user,id_idea) values (:id_user,:id_idea)';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+    }
+
 }
