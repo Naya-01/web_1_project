@@ -26,10 +26,10 @@
                                 Profil
                             </a>
                             <?php if ($_SESSION['admin']) {?>
-                            <a class="button is-danger" href="index.php?action=gestion_user">
+                            <a class="button is-dark" href="index.php?action=gestion_user">
                                 Utilisateurs
                             </a>
-                            <a class="button is-danger" href="https://bulma.io/">
+                            <a class="button is-dark" href="index.php?action=gestion_idea">
                                 Postes
                             </a>
                             <?php } ?>

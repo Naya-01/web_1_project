@@ -134,3 +134,16 @@ p{
 .infos {
     margin-left: 20%;
 }
+
+/*******************GESTION IDEA************************/
+/*
+.infos_ideas, .navbar-end {
+    margin-left: 0%;
+    background-color: red;
+}
+*/
+
+.idea_button {
+    margin-left: 0em;
+    text-align: center;
+}

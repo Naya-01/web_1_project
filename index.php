@@ -41,10 +41,12 @@ include(VIEWS_PATH. 'header.php');
 
 
 switch ($_GET['action']) {
+    /*
     case 'admin':
         require_once(CONTROLLERS_PATH.'AdminController.php');
         $controller = new AdminController($db);
         break;
+    */
     case 'accueil':
         require_once(CONTROLLERS_PATH.'AccueilController.php');
         $controller = new AccueilController($db);
@@ -64,6 +66,10 @@ switch ($_GET['action']) {
     case 'gestion_user':
         require_once(CONTROLLERS_PATH.'GestionUtilisateurController.php');
         $controller = new GestionUtilisateurController($db);
+        break;
+    case 'gestion_idea':
+        require_once(CONTROLLERS_PATH.'GestionIdeesController.php');
+        $controller = new GestionIdeesController($db);
         break;
     default:
         require_once(CONTROLLERS_PATH . 'LoginController.php');

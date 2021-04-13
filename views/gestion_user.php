@@ -19,7 +19,7 @@
             $textstatut = "Activer";
         }?>
 
-    <div class="row box has-background-grey-light"><!--une idée-->
+    <div class="row box has-background-grey-light background-color"><!--une personne-->
         <div class="columns">
             <div class="column is-2">
                 <div class="pseudo has-text-black">
