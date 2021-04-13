@@ -22,9 +22,9 @@ $db=Db::getInstance();
 if (empty($_GET['action'])) {
     $_GET['action'] = 'login';
 }
-$header_footer=false;
-if($_GET['action'] != 'login'){
-    $header_footer=true;
+$header_footer=true;
+if(empty($_SESSION['authentifie'])){
+    $header_footer=false;
 }
 include(VIEWS_PATH. 'header.php');
 
@@ -50,10 +50,8 @@ switch ($_GET['action']) {
         $controller = new ideaController($db);
         break;
     default:
-//        require_once(CONTROLLERS_PATH . 'LoginController.php');
-//        $controller = new LoginController($db);
-        require_once(CONTROLLERS_PATH.'AccueilController.php');
-        $controller = new AccueilController($db);
+        require_once(CONTROLLERS_PATH . 'LoginController.php');
+        $controller = new LoginController($db);
         break;
 }
 
