@@ -55,7 +55,7 @@
                                         <form action="?action=accueil" method="post">
                                             <input type="hidden" name="like_id_idea" value="<?php echo $idea->id_idea()?>">
                                             <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
-                                                      alt="like-icon" name="form_like"></p>
+                                                      alt="like-icon" name="form_like[]"></p>
                                         </form>
                                         <p class="is-size-4"> <?php echo $this->_db->countLikes($idea->id_idea())?> like(s)</p>
                                     </div>
