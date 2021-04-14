@@ -20,14 +20,17 @@ class GestionIdeesController {
             if (!empty($_POST['refuser'])) {
                 $this->_db->setStatus($_POST['idea_gestion_id'], "R");
                 $this->_db->setRefusedDate($_POST['idea_gestion_id']);
+                $notification = "Le poste a été refusé.";
             } else if (!empty($_POST['desactiver'])) {
-
+                $notification = "Le poste a été désactivé.";
             } else if (!empty($_POST['accepter'])) {
                 $this->_db->setStatus($_POST['idea_gestion_id'], "A");
                 $this->_db->setAcceptedDate($_POST['idea_gestion_id']);
+                $notification = "Le poste a été acceptée.";
             } else if (!empty($_POST['fermer'])) {
                 $this->_db->setStatus($_POST['idea_gestion_id'], "C");
                 $this->_db->setClosedDate($_POST['idea_gestion_id']);
+                $notification = "Le poste a été fermé.";
             }
         }
 
