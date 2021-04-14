@@ -1,5 +1,4 @@
 <?php
-
 class Db{
 
     private static $instance = null;
@@ -348,18 +347,6 @@ class Db{
             ╚█████╔╝░░░██║░░░██║░░██║███████╗██║░░██║       ██║░╚═╝░██║███████╗░░░██║░░░██║░░██║╚█████╔╝██████╔╝██████╔╝
             ░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝       ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
     */
-
-    # ?
-    public function valider_user($username, $password) {
-        $query = 'SELECT password from users WHERE username=:username';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':username', $username);
-        $ps->execute();
-        if ($ps->rowcount() == 0)
-            return false;
-        $hash = $ps->fetch()->password;
-        return password_verify($password, $hash);
-    }
 
     # Allows you to check the password-email correspondence. Used in the login system (LoginController)
     public function valider_email($email, $password) {
