@@ -1,24 +1,21 @@
 <?php
-
-class AdminController
-{
+class AdminController {
 
     private $_db;
 
-    public function __construct($db)
-    {
+    public function __construct($db) {
         $this->_db = $db;
     }
 
-    public function run()
-    {
-        # Si un petit fûté écrit ?action=admin sans passer par l'action login
+    public function run() {
+
+        # Security
         if (empty($_SESSION['authentifie'])) {
-            header("Location: index.php?action=login"); # redirection HTTP vers l'action login
+            header("Location: index.php?action=login"); # HTTP redirection to the login action
             die();
         }
+
         require_once(VIEWS_PATH . 'accueil.php');
     }
 
 }
-?>

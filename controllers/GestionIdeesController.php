@@ -8,11 +8,14 @@ class GestionIdeesController {
     }
 
     public function run() {
+
+        # Security
         if (empty($_SESSION['authentifie']) or $_SESSION['admin'] == false) {
             header("Location: index.php?action=login"); # redirection HTTP vers l'action login
             die();
         }
 
+        # Modification of the statutes in the database
         if (!empty($_POST) and !empty($_POST['idea_gestion_id'])) {
             if (!empty($_POST['refuser'])) {
                 $this->_db->setStatus($_POST['idea_gestion_id'], "R");
@@ -28,7 +31,9 @@ class GestionIdeesController {
             }
         }
 
+        # List of all ideas
         $tabIdeas = $this->_db->select_T_ideas();
+
         require_once(VIEWS_PATH . 'gestion_idea.php');
     }
 }
