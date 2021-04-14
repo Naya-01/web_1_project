@@ -246,4 +246,35 @@ class Db{
         $ps->execute();
     }
 
+    public function idea_exist($id_idea){
+        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    public function insert_comment($id_idea,$id_user,$text){
+        $query = 'INSERT INTO comments (id_user,id_idea,text,creation_date) values (:id_user,:id_idea,:text,:creation_date)';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->bindValue(':text', $text);
+        $ps->bindValue(':creation_date', NOW);
+        $ps->execute();
+    }
+
+    public function select_comments_idea($id_idea){
+        $query = 'SELECT * from comments WHERE id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        $comments= array();
+        while($row = $ps->fetch()){
+            $comments [] = new Comment($row->id_comment,$row->text,$row->id_idea,$row->id_user,$row->disable,$row->creation_date);
+        }
+        return $comments;
+    }
+
+
 }
