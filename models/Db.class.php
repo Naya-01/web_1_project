@@ -246,4 +246,13 @@ class Db{
         $ps->execute();
     }
 
+    public function idea_exist($id_idea){
+        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+
 }
