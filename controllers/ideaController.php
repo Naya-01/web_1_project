@@ -1,41 +1,42 @@
 <?php
 class ideaController{
+
     private $_db;
 
-    public function __construct($db)
-    {
+    public function __construct($db) {
         $this->_db = $db;
     }
 
-    public function run(){
+    public function run() {
+
+        # Security
         if (empty($_SESSION['authentifie'])) {
-            header("Location: index.php?action=login"); # redirection HTTP vers l'action accueil
+            header("Location: index.php?action=login");
             die();
         }
 
-        #      VARIABLE
+        # Setting up variables
         $id_idea=$_GET['id_idea'];
         $notification="";
 
-
-
-        # affichage de l'idée selectionner/affichage de l'idée mise dans le lien
+        # Display of the selected idea / display of the idea put in the link
         if($this->_db->idea_exist($id_idea)){
-            $idea=$this->_db->select_idea($id_idea);;
+            $idea = $this->_db->select_idea($id_idea);;
         }else{
-            header("Location: index.php?action=accueil"); # redirection HTTP vers l'action accueil
+            header("Location: index.php?action=accueil");
             die();
         }
 
-
+        # Likes system
         if(!empty($_POST['form_like'])){
-            if($this->_db->vote_exist($_SESSION['id_user'],$_POST['like_id_idea'])){
+            if($this->_db->vote_exist($_SESSION['id_user'], $_POST['like_id_idea'])) {
 
             }else{
-                $this->_db->insert_vote($_SESSION['id_user'],$_POST['like_id_idea']);
+                $this->_db->insert_vote($_SESSION['id_user'], $_POST['like_id_idea']);
             }
         }
 
+        # Comments system
         if(!empty($_POST['form_answer'])){
             $condition=true;
             if(!empty($_POST['form_comment'])){
@@ -45,8 +46,9 @@ class ideaController{
             }
         }
 
-        # affiche les derniers commentaire ajouté
-        $comments=$this->_db->select_comments_idea($id_idea);
+        # Displays the added comments
+        $comments = $this->_db->select_comments_idea($id_idea);
+
         require_once(VIEWS_PATH . 'idea.php');
     }
 

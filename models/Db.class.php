@@ -5,8 +5,7 @@ class Db{
     private static $instance = null;
     private $_db;
 
-    private function __construct()
-    {
+    private function __construct() {
         try {
             $this->_db = new PDO('mysql:host=localhost:3307;dbname=youreviewdb;charset=utf8', 'root', '');
             $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -17,15 +16,23 @@ class Db{
     }
 
     # Pattern Singleton
-    public static function getInstance()
-    {
+    public static function getInstance() {
         if (is_null(self::$instance)) {
             self::$instance = new Db();
         }
         return self::$instance;
     }
-    public function username_exists($username)
-    {
+
+    /*
+            ███████╗██╗░░██╗██╗░██████╗████████╗        ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
+            ██╔════╝╚██╗██╔╝██║██╔════╝╚══██╔══╝        ████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔══██╗██╔══██╗██╔════╝
+            █████╗░░░╚███╔╝░██║╚█████╗░░░░██║░░░        ██╔████╔██║█████╗░░░░░██║░░░███████║██║░░██║██║░░██║╚█████╗░
+            ██╔══╝░░░██╔██╗░██║░╚═══██╗░░░██║░░░        ██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║░░██║██║░░██║░╚═══██╗
+            ███████╗██╔╝╚██╗██║██████╔╝░░░██║░░░        ██║░╚═╝░██║███████╗░░░██║░░░██║░░██║╚█████╔╝██████╔╝██████╔╝
+            ╚══════╝╚═╝░░╚═╝╚═╝╚═════╝░░░░╚═╝░░░        ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
+     */
+
+    public function username_exists($username) {
         $query = 'SELECT * from users WHERE username=:username';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':username', $username);
@@ -33,8 +40,41 @@ class Db{
         return ($ps->rowcount() != 0);
     }
 
-    public function insert_user($username, $email, $password)
-    {
+    public function email_exists($email) {
+        $query = 'SELECT * from users WHERE email=:email';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':email', $email);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    public function vote_exist($id_user,$id_idea) {
+        $query = 'SELECT * from votes WHERE id_user=:id_user AND id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    public function idea_exist($id_idea){
+        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    /*
+            ██╗███╗░░██╗░██████╗███████╗██████╗░████████╗       ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
+            ██║████╗░██║██╔════╝██╔════╝██╔══██╗╚══██╔══╝       ████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔══██╗██╔══██╗██╔════╝
+            ██║██╔██╗██║╚█████╗░█████╗░░██████╔╝░░░██║░░░       ██╔████╔██║█████╗░░░░░██║░░░███████║██║░░██║██║░░██║╚█████╗░
+            ██║██║╚████║░╚═══██╗██╔══╝░░██╔══██╗░░░██║░░░       ██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║░░██║██║░░██║░╚═══██╗
+            ██║██║░╚███║██████╔╝███████╗██║░░██║░░░██║░░░       ██║░╚═╝░██║███████╗░░░██║░░░██║░░██║╚█████╔╝██████╔╝██████╔╝
+            ╚═╝╚═╝░░╚══╝╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░       ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
+     */
+
+    public function insert_user($username, $email, $password) {
         $query = 'INSERT INTO users (username,email,password) values (:username,:email,:password)';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':username', $username);
@@ -42,6 +82,40 @@ class Db{
         $ps->bindValue(':password', $password);
         $ps->execute();
     }
+
+    public function insert_idea($id_user, $subject, $text) {
+        $query = 'INSERT INTO ideas (id_user,subject,text,status,submitted_date) values (:id_user,:subject,:text,"T",:submitted_date)';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':subject', $subject);
+        $ps->bindValue(':text', $text);
+        $ps->bindValue(':submitted_date', NOW);
+        $ps->execute();
+    }
+
+    public function insert_vote($id_user,$id_idea){
+        $query = 'INSERT INTO votes (id_user,id_idea) values (:id_user,:id_idea)';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+    }
+
+    public function insert_comment($id_idea,$id_user,$text) {
+        $query = 'INSERT INTO comments (id_user,id_idea,text,creation_date) values (:id_user,:id_idea,:text,:creation_date)';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->bindValue(':text', $text);
+        $ps->bindValue(':creation_date', NOW);
+        $ps->execute();
+    }
+
+
+
+
+
+
 
     public function modify_disable($id_user)
     {
@@ -83,8 +157,7 @@ class Db{
         return ($ps->rowcount() != 0);
     }
 
-    public function valider_user($username, $password)
-    {
+    public function valider_user($username, $password) {
         $query = 'SELECT password from users WHERE username=:username';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':username', $username);
@@ -107,14 +180,6 @@ class Db{
         return password_verify($password, $hash);
     }
 
-    public function email_exists($email){
-        $query = 'SELECT * from users WHERE email=:email';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':email', $email);
-        $ps->execute();
-        return ($ps->rowcount() != 0);
-    }
-
     public function getUsername($id){
         $query = 'SELECT username from users WHERE id_user=:id';
         $ps = $this->_db->prepare($query);
@@ -129,17 +194,6 @@ class Db{
         $ps->bindValue(':email', $email);
         $ps->execute();
         return $ps->fetch()->id_user;
-    }
-
-    public function insert_idea($id_user, $subject, $text)
-    {
-        $query = 'INSERT INTO ideas (id_user,subject,text,status,submitted_date) values (:id_user,:subject,:text,"T",:submitted_date)';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_user', $id_user);
-        $ps->bindValue(':subject', $subject);
-        $ps->bindValue(':text', $text);
-        $ps->bindValue(':submitted_date', NOW);
-        $ps->execute();
     }
 
     public function select_ideas(){
@@ -186,23 +240,6 @@ class Db{
         return $ps->rowcount();
     }
 
-    public function insert_vote($id_user,$id_idea){
-        $query = 'INSERT INTO votes (id_user,id_idea) values (:id_user,:id_idea)';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_user', $id_user);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-    }
-
-    public function vote_exist($id_user,$id_idea){
-        $query = 'SELECT * from votes WHERE id_user=:id_user AND id_idea=:id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_user', $id_user);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-        return ($ps->rowcount() != 0);
-    }
-
     public function select_idea($id_idea){
         $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
         $ps = $this->_db->prepare($query);
@@ -246,24 +283,6 @@ class Db{
         $ps->execute();
     }
 
-    public function idea_exist($id_idea){
-        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-        return ($ps->rowcount() != 0);
-    }
-
-    public function insert_comment($id_idea,$id_user,$text){
-        $query = 'INSERT INTO comments (id_user,id_idea,text,creation_date) values (:id_user,:id_idea,:text,:creation_date)';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_user', $id_user);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->bindValue(':text', $text);
-        $ps->bindValue(':creation_date', NOW);
-        $ps->execute();
-    }
-
     public function select_comments_idea($id_idea){
         $query = 'SELECT * from comments WHERE id_idea=:id_idea';
         $ps = $this->_db->prepare($query);
@@ -277,8 +296,18 @@ class Db{
     }
 
 
-    # Methods used for the profile
-    public function select_idea_where_user_is($id_user){
+
+     /*
+            ██████╗░██████╗░░█████╗░███████╗██╗██╗░░░░░███████╗
+            ██╔══██╗██╔══██╗██╔══██╗██╔════╝██║██║░░░░░██╔════╝
+            ██████╔╝██████╔╝██║░░██║█████╗░░██║██║░░░░░█████╗░░
+            ██╔═══╝░██╔══██╗██║░░██║██╔══╝░░██║██║░░░░░██╔══╝░░
+            ██║░░░░░██║░░██║╚█████╔╝██║░░░░░██║███████╗███████╗
+            ╚═╝░░░░░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░╚═╝╚══════╝╚══════╝
+     */
+
+    # Method used to display the ideas of the local user
+    public function select_idea_where_user_is($id_user) {
         $query = 'SELECT * from ideas WHERE id_user = :id_user';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
@@ -291,8 +320,8 @@ class Db{
         return $list_ideas;
     }
 
-
-    public function select_comments_where_user_is($id_user){
+    # Method used to display the comments of the local user
+    public function select_comments_where_user_is($id_user) {
         $query = 'SELECT * from comments WHERE id_user = :id_user';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
@@ -304,8 +333,8 @@ class Db{
         return $comments;
     }
 
-
-    public function select_idea_user_like($id_user){
+    # Method used to display the ideas liked by the local user
+    public function select_idea_user_like($id_user) {
         $query = 'SELECT id.* from ideas id, votes vo WHERE id.id_idea = vo.id_idea AND vo.id_user = :id_user';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);

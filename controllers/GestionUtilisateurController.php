@@ -8,11 +8,14 @@ class GestionUtilisateurController {
     }
 
     public function run() {
+
+        # Security
         if (empty($_SESSION['authentifie']) or $_SESSION['admin'] == false) {
             header("Location: index.php?action=login");
             die();
         }
 
+        # Modification of the statutes in the database
         if (!empty($_POST)) {
             if (!empty($_POST['user_gestion_id'])) {
                 if (!empty($_POST['desactiver'])) {
@@ -29,7 +32,9 @@ class GestionUtilisateurController {
             }
         }
 
+        # List of all users
         $tabUsers = $this->_db->select_users();
+
         require_once(VIEWS_PATH . 'gestion_user.php');
     }
 }
