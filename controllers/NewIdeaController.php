@@ -1,5 +1,5 @@
 <?php
-class newIdeaController{
+class NewIdeaController{
 
     private $_db;
 

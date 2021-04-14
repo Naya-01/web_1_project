@@ -6,8 +6,8 @@
                                       alt="picture-user"><?php echo $this->_db->getUsername($idea->id_user()) ?></p>
                 <img class="icon is-medium" src="views/img/etat/<?php echo $idea->status()?>.ico"
                      alt="status-users">
-                <form action="?action=idea&id_idea=<?php echo $idea->id_idea() ?>" method="post">
-                    <input type="hidden" name="like_id_idea" value="<?php echo $idea->id_idea()?>">
+                <form action="?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>" method="post">
+                    <input type="hidden" name="like_id_idea" value="<?php echo $idea->html_id_idea()?>">
                     <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
                               alt="like-icon" name="form_like[]"></p>
                 </form>
@@ -15,14 +15,14 @@
             </div>
         </div>
         <div class="column is-9">
-            <h1 class="block title is-size-3"> Sujet : <?php echo $idea->subject()?></h1>
+            <h1 class="block title is-size-3"> Sujet : <?php echo $idea->html_subject()?></h1>
             <p>
-                <?php echo $idea->text()?>
+                <?php echo $idea->html_text()?>
             </p>
         </div>
         <div class="column">
             <div class="navbar-end">
-                <a class="button is-link is-small" href="index.php?action=idea&id_idea=<?php echo $idea->id_idea() ?>">
+                <a class="button is-link is-small" href="index.php?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>">
                     Repondre
                 </a>
             </div>
@@ -37,6 +37,7 @@
                 <div class="column is-2">
                     <div class="pseudo has-text-black">
                         <p class="block"><img class="icon" src="views/img/profil.ico" alt="picture-user"><?php echo $this->_db->getUsername($comment->id_user()) ?></p>
+                        <input type="hidden" name="answer_id_user" value="<?php echo $comment->html_id_user()?>">
                     </div>
                 </div>
                 <div class="column is-9">
@@ -55,7 +56,7 @@
         <?php } ?>
         <p class="has-text-left is-size-3">Repondre</p>
         <div class="row">
-            <form action="?action=idea&id_idea=<?php echo $idea->id_idea() ?>" method="post">
+            <form action="?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>" method="post">
                 <textarea class="textarea block" name="form_comment" placeholder="ajoute un commentaire"></textarea>
                 <div class="navbar-end">
                     <label><input class="button is-link " type="submit" value="Repondre" name="form_answer"></label>
