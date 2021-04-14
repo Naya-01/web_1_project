@@ -30,49 +30,32 @@
     </div>
 
     <div class="rows"> <!--comments-->
+
+        <?php foreach($comments as $i => $comment) { ?>
         <div class="comments row box background-color"><!--one comment-->
             <div class="columns">
-                <div class="column is-1">
+                <div class="column is-2">
                     <div class="pseudo has-text-black">
-                        <p class="block"><img class="icon" src="views/img/profil.ico" alt="picture-user">Rayan</p>
+                        <p class="block"><img class="icon" src="views/img/profil.ico" alt="picture-user"><?php echo $this->_db->getUsername($comment->id_user()) ?></p>
                     </div>
                 </div>
                 <div class="column is-9">
-                    <p>Vous désirez m'aider dans la progression de ma chaine youtube ?
-                        Alors n'hésitez pas à donner des idées pour l'amélioration de ma
-                        chaine.
-                        Ma chaine Youtube est orientée dans le multigaming et le
-                        divertissement.
-                        La meilleure idée se verra attribuer une récompense!!</p>
+                    <p><?php echo $comment->html_text() ?>
+                    </p>
                 </div>
             </div>
         </div>
-
-        <div class="comments row box background-color"><!--one comment-->
-            <div class="columns">
-                <div class="column is-1">
-                    <div class="pseudo has-text-black">
-                        <p class="block"><img class="icon" src="views/img/profil.ico" alt="picture-user">Rayan</p>
-                    </div>
-                </div>
-                <div class="column is-9">
-                    <p>Vous désirez m'aider dans la progression de ma chaine youtube ?
-                        Alors n'hésitez pas à donner des idées pour l'amélioration de ma
-                        chaine.
-                        Ma chaine Youtube est orientée dans le multigaming et le
-                        divertissement.
-                        La meilleure idée se verra attribuer une récompense!!</p>
-                </div>
-            </div>
-        </div>
-
+        <?php } ?>
 
     </div>
 
     <div class="column">
+        <?php if($notification!="") { ?>
+        <p class="is-size-3 box has-background-danger notif-home"><?php echo $notification ?></p>
+        <?php } ?>
         <p class="has-text-left is-size-3">Repondre</p>
         <div class="row">
-            <form action="?action=idea" method="post">
+            <form action="?action=idea&id_idea=<?php echo $idea->id_idea() ?>" method="post">
                 <textarea class="textarea block" name="form_comment" placeholder="ajoute un commentaire"></textarea>
                 <div class="navbar-end">
                     <label><input class="button is-link " type="submit" value="Repondre" name="form_answer"></label>
