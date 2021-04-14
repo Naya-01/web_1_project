@@ -1,10 +1,6 @@
 html{
     overflow: auto;
 }
-body{
-    /*height: 100%;*/
-    /*min-height: 100vh;*/
-}
 header{
     background-image: linear-gradient(to right, #868f96 0%, #596164 100%);
 }
@@ -18,7 +14,7 @@ p{
 /*******************HEADER************************/
 
 
-/*******************PAGE CONNEXION************************/
+/*******************LOGIN PAGE************************/
 .background-image{
     height: 100%;
     min-height: 100vh;
@@ -44,11 +40,11 @@ p{
     width: auto;
     margin-bottom: auto;
 }
-/*******************CONTENU************************/
+/*******************CONTENT************************/
 #contenu{
     text-align: center;
 }
-/*******************PAGE ACCUEIL************************/
+/*******************HOME PAGE************************/
 
 .background-color{
     height: 100%;
@@ -121,7 +117,7 @@ p{
 }
 
 
-/*******************GESTION UTILISATEUR************************/
+/*******************USER MANAGEMENT************************/
 .gestion_user_title {
     text-align: center;
     margin-top: 3%;
@@ -135,7 +131,7 @@ p{
     margin-left: 20%;
 }
 
-/*******************GESTION IDEA************************/
+/*******************IDEA MANAGEMENT************************/
 
 .idea_button {
     margin-left: 0em;
@@ -146,7 +142,7 @@ p{
     right: 0;
 }
 
-/*******************PROFIL************************/
+/*******************PROFILE************************/
 
 .profil_status {
     text-align: center;

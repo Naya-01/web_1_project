@@ -1,5 +1,6 @@
 <?php
-class User{
+class User {
+
     private $_id_user;
     private $_username;
     private $_email;
@@ -8,7 +9,7 @@ class User{
     private $_disable;
     private $_picture;
 
-    public function __construct($id,$email,$username,$mdp,$picture,$admin,$disable){
+    public function __construct($id, $email, $username, $mdp, $picture, $admin, $disable){
         $this->_id_user = $id;
         $this->_email= $email;
         $this->_username = $username;
@@ -18,51 +19,51 @@ class User{
         $this->_disable=$disable;
     }
 
-    public function id(){
+    public function id() {
         return $this->_id_user;
     }
 
-    public function email(){
+    public function email() {
         return $this->_email;
     }
 
-    public function username(){
+    public function username() {
         return $this->_username;
     }
 
-    public function password(){
+    public function password() {
         return $this->_password;
     }
 
-    public function picture(){
+    public function picture() {
         return $this->_picture;
     }
 
-    public function admin(){
+    public function admin() {
         return $this->_admin;
     }
 
-    public function disabled(){
+    public function disabled() {
         return $this->_disable;
     }
 
-    public function html_id(){
+    public function html_id() {
         return htmlspecialchars($this->_id_user);
     }
-    public function html_email(){
+    public function html_email() {
         return htmlspecialchars($this->_email);
     }
 
-    public function html_username(){
+    public function html_username() {
         return htmlspecialchars($this->_username);
     }
 
-    public function html_password(){
+    public function html_password() {
         return htmlspecialchars($this->_password);
     }
 
-    public function html_picture(){
+    public function html_picture() {
         return htmlspecialchars($this->_picture);
     }
+
 }
-?>
