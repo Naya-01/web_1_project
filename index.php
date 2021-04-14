@@ -71,6 +71,10 @@ switch ($_GET['action']) {
         require_once(CONTROLLERS_PATH.'GestionIdeesController.php');
         $controller = new GestionIdeesController($db);
         break;
+    case 'profil':
+        require_once(CONTROLLERS_PATH.'ProfilController.php');
+        $controller = new ProfilController($db);
+        break;
     default:
         require_once(CONTROLLERS_PATH . 'LoginController.php');
         $controller = new LoginController($db);

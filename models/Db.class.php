@@ -277,4 +277,46 @@ class Db{
     }
 
 
+    # Methods used for the profile
+    public function select_idea_where_user_is($id_user){
+        $query = 'SELECT * from ideas WHERE id_user = :id_user';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->execute();
+        $list_ideas= array();
+        while($row = $ps->fetch()){
+            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
+                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+        }
+        return $list_ideas;
+    }
+
+
+    public function select_comments_where_user_is($id_user){
+        $query = 'SELECT * from comments WHERE id_user = :id_user';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->execute();
+        $comments= array();
+        while($row = $ps->fetch()){
+            $comments[] = new Comment($row->id_comment,$row->text,$row->id_idea,$row->id_user,$row->disable,$row->creation_date);
+        }
+        return $comments;
+    }
+
+
+    public function select_idea_user_like($id_user){
+        $query = 'SELECT id.* from ideas id, votes vo WHERE id.id_idea = vo.id_idea AND vo.id_user = :id_user';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->execute();
+        $list_ideas= array();
+        while($row = $ps->fetch()){
+            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
+                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+        }
+        return $list_ideas;
+    }
+
+
 }

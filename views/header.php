@@ -22,7 +22,7 @@
                             <a class="button is-dark" href="index.php?action=accueil">
                                 Accueil
                             </a>
-                            <a class="button is-dark" href="https://bulma.io/">
+                            <a class="button is-dark" href="index.php?action=profil">
                                 Profil
                             </a>
                             <?php if ($_SESSION['admin']) {?>
