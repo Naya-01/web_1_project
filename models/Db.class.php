@@ -32,6 +32,7 @@ class Db{
             ╚══════╝╚═╝░░╚═╝╚═╝╚═════╝░░░░╚═╝░░░        ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
      */
 
+    # Returns if the username exists. Is used in member registration and login (LoginController).
     public function username_exists($username) {
         $query = 'SELECT * from users WHERE username=:username';
         $ps = $this->_db->prepare($query);
@@ -40,6 +41,7 @@ class Db{
         return ($ps->rowcount() != 0);
     }
 
+    # Returns if the email exists. Is used in member registration and login (LoginController).
     public function email_exists($email) {
         $query = 'SELECT * from users WHERE email=:email';
         $ps = $this->_db->prepare($query);
@@ -48,6 +50,7 @@ class Db{
         return ($ps->rowcount() != 0);
     }
 
+    # Returns if the vote exists. Is used in the like system (IdeaController).
     public function vote_exist($id_user,$id_idea) {
         $query = 'SELECT * from votes WHERE id_user=:id_user AND id_idea=:id_idea';
         $ps = $this->_db->prepare($query);
@@ -57,6 +60,7 @@ class Db{
         return ($ps->rowcount() != 0);
     }
 
+    # Returns if the idea exists. Is used in the idea display system (IdeaController).
     public function idea_exist($id_idea){
         $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
         $ps = $this->_db->prepare($query);
@@ -74,6 +78,7 @@ class Db{
             ╚═╝╚═╝░░╚══╝╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░       ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
      */
 
+    # Used in member registration (LoginController).
     public function insert_user($username, $email, $password) {
         $query = 'INSERT INTO users (username,email,password) values (:username,:email,:password)';
         $ps = $this->_db->prepare($query);
@@ -83,6 +88,7 @@ class Db{
         $ps->execute();
     }
 
+    # Used in the idea display system (IdeaController).
     public function insert_idea($id_user, $subject, $text) {
         $query = 'INSERT INTO ideas (id_user,subject,text,status,submitted_date) values (:id_user,:subject,:text,"T",:submitted_date)';
         $ps = $this->_db->prepare($query);
@@ -93,6 +99,7 @@ class Db{
         $ps->execute();
     }
 
+    # Used in the idea display system (IdeaController).
     public function insert_vote($id_user,$id_idea){
         $query = 'INSERT INTO votes (id_user,id_idea) values (:id_user,:id_idea)';
         $ps = $this->_db->prepare($query);
@@ -101,6 +108,7 @@ class Db{
         $ps->execute();
     }
 
+    # Used in the idea display system (IdeaController).
     public function insert_comment($id_idea,$id_user,$text) {
         $query = 'INSERT INTO comments (id_user,id_idea,text,creation_date) values (:id_user,:id_idea,:text,:creation_date)';
         $ps = $this->_db->prepare($query);
@@ -111,14 +119,24 @@ class Db{
         $ps->execute();
     }
 
+    /*
+            ███╗░░░███╗░█████╗░██████╗░██╗███████╗██╗░█████╗░░█████╗░████████╗██╗░█████╗░███╗░░██╗
+            ████╗░████║██╔══██╗██╔══██╗██║██╔════╝██║██╔══██╗██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║
+            ██╔████╔██║██║░░██║██║░░██║██║█████╗░░██║██║░░╚═╝███████║░░░██║░░░██║██║░░██║██╔██╗██║
+            ██║╚██╔╝██║██║░░██║██║░░██║██║██╔══╝░░██║██║░░██╗██╔══██║░░░██║░░░██║██║░░██║██║╚████║
+            ██║░╚═╝░██║╚█████╔╝██████╔╝██║██║░░░░░██║╚█████╔╝██║░░██║░░░██║░░░██║╚█████╔╝██║░╚███║
+            ╚═╝░░░░░╚═╝░╚════╝░╚═════╝░╚═╝╚═╝░░░░░╚═╝░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝
 
+            ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
+            ████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔══██╗██╔══██╗██╔════╝
+            ██╔████╔██║█████╗░░░░░██║░░░███████║██║░░██║██║░░██║╚█████╗░
+            ██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║░░██║██║░░██║░╚═══██╗
+            ██║░╚═╝░██║███████╗░░░██║░░░██║░░██║╚█████╔╝██████╔╝██████╔╝
+            ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
+    */
 
-
-
-
-
-    public function modify_disable($id_user)
-    {
+    # Change the disable status. Used in user management (GestionUtilisateurController).
+    public function modify_disable($id_user) {
         if ($this->is_disabled($id_user) == 1) $disable = 0;
         else $disable = 1;
         $query = 'UPDATE users SET disable = :disable WHERE id_user = :id_user';
@@ -128,6 +146,7 @@ class Db{
         $ps->execute();
     }
 
+    # Change the admin status. Used in user management (GestionUtilisateurController).
     public function modify_admin($id_user) {
         if ($this->is_admin($id_user)) $admin = 0;
         else $admin = 1;
@@ -138,49 +157,53 @@ class Db{
         $ps->execute();
     }
 
-
-    public function is_admin($id_user)
-    {
-        $query = 'SELECT * from users WHERE id_user=:id_user AND admin = 1';
+    # Change the idea status. Used in idea management (GestionIdeesController).
+    public function setStatus($id_idea, $status) {
+        $query = 'UPDATE ideas SET status = :status WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':status', $status);
+        $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
-        return ($ps->rowcount() != 0);
     }
 
-    public function is_disabled($id_user)
-    {
-        $query = 'SELECT * from users WHERE id_user=:id_user AND disable = 1';
+    # Change the idea refused date. Used in idea management (GestionIdeesController).
+    public function setRefusedDate($id_idea) {
+        $query = 'UPDATE ideas SET refused_date = :refused_date WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':refused_date', NOW);
+        $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
-        return ($ps->rowcount() != 0);
     }
 
-    public function valider_user($username, $password) {
-        $query = 'SELECT password from users WHERE username=:username';
+    # Change the idea accepted date. Used in idea management (GestionIdeesController).
+    public function setAcceptedDate($id_idea) {
+        $query = 'UPDATE ideas SET accepted_date = :accepted_date WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
-        $ps->bindValue(':username', $username);
+        $ps->bindValue(':accepted_date', NOW);
+        $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
-        if ($ps->rowcount() == 0)
-            return false;
-        $hash = $ps->fetch()->password;
-        return password_verify($password, $hash);
     }
 
-    public function valider_email($email, $password)
-    {
-        $query = 'SELECT password from users WHERE email=:email';
+    # Change the idea closed date. Used in idea management (GestionIdeesController).
+    public function setClosedDate($id_idea) {
+        $query = 'UPDATE ideas SET closed_date = :closed_date WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
-        $ps->bindValue(':email', $email);
+        $ps->bindValue(':closed_date', NOW);
+        $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
-        if ($ps->rowcount() == 0)
-            return false;
-        $hash = $ps->fetch()->password;
-        return password_verify($password, $hash);
     }
 
-    public function getUsername($id){
+    /*
+            ░██████╗░███████╗████████╗████████╗███████╗██████╗░        ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
+            ██╔════╝░██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗        ████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔══██╗██╔══██╗██╔════╝
+            ██║░░██╗░█████╗░░░░░██║░░░░░░██║░░░█████╗░░██████╔╝        ██╔████╔██║█████╗░░░░░██║░░░███████║██║░░██║██║░░██║╚█████╗░
+            ██║░░╚██╗██╔══╝░░░░░██║░░░░░░██║░░░██╔══╝░░██╔══██╗        ██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║░░██║██║░░██║░╚═══██╗
+            ╚██████╔╝███████╗░░░██║░░░░░░██║░░░███████╗██║░░██║        ██║░╚═╝░██║███████╗░░░██║░░░██║░░██║╚█████╔╝██████╔╝██████╔╝
+            ░╚═════╝░╚══════╝░░░╚═╝░░░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝        ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
+    */
+
+    # Used in member registration (LoginController) to configure $_SESSION.
+    public function getUsername($id) {
         $query = 'SELECT username from users WHERE id_user=:id';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id', $id);
@@ -188,7 +211,8 @@ class Db{
         return $ps->fetch()->username;
     }
 
-    public function getIdUser($email){
+    # Used in member registration (LoginController) to configure $_SESSION.
+    public function getIdUser($email) {
         $query = 'SELECT id_user from users WHERE email=:email';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':email', $email);
@@ -196,7 +220,35 @@ class Db{
         return $ps->fetch()->id_user;
     }
 
-    public function select_ideas(){
+    # Used in modify_admin method and to configure $_SESSION (LoginController).
+    public function is_admin($id_user) {
+        $query = 'SELECT * from users WHERE id_user=:id_user AND admin = 1';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    # Used in modify_disable method and to configure $_SESSION (LoginController).
+    public function is_disabled($id_user) {
+        $query = 'SELECT * from users WHERE id_user=:id_user AND disable = 1';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    /*
+            ██╗░░░░░██╗░██████╗████████╗        ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
+            ██║░░░░░██║██╔════╝╚══██╔══╝        ████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔══██╗██╔══██╗██╔════╝
+            ██║░░░░░██║╚█████╗░░░░██║░░░        ██╔████╔██║█████╗░░░░░██║░░░███████║██║░░██║██║░░██║╚█████╗░
+            ██║░░░░░██║░╚═══██╗░░░██║░░░        ██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║░░██║██║░░██║░╚═══██╗
+            ███████╗██║██████╔╝░░░██║░░░        ██║░╚═╝░██║███████╗░░░██║░░░██║░░██║╚█████╔╝██████╔╝██████╔╝
+            ╚══════╝╚═╝╚═════╝░░░░╚═╝░░░        ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
+    */
+
+    # List of ideas with a status other than 'T'. Used in the idea display system (IdeaController).
+    public function select_ideas() {
         $query = 'SELECT * from ideas WHERE status != :status';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "T");
@@ -209,7 +261,8 @@ class Db{
         return $list_ideas;
     }
 
-    public function select_T_ideas(){
+    # List of all ideas. Used in idea management (GestionIdeesController).
+    public function select_T_ideas() {
         $query = 'SELECT * from ideas';
         $ps = $this->_db->prepare($query);
         $ps->execute();
@@ -221,7 +274,8 @@ class Db{
         return $list_ideas;
     }
 
-    public function select_users(){
+    # List of all users. Used in user management (GestionUtilisateurController).
+    public function select_users() {
         $query = 'SELECT * from users';
         $ps = $this->_db->prepare($query);
         $ps->execute();
@@ -232,58 +286,8 @@ class Db{
         return $list_users;
     }
 
-    public function countLikes($id_idea){
-        $query = 'SELECT id_idea from votes WHERE id_idea=:id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-        return $ps->rowcount();
-    }
-
-    public function select_idea($id_idea){
-        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-        $row = $ps->fetch();
-        $idea = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,
-            $row->refused_date,$row->closed_date);
-        return $idea;
-    }
-
-    public function setStatus($id_idea, $status) {
-        $query = 'UPDATE ideas SET status = :status WHERE id_idea = :id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':status', $status);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-    }
-
-    public function setRefusedDate($id_idea) {
-        $query = 'UPDATE ideas SET refused_date = :refused_date WHERE id_idea = :id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':refused_date', NOW);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-    }
-
-    public function setAcceptedDate($id_idea) {
-        $query = 'UPDATE ideas SET accepted_date = :accepted_date WHERE id_idea = :id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':accepted_date', NOW);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-    }
-
-    public function setClosedDate($id_idea) {
-        $query = 'UPDATE ideas SET closed_date = :closed_date WHERE id_idea = :id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':closed_date', NOW);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-    }
-
-    public function select_comments_idea($id_idea){
+    # List of all comments linked to an idea. Used in idea system (IdeaController).
+    public function select_comments_idea($id_idea) {
         $query = 'SELECT * from comments WHERE id_idea=:id_idea';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_idea', $id_idea);
@@ -295,18 +299,7 @@ class Db{
         return $comments;
     }
 
-
-
-     /*
-            ██████╗░██████╗░░█████╗░███████╗██╗██╗░░░░░███████╗
-            ██╔══██╗██╔══██╗██╔══██╗██╔════╝██║██║░░░░░██╔════╝
-            ██████╔╝██████╔╝██║░░██║█████╗░░██║██║░░░░░█████╗░░
-            ██╔═══╝░██╔══██╗██║░░██║██╔══╝░░██║██║░░░░░██╔══╝░░
-            ██║░░░░░██║░░██║╚█████╔╝██║░░░░░██║███████╗███████╗
-            ╚═╝░░░░░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░╚═╝╚══════╝╚══════╝
-     */
-
-    # Method used to display the ideas of the local user
+    # Method used to display the ideas of the local user. Used in profile (ProfilController).
     public function select_idea_where_user_is($id_user) {
         $query = 'SELECT * from ideas WHERE id_user = :id_user';
         $ps = $this->_db->prepare($query);
@@ -320,7 +313,7 @@ class Db{
         return $list_ideas;
     }
 
-    # Method used to display the comments of the local user
+    # Method used to display the comments of the local user. Used in profile (ProfilController).
     public function select_comments_where_user_is($id_user) {
         $query = 'SELECT * from comments WHERE id_user = :id_user';
         $ps = $this->_db->prepare($query);
@@ -333,7 +326,7 @@ class Db{
         return $comments;
     }
 
-    # Method used to display the ideas liked by the local user
+    # Method used to display the ideas liked by the local user. Used in profile (ProfilController).
     public function select_idea_user_like($id_user) {
         $query = 'SELECT id.* from ideas id, votes vo WHERE id.id_idea = vo.id_idea AND vo.id_user = :id_user';
         $ps = $this->_db->prepare($query);
@@ -347,5 +340,58 @@ class Db{
         return $list_ideas;
     }
 
+    /*
+            ░█████╗░████████╗██╗░░██╗███████╗██████╗░       ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
+            ██╔══██╗╚══██╔══╝██║░░██║██╔════╝██╔══██╗       ████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔══██╗██╔══██╗██╔════╝
+            ██║░░██║░░░██║░░░███████║█████╗░░██████╔╝       ██╔████╔██║█████╗░░░░░██║░░░███████║██║░░██║██║░░██║╚█████╗░
+            ██║░░██║░░░██║░░░██╔══██║██╔══╝░░██╔══██╗       ██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║░░██║██║░░██║░╚═══██╗
+            ╚█████╔╝░░░██║░░░██║░░██║███████╗██║░░██║       ██║░╚═╝░██║███████╗░░░██║░░░██║░░██║╚█████╔╝██████╔╝██████╔╝
+            ░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝       ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
+    */
+
+    # ?
+    public function valider_user($username, $password) {
+        $query = 'SELECT password from users WHERE username=:username';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':username', $username);
+        $ps->execute();
+        if ($ps->rowcount() == 0)
+            return false;
+        $hash = $ps->fetch()->password;
+        return password_verify($password, $hash);
+    }
+
+    # Allows you to check the password-email correspondence. Used in the login system (LoginController)
+    public function valider_email($email, $password) {
+        $query = 'SELECT password from users WHERE email=:email';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':email', $email);
+        $ps->execute();
+        if ($ps->rowcount() == 0)
+            return false;
+        $hash = $ps->fetch()->password;
+        return password_verify($password, $hash);
+    }
+
+    # Allows you to check the password-email correspondence. Used in the login system (LoginController)
+    public function countLikes($id_idea){
+        $query = 'SELECT id_idea from votes WHERE id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return $ps->rowcount();
+    }
+
+    # Allows the selection of an idea from its id. Used in the idea system (IdeaController).
+    public function select_idea($id_idea){
+        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        $row = $ps->fetch();
+        $idea = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,
+            $row->refused_date,$row->closed_date);
+        return $idea;
+    }
 
 }

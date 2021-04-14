@@ -23,11 +23,12 @@ class newIdeaController{
                 $text = $_POST['form_subject_text'];
                 if(strlen($text) > 200) {
                     $notification_post = "Vous avez dépassé les 200 caractères autorisés!";
+
                 } else {
                     $notification_post = "Idée ajouter";
                     $this->_db->insert_idea($_SESSION['id_user'],$_POST['form_subject'], $_POST['form_subject_text']);
                 }
-            }else{
+            } else {
                 $notification_post = "Veuillez remplir les champs afin de publier une idée";
             }
         }
