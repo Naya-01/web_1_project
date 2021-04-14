@@ -34,11 +34,14 @@
                         <form class="buttons are-medium" action="index.php?action=gestion_idea" method="post" style="position:relative;">
                             <input type="hidden" name="idea_gestion_id" value="<?php echo $idea->html_id_idea()?>">
                             <input class="button is-danger is-light is-small" name="desactiver" type="submit" value="Désactiver">
-                            <?php if ($idea->status() == 'T') { ?>
+                            <?php if ($idea->status() != 'C') { ?>
+                                <input class="button is-danger is-light is-small" name="fermer" type="submit" value="Fermer">
+                            <?php } if ($idea->status() == 'T') { ?>
                                 <input class="button is-danger is-light is-small" name="refuser" type="submit" value="Refuser">
                                 <input class="button is-danger is-light is-small" name="accepter" type="submit" value="Accepter">
-                                <input class="button is-danger is-light is-small" name="fermer" type="submit" value="Fermer">
-                            <?php } ?>
+                            <?php }
+
+                            ?>
                         </form>
                     </table>
                 </div>

@@ -19,9 +19,9 @@ class AccueilController{
         $notification_like = "";
         if (!empty($_POST['form_like'])) {
             if ($this->_db->vote_exist($_SESSION['id_user'],$_POST['like_id_idea'])) {
-                $notification_like="vous avez deja voté pour cette idée!!!";
+                $notification_like="Vous avez déjà voté pour cette idée !";
             } else {
-                $notification_like = "vôtre like a été ajouté";
+                $notification_like = "Votre like été pris en compte.";
                 $this->_db->insert_vote($_SESSION['id_user'], $_POST['like_id_idea']);
             }
         }

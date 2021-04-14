@@ -21,12 +21,12 @@
                     <form action="?action=accueil" method="post" id="form_filter">
                         <p><input type="submit" class="button-width button is-dark off-button" value="Popularité"></p>
                         <p><input type="submit" class="button-width button" value="Croissant"></p>
-                        <p><input type="submit" class="button-width button" value="Decroissant"></p>
-                        <p><input type="submit" class="button-width button is-dark off-button" value="Status"></p>
+                        <p><input type="submit" class="button-width button" value="Décroissant"></p>
+                        <p><input type="submit" class="button-width button is-dark off-button" value="Statut"></p>
                         <p><input type="submit" class="button-width button" value="En cours" id="enCours"></p>
-                        <p><input type="submit" class="button-width button" value="Accepter" id="accepter"></p>
-                        <p><input type="submit" class="button-width button" value="Refuser" id="refuser"></p>
-                        <p><input type="submit" class="button-width button" value="Fermer" id="fermer"></p>
+                        <p><input type="submit" class="button-width button" value="Accepté" id="accepter"></p>
+                        <p><input type="submit" class="button-width button" value="Refusé" id="refuser"></p>
+                        <p><input type="submit" class="button-width button" value="Fermé" id="fermer"></p>
                     </form>
                 </div>
 
@@ -35,7 +35,7 @@
                         <div class="column is-one-quarter">
                             <!--                        <p>Ajoute une idée</p>-->
                             <a class="button is-link box" href="index.php?action=newIdea">
-                                Ajoute une idée
+                                Ajouter une idée
                             </a>
                         </div>
                         <div class="column off-button">
@@ -73,7 +73,7 @@
                                     <div class="navbar-end">
                                         <input type="hidden" name="answer_idea" value="<?php echo $idea->html_id_idea()?>">
                                         <a class="button is-link is-small" href="index.php?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>">
-                                            Repondre
+                                            Répondre
                                         </a>
                                     </div>
                                 </div>

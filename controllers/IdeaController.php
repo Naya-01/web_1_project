@@ -41,7 +41,7 @@ class IdeaController{
             if(!empty($_POST['form_comment'])){
                 $this->_db->insert_comment($_GET['id_idea'],$_SESSION['id_user'],$_POST['form_comment']);
             }else{
-                $notification="Pour répondre au poste il faut introduire une reponse!";
+                $notification="Pour répondre, au poste il faut introduire une réponse !";
             }
         }
 

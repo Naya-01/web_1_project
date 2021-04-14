@@ -23,7 +23,7 @@
         <div class="column">
             <div class="navbar-end">
                 <a class="button is-link is-small" href="index.php?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>">
-                    Repondre
+                    Répondre
                 </a>
             </div>
         </div>
@@ -54,12 +54,12 @@
         <?php if($notification!="") { ?>
         <p class="is-size-3 box has-background-danger notif-home"><?php echo $notification ?></p>
         <?php } ?>
-        <p class="has-text-left is-size-3">Repondre</p>
+        <p class="has-text-left is-size-3">Répondre</p>
         <div class="row">
             <form action="?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>" method="post">
-                <textarea class="textarea block" name="form_comment" placeholder="ajoute un commentaire"></textarea>
+                <textarea class="textarea block" name="form_comment" placeholder="Ajouter un commentaire"></textarea>
                 <div class="navbar-end">
-                    <label><input class="button is-link " type="submit" value="Repondre" name="form_answer"></label>
+                    <label><input class="button is-link " type="submit" value="Répondre" name="form_answer"></label>
                 </div>
             </form>
         </div>

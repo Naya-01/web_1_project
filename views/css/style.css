@@ -175,3 +175,14 @@ p{
 .own-action-buttons {
     margin: 0 1% 0 1%;
 }
+
+.footer {
+    padding: 1em;
+    margin-top: 5%;
+    bottom: auto;
+}
+
+.footer p {
+    text-align: center;
+
+}

@@ -83,3 +83,5 @@
 
     # Execution of the controller defined in the previous switch
     $controller->run();
+
+    require_once(VIEWS_PATH . "footer.php");
