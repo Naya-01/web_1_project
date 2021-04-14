@@ -3,14 +3,11 @@ class GestionIdeesController {
 
     private $_db;
 
-    public function __construct($db)
-    {
+    public function __construct($db) {
         $this->_db = $db;
     }
 
-    public function run()
-    {
-        # Si un petit fûté écrit ?action=admin sans passer par l'action login
+    public function run() {
         if (empty($_SESSION['authentifie']) or $_SESSION['admin'] == false) {
             header("Location: index.php?action=login"); # redirection HTTP vers l'action login
             die();
