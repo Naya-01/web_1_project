@@ -1,5 +1,5 @@
 <?php
-class ideaController{
+class IdeaController{
     private $_db;
 
     public function __construct($db)

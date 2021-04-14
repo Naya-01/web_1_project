@@ -56,12 +56,12 @@ switch ($_GET['action']) {
         $controller = new LogoutController();
         break;
     case 'newIdea':
-        require_once(CONTROLLERS_PATH.'newIdeaController.php');
-        $controller = new newIdeaController($db);
+        require_once(CONTROLLERS_PATH . 'NewIdeaController.php');
+        $controller = new NewIdeaController($db);
         break;
     case 'idea':
-        require_once(CONTROLLERS_PATH.'ideaController.php');
-        $controller = new ideaController($db);
+        require_once(CONTROLLERS_PATH . 'IdeaController.php');
+        $controller = new IdeaController($db);
         break;
     case 'gestion_user':
         require_once(CONTROLLERS_PATH.'GestionUtilisateurController.php');

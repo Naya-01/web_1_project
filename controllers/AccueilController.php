@@ -10,7 +10,6 @@ class AccueilController{
 
     public function run()
     {
-        # Si un petit fûté écrit ?action=admin sans passer par l'action login
         if (empty($_SESSION['authentifie'])) {
             header("Location: index.php?action=login"); # redirection HTTP vers l'action login
             die();
