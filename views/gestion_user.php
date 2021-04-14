@@ -3,28 +3,34 @@
 </div>
 <div class="gestion_user_block">
     <?php foreach ($tabUsers as $i => $user){ ?>
-    <?php if ($user->admin() == 1) {
+
+    <?php
+        # Definition of statutes for each member
+        if ($user->admin() == 1) {
             $admin = "Administrateur";
             $textprivilege = "Enlever droits";
         } else {
             $admin = "Utilisateur";
             $textprivilege = "Ajouter droits";
-        } ?>
+        }
 
-    <?php if ($user->disabled() == 0) {
+        if ($user->disabled() == 0) {
             $disable = "actif";
             $textstatut = "Désactiver";
         } else{
             $disable = "inactif";
             $textstatut = "Activer";
-        }?>
+        }
+    ?>
 
-    <div class="row box has-background-grey-light background-color"><!--une personne-->
+    <!--an user-->
+    <div class="row box has-background-grey-light background-color">
         <div class="columns">
+
             <div class="column is-2">
                 <div class="pseudo has-text-black">
                     <p class="block"><img class="icon" src="views/img/profil.ico"
-                                          alt="picture-user"> <?php echo $this->_db->getUsername($user->id()) ?> </p>
+                                          alt="picture-user"> <?php echo $user->html_username() ?> </p>
                 </div>
             </div>
 
@@ -45,6 +51,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
     <?php } ?>

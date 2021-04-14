@@ -11,34 +11,34 @@
 <?php if ($header_footer) { ?>
     <header>
         <nav class="navbar is-info" id="navbar">
-                <div class="navbar-brand">
-                    <a class="navbar-item" href="index.php?action=accueil">
-                        <img src="views/img/logo-blanc.png" alt="Youreview-logo">
-                    </a>
-                </div>
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-dark" href="index.php?action=accueil">
-                                Accueil
-                            </a>
-                            <a class="button is-dark" href="index.php?action=profil">
-                                Profil
-                            </a>
-                            <?php if ($_SESSION['admin']) {?>
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.php?action=accueil">
+                    <img src="views/img/logo-blanc.png" alt="Youreview-logo">
+                </a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-dark" href="index.php?action=accueil">
+                            Accueil
+                        </a>
+                        <a class="button is-dark" href="index.php?action=profil">
+                            Profil
+                        </a>
+                        <?php if ($_SESSION['admin']) {?>
                             <a class="button is-dark" href="index.php?action=gestion_user">
                                 Utilisateurs
                             </a>
                             <a class="button is-dark" href="index.php?action=gestion_idea">
                                 Postes
                             </a>
-                            <?php } ?>
-                            <a class="button is-danger" href="index.php?action=logout">
-                                Déconnexion
-                            </a>
-                        </div>
+                        <?php } ?>
+                        <a class="button is-danger" href="index.php?action=logout">
+                            Déconnexion
+                        </a>
                     </div>
                 </div>
+            </div>
         </nav>
     </header>
 <?php } ?>

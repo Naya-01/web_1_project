@@ -23,52 +23,6 @@ class Db{
     }
 
     /*
-            ███████╗██╗░░██╗██╗░██████╗████████╗        ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
-            ██╔════╝╚██╗██╔╝██║██╔════╝╚══██╔══╝        ████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔══██╗██╔══██╗██╔════╝
-            █████╗░░░╚███╔╝░██║╚█████╗░░░░██║░░░        ██╔████╔██║█████╗░░░░░██║░░░███████║██║░░██║██║░░██║╚█████╗░
-            ██╔══╝░░░██╔██╗░██║░╚═══██╗░░░██║░░░        ██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║░░██║██║░░██║░╚═══██╗
-            ███████╗██╔╝╚██╗██║██████╔╝░░░██║░░░        ██║░╚═╝░██║███████╗░░░██║░░░██║░░██║╚█████╔╝██████╔╝██████╔╝
-            ╚══════╝╚═╝░░╚═╝╚═╝╚═════╝░░░░╚═╝░░░        ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
-     */
-
-    # Returns if the username exists. Is used in member registration and login (LoginController).
-    public function username_exists($username) {
-        $query = 'SELECT * from users WHERE username=:username';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':username', $username);
-        $ps->execute();
-        return ($ps->rowcount() != 0);
-    }
-
-    # Returns if the email exists. Is used in member registration and login (LoginController).
-    public function email_exists($email) {
-        $query = 'SELECT * from users WHERE email=:email';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':email', $email);
-        $ps->execute();
-        return ($ps->rowcount() != 0);
-    }
-
-    # Returns if the vote exists. Is used in the like system (IdeaController).
-    public function vote_exist($id_user,$id_idea) {
-        $query = 'SELECT * from votes WHERE id_user=:id_user AND id_idea=:id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_user', $id_user);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-        return ($ps->rowcount() != 0);
-    }
-
-    # Returns if the idea exists. Is used in the idea display system (IdeaController).
-    public function idea_exist($id_idea){
-        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-        return ($ps->rowcount() != 0);
-    }
-
-    /*
             ██╗███╗░░██╗░██████╗███████╗██████╗░████████╗       ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
             ██║████╗░██║██╔════╝██╔════╝██╔══██╗╚══██╔══╝       ████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔══██╗██╔══██╗██╔════╝
             ██║██╔██╗██║╚█████╗░█████╗░░██████╔╝░░░██║░░░       ██╔████╔██║█████╗░░░░░██║░░░███████║██║░░██║██║░░██║╚█████╗░
@@ -207,7 +161,7 @@ class Db{
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id', $id);
         $ps->execute();
-        return $ps->fetch()->username;
+        return htmlspecialchars($ps->fetch()->username);
     }
 
     # Used in member registration (LoginController) to configure $_SESSION.
@@ -337,6 +291,52 @@ class Db{
                 ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
         }
         return $list_ideas;
+    }
+
+    /*
+            ███████╗██╗░░██╗██╗░██████╗████████╗        ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
+            ██╔════╝╚██╗██╔╝██║██╔════╝╚══██╔══╝        ████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔══██╗██╔══██╗██╔════╝
+            █████╗░░░╚███╔╝░██║╚█████╗░░░░██║░░░        ██╔████╔██║█████╗░░░░░██║░░░███████║██║░░██║██║░░██║╚█████╗░
+            ██╔══╝░░░██╔██╗░██║░╚═══██╗░░░██║░░░        ██║╚██╔╝██║██╔══╝░░░░░██║░░░██╔══██║██║░░██║██║░░██║░╚═══██╗
+            ███████╗██╔╝╚██╗██║██████╔╝░░░██║░░░        ██║░╚═╝░██║███████╗░░░██║░░░██║░░██║╚█████╔╝██████╔╝██████╔╝
+            ╚══════╝╚═╝░░╚═╝╚═╝╚═════╝░░░░╚═╝░░░        ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
+     */
+
+    # Returns if the username exists. Is used in member registration and login (LoginController).
+    public function username_exists($username) {
+        $query = 'SELECT * from users WHERE username=:username';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':username', $username);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    # Returns if the email exists. Is used in member registration and login (LoginController).
+    public function email_exists($email) {
+        $query = 'SELECT * from users WHERE email=:email';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':email', $email);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    # Returns if the vote exists. Is used in the like system (IdeaController).
+    public function vote_exist($id_user,$id_idea) {
+        $query = 'SELECT * from votes WHERE id_user=:id_user AND id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    # Returns if the idea exists. Is used in the idea display system (IdeaController).
+    public function idea_exist($id_idea){
+        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
     }
 
     /*
