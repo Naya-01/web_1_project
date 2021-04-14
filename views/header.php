@@ -6,6 +6,9 @@
     <title>YOUReview</title>
     <link rel="stylesheet" type="text/css" href="<?php echo VIEWS_PATH ?>css/bulma/css/bulma.css">
     <link rel="stylesheet" type="text/css" href="<?php echo VIEWS_PATH ?>css/style.css">
+
+    <link rel="shortcut icon" href="<?php echo VIEWS_PATH ?>/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="<?php echo VIEWS_PATH ?>/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
 <?php if ($header_footer) { ?>
