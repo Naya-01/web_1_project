@@ -7,7 +7,7 @@
                 <h1 class="title is-1">Partage ton idée avec les autres !</h1>
             </div>
             <div class="row" id="home-text">
-                <?php if($notification_like!=""){ ?>
+                <?php if($notification_like != ""){ ?>
                 <p class="box has-background-danger notif-home" ><?php echo $notification_like ?> </p>
                 <?php } ?>
                 <p>Vous désirez m'aider dans le progression de ma chaine youtube ? <br>

@@ -20,8 +20,12 @@ class GestionUtilisateurController {
             if (!empty($_POST['user_gestion_id'])) {
                 if (!empty($_POST['desactiver'])) {
                     $this->_db->modify_disable($_POST['user_gestion_id']);
+                    $notification = "Le compte de " . $this->_db->getUsername($_POST['user_gestion_id']) . " ";
+                    ($this->_db->is_disabled($_POST['user_gestion_id'])) ? $notification .= "a été désactivé" : $notification .= "a été activé";
                 } else if (!empty($_POST['privilegier'])) {
                     $this->_db->modify_admin($_POST['user_gestion_id']);
+                    $notification = "Le compte de " . $this->_db->getUsername($_POST['user_gestion_id']) . " ";
+                    ($this->_db->is_admin($_POST['user_gestion_id'])) ? $notification .= "est désormais administrateur" : $notification .= "est désormais un utilisateur";
                 }
 
                 if ($_POST['user_gestion_id'] == $_SESSION['id_user']) {
