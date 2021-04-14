@@ -4,6 +4,7 @@
     <h1 class="title">Profil</h1>
 </div>
 
+<!--
 <div class="profil_status">
     <p class="block is-size-6" style="color: <?php echo $statutColor ?>;"><?php echo $statutName ?></p>
 </div>
@@ -16,6 +17,8 @@
     <p class="block is-size-6"><?php echo $_SESSION['username'] ?></p>
     <p class="block is-size-6"><?php echo $_SESSION['email'] ?></p>
 </div>
+-->
+
 
 
 <!-- /!\ Modals /!\ -->
@@ -137,11 +140,38 @@
     </div>
 </div>
 
-<!-- Buttons used to acceed to the modals -->
+<!-- Buttons used to acceed to the modals
 <div class="own-action-buttons-container">
-    <button class="button is-dark is-medium own-action-buttons" id="launchIdea">Mes postes</button>
-    <button class="button is-dark is-medium own-action-buttons" id="lauchComment">Mes commentaires</button>
-    <button class="button is-dark is-medium own-action-buttons" id="launchLike">Mes likes</button>
+    <button class="button is-dark is-medium own-action-buttons background-color" id="launchIdea">Mes postes</button>
+    <button class="button is-dark is-medium own-action-buttons background-color" id="lauchComment">Mes commentaires</button>
+    <button class="button is-dark is-medium own-action-buttons background-color" id="launchLike">Mes likes</button>
+</div>
+-->
+
+<div class="user-card-handling">
+    <div class="columns">
+        <div class="column">
+            <div class="media ">
+                <div class="media-left" >
+                    <figure class="image is-48x48">
+                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                    </figure>
+
+                </div>
+                <div class="media-content">
+                    <p class="title is-4"><?php echo $_SESSION['username'] ?></p>
+                    <p class="subtitle is-6"><?php echo $_SESSION['email'] ?></p>
+                    <p class="block is-size-6" style="color: <?php echo $statutColor ?>;"><?php echo $statutName ?></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column media-right rows">
+            <button class="button is-dark is-small is-fullwidth own-info-style" id="launchIdea">Mes postes</button>
+            <button class="button is-dark is-small is-fullwidth own-info-style" id="lauchComment">Mes commentaires</button>
+            <button class="button is-dark is-small is-fullwidth own-info-style" id="launchLike">Mes likes</button>
+        </div>
+    </div>
 </div>
 
 <!-- Scripts used for the modals -->
