@@ -20,9 +20,13 @@ class NewIdeaController{
         if(!empty($_POST['form_post_idea'])){
             $condition=true;
             if(!empty($_POST['form_subject']) && !empty($_POST['form_subject_text'])) {
+                $subject =$_POST['form_subject'];
                 $text = $_POST['form_subject_text'];
-                if(strlen($text) > 200) {
-                    $notification_post = "Vous avez dépassé les 200 caractères autorisés !";
+                if(strlen($subject) > 60) {
+                    $notification_post = "Vous avez dépassé les 60 caractères autorisés pour le sujet !";
+
+                }else if(strlen($text) > 200) {
+                    $notification_post = "Vous avez dépassé les 200 caractères autorisés pour la description!";
 
                 } else {
                     $notification_post = "Idée ajouter";
