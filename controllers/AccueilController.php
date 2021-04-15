@@ -31,8 +31,28 @@ class AccueilController{
             }
         }
 
+
         # List of ideas to display
-        $tabIdeas = $this->_db->select_ideas();
+        if(!empty($_POST['form_accepted'])){
+            $tabIdeas = $this->_db->select_status_idea("A");
+        }else if(!empty($_POST['form_refused'])){
+            $tabIdeas =$this->_db->select_status_idea("R");
+        }else if(!empty($_POST['form_closed'])){
+            $tabIdeas = $this->_db->select_status_idea("C");
+        }else if(!empty($_POST['form_3'])){
+            $tabIdeas = $this->_db->select_idea_limit("3");
+        }else if(!empty($_POST['form_5'])){
+            $tabIdeas = $this->_db->select_idea_limit("5");
+        }else if(!empty($_POST['form_all'])){
+            $tabIdeas = $this->_db->select_ideas();
+        }else{
+            $tabIdeas = $this->_db->select_ideas();
+        }
+
+
+
+
+//        $tabIdeas = $this->_db->select_ideas();
 
         require_once(VIEWS_PATH . 'accueil.php');
     }

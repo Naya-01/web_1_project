@@ -218,7 +218,7 @@ class Db{
             ╚══════╝╚═╝╚═════╝░░░░╚═╝░░░        ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
     */
 
-    # List of ideas with a status other than 'T'. Used in the idea display system (IdeaController).
+    # List of ideas with a status other than 'T'. Used in the home display system (AccueilaController).
     public function select_ideas() {
         $query = 'SELECT * from ideas WHERE status != :status';
         $ps = $this->_db->prepare($query);
@@ -302,6 +302,36 @@ class Db{
         $query = 'SELECT id.* from ideas id, votes vo WHERE id.id_idea = vo.id_idea AND vo.id_user = :id_user';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
+        $ps->execute();
+        $list_ideas= array();
+        while($row = $ps->fetch()){
+            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
+                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+        }
+        return $list_ideas;
+    }
+    # Select the idea by it's status
+    public function select_status_idea($status){
+        $query = 'SELECT * from ideas WHERE status = :status';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':status', "$status");
+        $ps->execute();
+        $list_ideas= array();
+        while($row = $ps->fetch()){
+            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
+                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+        }
+        return $list_ideas;
+    }
+    # Select idea limit
+    public function select_idea_limit($limit){
+        if($limit=="3"){
+            $query = 'SELECT * from ideas WHERE status != :status LIMIT 3';
+        }elseif ($limit=="5"){
+            $query = 'SELECT * from ideas WHERE status != :status LIMIT 5';
+        }
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':status', "T");
         $ps->execute();
         $list_ideas= array();
         while($row = $ps->fetch()){

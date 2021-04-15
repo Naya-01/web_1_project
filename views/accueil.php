@@ -17,16 +17,19 @@
 
             <div class="columns">
 
-                <div class="column is-2 zebi">
+                <div class="column is-2">
                     <form action="?action=accueil" method="post" id="form_filter">
-                        <p><input type="submit" class="button-width button is-dark off-button" value="Popularité"></p>
+                        <p><input type="button" class="button-width button is-dark off-button" value="Popularité"></p>
                         <p><input type="submit" class="button-width button" value="Croissant"></p>
                         <p><input type="submit" class="button-width button" value="Décroissant"></p>
-                        <p><input type="submit" class="button-width button is-dark off-button" value="Statut"></p>
-                        <p><input type="submit" class="button-width button" value="En cours" id="enCours"></p>
-                        <p><input type="submit" class="button-width button" value="Accepté" id="accepter"></p>
-                        <p><input type="submit" class="button-width button" value="Refusé" id="refuser"></p>
-                        <p><input type="submit" class="button-width button" value="Fermé" id="fermer"></p>
+                        <p><input type="button" class="button-width button is-dark off-button" value="Statut"></p>
+                        <p><input type="submit" class="button-width button" value="Accepté" id="accepter" name="form_accepted"></p>
+                        <p><input type="submit" class="button-width button" value="Refusé" id="refuser" name="form_refused"></p>
+                        <p><input type="submit" class="button-width button" value="Fermé" id="fermer" name="form_closed"></p>
+                        <p><input type="button" class="button-width button is-dark off-button" value="Limite d'idée"></p>
+                        <p><input type="submit" class="button-width button" value="3" name="form_3"></p>
+                        <p><input type="submit" class="button-width button" value="10" name="form_10"></p>
+                        <p><input type="submit" class="button-width button" value="Tout" name="form_all"></p>
                     </form>
                 </div>
 
