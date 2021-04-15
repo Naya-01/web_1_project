@@ -353,6 +353,60 @@ class Db{
         return $list_ideas;
     }
 
+    public function select_table_idea_like_crescent(){
+        $query= 'SELECT * from ideas';
+        $ps = $this->_db->prepare($query);
+        $ps->execute();
+        $list_ideas= array();
+        while($row = $ps->fetch()){
+            $list_ideas[0][]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
+                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+        }
+        foreach ($list_ideas[0] as $i => $value) {
+            $list_ideas[1][$i] = $this->countLikes($value->id_idea());
+        }
+        for($i = count($list_ideas[1]) - 2; $i >= 0; $i--) {
+            for($j = 0; $j <= $i; $j++) {
+                if($list_ideas[1][$j + 1] < $list_ideas[1][$j]) {
+                    $t1 = $list_ideas[1][$j + 1];
+                    $t2 = $list_ideas[0][$j + 1];
+                    $list_ideas[1][$j + 1] = $list_ideas[1][$j];
+                    $list_ideas[0][$j + 1] = $list_ideas[0][$j];
+                    $list_ideas[1][$j] = $t1;
+                    $list_ideas[0][$j] = $t2;
+                }
+            }
+        }
+        return $list_ideas[0];
+    }
+
+    public function select_table_idea_like_decrescent(){
+        $query= 'SELECT * from ideas';
+        $ps = $this->_db->prepare($query);
+        $ps->execute();
+        $list_ideas= array();
+        while($row = $ps->fetch()){
+            $list_ideas[0][]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
+                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+        }
+        foreach ($list_ideas[0] as $i => $value) {
+            $list_ideas[1][$i] = $this->countLikes($value->id_idea());
+        }
+        for($i = count($list_ideas[1]) - 2; $i >= 0; $i--) {
+            for($j = 0; $j <= $i; $j++) {
+                if($list_ideas[1][$j + 1] > $list_ideas[1][$j]) {
+                    $t1 = $list_ideas[1][$j + 1];
+                    $t2 = $list_ideas[0][$j + 1];
+                    $list_ideas[1][$j + 1] = $list_ideas[1][$j];
+                    $list_ideas[0][$j + 1] = $list_ideas[0][$j];
+                    $list_ideas[1][$j] = $t1;
+                    $list_ideas[0][$j] = $t2;
+                }
+            }
+        }
+        return $list_ideas[0];
+    }
+
     /*
             ███████╗██╗░░██╗██╗░██████╗████████╗        ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
             ██╔════╝╚██╗██╔╝██║██╔════╝╚══██╔══╝        ████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔══██╗██╔══██╗██╔════╝

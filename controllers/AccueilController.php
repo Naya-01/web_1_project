@@ -50,7 +50,11 @@ class AccueilController{
             $tabIdeas = $this->_db->select_idea_limit("10");
         }else if(!empty($_POST['form_all'])){
             $tabIdeas = $this->_db->select_default_idea();
-        }else{
+        } else if (!empty($_POST['croissant'])){
+            $tabIdeas = $this->_db->select_table_idea_like_crescent();
+        } else if (!empty($_POST['decroissant'])){
+            $tabIdeas = $this->_db->select_table_idea_like_decrescent();
+        } else {
             $tabIdeas = $this->_db->select_ideas();
         }
 

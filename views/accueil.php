@@ -20,8 +20,8 @@
                 <div class="column is-2">
                     <form action="?action=accueil" method="post" id="form_filter">
                         <p><input type="button" class="button-width button is-dark off-button" value="Popularité"></p>
-                        <p><input type="submit" class="button-width button" value="Croissant"></p>
-                        <p><input type="submit" class="button-width button" value="Décroissant"></p>
+                        <p><input type="submit" class="button-width button" value="Croissant" name="croissant"></p>
+                        <p><input type="submit" class="button-width button" value="Décroissant" name="decroissant"></p>
                         <p><input type="button" class="button-width button is-dark off-button" value="Statut"></p>
                         <p><input type="submit" class="button-width button" value="Accepté" id="accepter" name="form_accepted"></p>
                         <p><input type="submit" class="button-width button" value="Refusé" id="refuser" name="form_refused"></p>
