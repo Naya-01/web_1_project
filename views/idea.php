@@ -20,13 +20,6 @@
                 <?php echo $idea->html_text()?>
             </p>
         </div>
-        <div class="column">
-            <div class="navbar-end">
-                <a class="button is-link is-small" href="index.php?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>">
-                    Répondre
-                </a>
-            </div>
-        </div>
     </div>
 
     <div class="rows"> <!--comments-->

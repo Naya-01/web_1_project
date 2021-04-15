@@ -61,7 +61,8 @@
                                             <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
                                                       alt="like-icon" name="form_like[]"></p>
                                         </form>
-                                        <p class="is-size-4"> <?php echo $this->_db->countLikes($idea->id_idea())?> like(s)</p>
+                                        <p class="is-size-4 block"> <?php echo $this->_db->countLikes($idea->id_idea())?> like(s)</p>
+                                        <button class="button is-rounded off-button"> <?php echo $i+1 ?> </button>
                                     </div>
                                 </div>
                                 <div class="column is-9">
@@ -73,12 +74,10 @@
                                     </div>
                                 </div>
                                 <div class="column">
-                                    <div class="navbar-end">
-                                        <input type="hidden" name="answer_idea" value="<?php echo $idea->html_id_idea()?>">
-                                        <a class="button is-link is-small" href="index.php?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>">
-                                            Répondre
-                                        </a>
-                                    </div>
+                                    <input type="hidden" name="answer_idea" value="<?php echo $idea->html_id_idea()?>">
+                                    <a class="button is-link is-small" href="index.php?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>">
+                                           Répondre
+                                    </a>
                                 </div>
                             </div>
                         </div>

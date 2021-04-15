@@ -218,7 +218,7 @@ class Db{
             ╚══════╝╚═╝╚═════╝░░░░╚═╝░░░        ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
     */
 
-    # List of ideas with a status other than 'T'. Used in the home display system (AccueilaController).
+    # List of ideas with a status other than 'T'. Used in the home display system (AccueilController).
     public function select_ideas() {
         $query = 'SELECT * from ideas WHERE status != :status';
         $ps = $this->_db->prepare($query);
@@ -327,8 +327,8 @@ class Db{
     public function select_idea_limit($limit){
         if($limit=="3"){
             $query = 'SELECT * from ideas WHERE status != :status LIMIT 3';
-        }elseif ($limit=="5"){
-            $query = 'SELECT * from ideas WHERE status != :status LIMIT 5';
+        }elseif ($limit=="10"){
+            $query = 'SELECT * from ideas WHERE status != :status LIMIT 10';
         }
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "T");
@@ -368,7 +368,7 @@ class Db{
         return ($ps->rowcount() != 0);
     }
 
-    # Returns if the vote exists. Is used in the like system (IdeaController).
+    # Returns if the vote exists. Is used in the like system (IdeaController) and Used in the home display system (AccueilController).
     public function vote_exist($id_user,$id_idea) {
         $query = 'SELECT * from votes WHERE id_user=:id_user AND id_idea=:id_idea';
         $ps = $this->_db->prepare($query);

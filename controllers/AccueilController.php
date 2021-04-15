@@ -31,7 +31,7 @@ class AccueilController{
             }
         }
 
-
+        # Filter
         # List of ideas to display
         if(!empty($_POST['form_accepted'])){
             $tabIdeas = $this->_db->select_status_idea("A");
@@ -41,8 +41,8 @@ class AccueilController{
             $tabIdeas = $this->_db->select_status_idea("C");
         }else if(!empty($_POST['form_3'])){
             $tabIdeas = $this->_db->select_idea_limit("3");
-        }else if(!empty($_POST['form_5'])){
-            $tabIdeas = $this->_db->select_idea_limit("5");
+        }else if(!empty($_POST['form_10'])){
+            $tabIdeas = $this->_db->select_idea_limit("10");
         }else if(!empty($_POST['form_all'])){
             $tabIdeas = $this->_db->select_ideas();
         }else{
