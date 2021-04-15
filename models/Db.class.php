@@ -259,7 +259,7 @@ class Db{
 
     # List of all comments linked to an idea. Used in idea system (IdeaController).
     public function select_comments_idea($id_idea) {
-        $query = 'SELECT * from comments WHERE id_idea=:id_idea';
+        $query = 'SELECT * from comments WHERE id_idea=:id_idea AND disable=0';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
@@ -332,6 +332,18 @@ class Db{
         }
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "T");
+        $ps->execute();
+        $list_ideas= array();
+        while($row = $ps->fetch()){
+            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
+                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+        }
+        return $list_ideas;
+    }
+
+    public function select_default_idea(){
+        $query= 'SELECT * from ideas,votes WHERE ideas.id_idea=votes.id_idea GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
+        $ps = $this->_db->prepare($query);
         $ps->execute();
         $list_ideas= array();
         while($row = $ps->fetch()){

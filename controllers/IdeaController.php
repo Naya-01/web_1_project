@@ -28,12 +28,17 @@ class IdeaController{
 
         # Likes system
         if (!empty($_POST['form_like'])) {
-            if ($this->_db->vote_exist($_SESSION['id_user'],$_POST['like_id_idea'])) {
-            } else {
-                $selectIdea=$this->_db->select_idea($_POST['like_id_idea']);
-                if($_SESSION['id_user']==$selectIdea->id_user()){
-                }else{
-                    $this->_db->insert_vote($_SESSION['id_user'], $_POST['like_id_idea']);
+            $selectIdea=$this->_db->select_idea($_POST['like_id_idea']);
+            if($selectIdea->status()!='C'){
+                if ($this->_db->vote_exist($_SESSION['id_user'],$_POST['like_id_idea'])) {
+                    #cant vote again
+                } else {
+                    if($_SESSION['id_user']==$selectIdea->id_user()){
+                        #cant vote for self
+                    }else{
+                        $notification_like = "Votre like été pris en compte.";
+                        $this->_db->insert_vote($_SESSION['id_user'], $_POST['like_id_idea']);
+                    }
                 }
             }
         }
