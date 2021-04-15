@@ -62,18 +62,17 @@
                                                       alt="like-icon" name="form_like[]"></p>
                                         </form>
                                         <p class="is-size-4 block"> <?php echo $this->_db->countLikes($idea->id_idea())?> like(s)</p>
-                                        <button class="button is-rounded off-button"> <?php echo $i+1 ?> </button>
                                     </div>
                                 </div>
                                 <div class="column is-9">
                                     <div class="sujet">
-                                        <h1 class="block title is-size-3"> Sujet : <?php echo $idea->html_subject()?></h1>
+                                        <h1 class="block title is-size-3"> Sujet N°<?php echo $i+1 ?>: <?php echo $idea->html_subject()?></h1>
                                         <p><?php echo $idea->text()?>
 
                                         </p>
                                     </div>
                                 </div>
-                                <div class="column">
+                                <div class="rows">
                                     <input type="hidden" name="answer_idea" value="<?php echo $idea->html_id_idea()?>">
                                     <a class="button is-link is-small" href="index.php?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>">
                                            Répondre
