@@ -27,21 +27,37 @@ class IdeaController{
         }
 
         # Likes system
-        if(!empty($_POST['form_like'])){
-            if($this->_db->vote_exist($_SESSION['id_user'], $_POST['like_id_idea'])) {
-
-            }else{
-                $this->_db->insert_vote($_SESSION['id_user'], $_POST['like_id_idea']);
+        if (!empty($_POST['form_like'])) {
+            if ($this->_db->vote_exist($_SESSION['id_user'],$_POST['like_id_idea'])) {
+            } else {
+                $selectIdea=$this->_db->select_idea($_POST['like_id_idea']);
+                if($_SESSION['id_user']==$selectIdea->id_user()){
+                }else{
+                    $this->_db->insert_vote($_SESSION['id_user'], $_POST['like_id_idea']);
+                }
             }
         }
 
         # Comments system
         if(!empty($_POST['form_answer'])){
             $condition=true;
-            if(!empty($_POST['form_comment'])){
+            $text = $_POST['form_comment'];
+            if(strlen($text) > 150) {
+                $notification = "Vous avez dépassé les 150 caractères autorisés !";
+
+            }else if(!empty($_POST['form_comment'])){
                 $this->_db->insert_comment($_GET['id_idea'],$_SESSION['id_user'],$_POST['form_comment']);
             }else{
-                $notification="Pour répondre, au poste il faut introduire une réponse !";
+                $notification="Pour répondre au poste il faut introduire une réponse!";
+            }
+        }
+
+        #Deletes comments system
+        if(!empty($_POST['form_delete_comment'])){
+            if(!$this->_db->is_comment_disable($_POST['comment_idea'])){
+                $this->_db->disable_comment($_POST['comment_idea']);
+            }else{
+                $notification="commentaire deja supprimé";
             }
         }
 

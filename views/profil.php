@@ -81,12 +81,16 @@
                             <div class="columns">
                                 <div class="column is-6">
                                     <div class="column content is-normal ">
-                                        <p class="block is-size-5"> Sujet du poste : <?php echo $this->_db->select_idea($comment->html_id_idea())->html_subject() ?></p>
+                                        <p class="block is-size-5"> Sujet du poste :<br> <?php echo $this->_db->select_idea($comment->html_id_idea())->html_subject() ?></p>
                                     </div>
                                 </div>
                                 <div class="column is-6">
                                     <div class="column content is-normal ">
-                                        <p class="block is-size-6"> Commentaire : <?php echo $comment->html_text()?></p>
+                                        <p class="block is-size-6"> Commentaire : <br> <?php echo $comment->html_text()?></p>
+                                        <form action="?action=profil" method="post">
+                                            <input type="hidden" name="comment_idea" value="<?php echo $comment->html_id_comment() ?>">
+                                            <p><input class="button is-danger" type="submit" value="Supprimer" name="form_delete_comment"></p>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

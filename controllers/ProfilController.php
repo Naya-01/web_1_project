@@ -24,6 +24,13 @@ class ProfilController {
             $statutName = "Utilisateur";
         }
 
+        #Deletes comments system
+        if(!empty($_POST['form_delete_comment'])){
+            if(!$this->_db->is_comment_disable($_POST['comment_idea'])){
+                $this->_db->disable_comment($_POST['comment_idea']);
+            }
+        }
+
         # Access to likes, comments and ideas
         $tabIdeas = $this->_db->select_idea_where_user_is($_SESSION['id_user']);
         $tabComment = $this->_db->select_comments_where_user_is($_SESSION['id_user']);

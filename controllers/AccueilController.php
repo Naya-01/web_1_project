@@ -15,14 +15,19 @@ class AccueilController{
             die();
         }
 
-        # Manage notifications
+        # Manage notifications and likes system
         $notification_like = "";
         if (!empty($_POST['form_like'])) {
             if ($this->_db->vote_exist($_SESSION['id_user'],$_POST['like_id_idea'])) {
                 $notification_like="Vous avez déjà voté pour cette idée !";
             } else {
-                $notification_like = "Votre like été pris en compte.";
-                $this->_db->insert_vote($_SESSION['id_user'], $_POST['like_id_idea']);
+                $selectIdea=$this->_db->select_idea($_POST['like_id_idea']);
+                if($_SESSION['id_user']==$selectIdea->id_user()){
+                    $notification_like ="vous ne pouvez pas voter pour votre propre publication!";
+                }else{
+                    $notification_like = "Votre like été pris en compte.";
+                    $this->_db->insert_vote($_SESSION['id_user'], $_POST['like_id_idea']);
+                }
             }
         }
 

@@ -43,7 +43,16 @@
                 <div class="column is-9">
                     <p><?php echo $comment->html_text() ?>
                     </p>
+
                 </div>
+                <?php if($comment->id_user()==$_SESSION['id_user']){ ?>
+                <div class="navbar-end">
+                    <form action="?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>" method="post">
+                        <input type="hidden" name="comment_idea" value="<?php echo $comment->html_id_comment() ?>">
+                        <p><input class="button is-danger" type="submit" value="Supprimer" name="form_delete_comment"></p>
+                    </form>
+                </div>
+                <?php } ?>
             </div>
         </div>
         <?php } ?>

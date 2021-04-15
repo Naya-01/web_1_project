@@ -145,6 +145,15 @@ class Db{
         $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
     }
+    #Disable the comment. Used in idea system (IdeaController).
+    public function disable_comment($id_comment){
+        $query = 'UPDATE comments SET disable=:disable,text=:text WHERE id_comment=:id_comment';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_comment', $id_comment);
+        $ps->bindValue(':text', "ce commentaire a été supprimé");
+        $ps->bindValue(':disable', 1);
+        $ps->execute();
+    }
 
     /*
             ░██████╗░███████╗████████╗████████╗███████╗██████╗░        ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
@@ -190,6 +199,15 @@ class Db{
         $ps->execute();
         return ($ps->rowcount() != 0);
     }
+    # Used in idea system (IdeaController).
+    public function is_comment_disable($id_comment){
+        $query = 'SELECT * from comments WHERE id_comment=:id_comment AND disable = 1';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_comment', $id_comment);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
 
     /*
             ██╗░░░░░██╗░██████╗████████╗        ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
