@@ -60,9 +60,6 @@ class AccueilController{
 
 
 
-
-//        $tabIdeas = $this->_db->select_ideas();
-
         require_once(VIEWS_PATH . 'accueil.php');
     }
 }

@@ -310,19 +310,27 @@ class Db{
         }
         return $list_ideas;
     }
+
     # Select the idea by it's status
     public function select_status_idea($status){
         $query = 'SELECT * from ideas WHERE status = :status';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "$status");
         $ps->execute();
-        $list_ideas= array();
+
+        $list_ideas = array();
+        $list_likes = array();
+        $i = 0;
         while($row = $ps->fetch()){
-            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
-                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+            $list_ideas[$i] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+            $list_likes[$i] = $this->countLikes($list_ideas[$i]->id_idea());
+            $i++;
         }
+        array_multisort($list_likes, $list_ideas);
+        $list_ideas= array_reverse($list_ideas);
         return $list_ideas;
     }
+
     # Select idea limit
     public function select_idea_limit($limit){
         if($limit=="3"){
@@ -333,23 +341,29 @@ class Db{
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "T");
         $ps->execute();
-        $list_ideas= array();
+
+        $list_ideas = array();
+        $list_likes = array();
+        $i = 0;
         while($row = $ps->fetch()){
-            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
-                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+            $list_ideas[$i] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+            $list_likes[$i] = $this->countLikes($list_ideas[$i]->id_idea());
+            $i++;
         }
+        array_multisort($list_likes, $list_ideas);
+        $list_ideas= array_reverse($list_ideas);
         return $list_ideas;
     }
 
-
+    # List of ideas ascending / descending with a status other than 'T'. Used in the home display system (AccueilController).
     public function select_table_idea_like($is_crescent){
-        $query= 'SELECT * from ideas';
+        $query= 'SELECT * from ideas WHERE status != :status';
         $ps = $this->_db->prepare($query);
+        $ps->bindValue(':status', "T");
         $ps->execute();
 
         $list_ideas = array();
         $list_likes = array();
-
         $i = 0;
         while($row = $ps->fetch()){
             $list_ideas[$i] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
