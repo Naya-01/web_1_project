@@ -51,9 +51,9 @@ class AccueilController{
         }else if(!empty($_POST['form_all'])){
             $tabIdeas = $this->_db->select_default_idea();
         } else if (!empty($_POST['croissant'])){
-            $tabIdeas = $this->_db->select_table_idea_like_crescent();
+            $tabIdeas = $this->_db->select_table_idea_like(true);
         } else if (!empty($_POST['decroissant'])){
-            $tabIdeas = $this->_db->select_table_idea_like_decrescent();
+            $tabIdeas = $this->_db->select_table_idea_like(false);
         } else {
             $tabIdeas = $this->_db->select_ideas();
         }
