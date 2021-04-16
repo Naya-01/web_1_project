@@ -51,7 +51,7 @@ class AccueilController{
         }else if(!empty($_POST['form_all'])){
             $tabIdeas = $this->_db->select_default_idea();
         }else{
-            $tabIdeas = $this->_db->select_ideas();
+            $tabIdeas = $this->_db->select_default_idea();
         }
 
 
