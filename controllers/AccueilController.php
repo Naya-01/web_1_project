@@ -49,9 +49,13 @@ class AccueilController{
         }else if(!empty($_POST['form_10'])){
             $tabIdeas = $this->_db->select_idea_limit("10");
         }else if(!empty($_POST['form_all'])){
-            $tabIdeas = $this->_db->select_default_idea();
-        }else{
-            $tabIdeas = $this->_db->select_default_idea();
+            $tabIdeas = $this->_db->select_table_idea_like(false);
+        } else if (!empty($_POST['croissant'])){
+            $tabIdeas = $this->_db->select_table_idea_like(true);
+        } else if (!empty($_POST['decroissant'])){
+            $tabIdeas = $this->_db->select_table_idea_like(false);
+        } else {
+            $tabIdeas = $this->_db->select_table_idea_like(false);
         }
 
 

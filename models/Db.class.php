@@ -341,15 +341,27 @@ class Db{
         return $list_ideas;
     }
 
-    public function select_default_idea(){
-        $query= 'SELECT * from ideas,votes WHERE ideas.id_idea=votes.id_idea GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
+
+    public function select_table_idea_like($is_crescent){
+        $query= 'SELECT * from ideas';
         $ps = $this->_db->prepare($query);
         $ps->execute();
-        $list_ideas= array();
+
+        $list_ideas = array();
+        $list_likes = array();
+
+        $i = 0;
         while($row = $ps->fetch()){
-            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
-                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+            $list_ideas[$i] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+            $list_likes[$i] = $this->countLikes($list_ideas[$i]->id_idea());
+            $i++;
         }
+
+        array_multisort($list_likes, $list_ideas);
+        if(!$is_crescent){
+            $list_ideas= array_reverse($list_ideas);
+        }
+
         return $list_ideas;
     }
 
