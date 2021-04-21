@@ -77,7 +77,7 @@
             <div class="row">
                 <form action="?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>" method="post">
                     <textarea class="textarea block" name="form_comment"
-                              placeholder="Ajouter un commentaire"></textarea>
+                              placeholder="Ajouter un commentaire" maxlength="150"></textarea>
                     <div class="navbar-end">
                         <label><input class="button is-link " type="submit" value="Répondre" name="form_answer"></label>
                     </div>
