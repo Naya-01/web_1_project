@@ -118,11 +118,14 @@ p{
 
 
 /*******************USER MANAGEMENT************************/
+/*
 .gestion_user_title {
     text-align: center;
     margin-top: 3%;
 }
 
+ */
+/*
 .gestion_user_block {
     margin: 5% 10% 10% 10%;
 }
@@ -131,8 +134,10 @@ p{
     margin-left: 20%;
 }
 
-/*******************IDEA MANAGEMENT************************/
+ */
 
+/*******************IDEA MANAGEMENT************************/
+/*
 .idea_button {
     margin-left: 0em;
     text-align: center;
@@ -142,55 +147,21 @@ p{
     right: 0;
 }
 
+ */
+
 /*******************PROFILE************************/
-
-.profil_status {
-    text-align: center;
-
-}
-
-.image_profil {
-    border: #0a0a0a 3px solid;
-}
-.image_profil_block {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    margin-top: 2%;
-}
-
-.profil_basic_info {
-    text-align: center;
-    margin-top: 2%;
-}
-/*
-.own-action-buttons-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 4%;
-}
-
-.own-action-buttons {
-    margin: 0 1% 0 1%;
-}
-*/
-.own-action-buttons:hover {
-    background-image: linear-gradient(120deg, #9ac0fc 0%, #a6c2ed 100%);
-}
 
 .footer {
     padding: 1em;
     margin-top: 5%;
     bottom: auto;
 }
-
+/*
 .footer p {
     text-align: center;
-
 }
-
+ */
+/*
 .user-card-handling {
     background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
     margin: 2% 30% 2% 30%;
@@ -198,17 +169,20 @@ p{
     border-radius: 10px;
 }
 
+ */
+/*
 .user-handling-button {
     float: right;
 }
+
+ */
 
 .notification-handling {
     margin: 1% 20% 0 20%;
 }
 
-
-
-.own-info-style {
-    margin: 1% 0 1% 0;
+.card-profile {
+    background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    margin: 2% 30% 2% 30%;
     border-radius: 10px;
 }
