@@ -1,9 +1,8 @@
-
-<!-- Basic informations -->
 <div class="has-text-centered mt-5">
     <h1 class="title">Profil</h1>
 </div>
 
+<!-- Profile card -->
 <div class="card card-profile">
     <div class="card-content">
         <div class="media">
@@ -21,6 +20,7 @@
     </div>
 </div>
 
+<!-- Profile navbar -->
 <nav class="navbar is-transparent">
     <div id="navbarExampleTransparentExample" class="navbar-menu">
         <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
@@ -37,8 +37,10 @@
     </div>
 </nav>
 
+<!-- Display of requested content -->
 <?php foreach ($tab as $i => $element){
 
+    # Definition of variables for each ideas/comments
     if (!$isComment) {
         $statut = $element->html_status();
         $subject = $element->html_subject();
@@ -67,7 +69,7 @@
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-48x48">
-                        <img src="views/img/etat/<?php echo $statut ?>.ico" alt="Placeholder image">
+                        <img src="<?php echo VIEWS_PATH ?>img/etat/<?php echo $statut ?>.ico" alt="Placeholder image">
                     </figure>
                 </div>
                 <div class="media-content">
@@ -75,7 +77,6 @@
                     <p class="subtitle is-6">By <?php echo $user ?></p>
                 </div>
             </div>
-
             <div class="content">
                 <?php echo $text ?>
                 <?php if ($isComment) { ?>

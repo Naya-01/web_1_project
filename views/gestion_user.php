@@ -2,16 +2,16 @@
     <h1 class="title">Gestion des utilisateurs</h1>
 </div>
 
+<!-- Notification -->
 <?php if (!empty($notification)) { ?>
     <div class="notification is-info is-light notification-handling">
         <?php echo $notification ?>
     </div>
 <?php } ?>
 
+<!-- All users -->
+<?php foreach ($tabUsers as $i => $user){
 
-<?php foreach ($tabUsers as $i => $user){ ?>
-
-    <?php
     # Definition of statutes for each member
     if ($user->admin() == 1) {
         $admin = "Administrateur";
