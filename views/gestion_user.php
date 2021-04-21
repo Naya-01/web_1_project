@@ -3,7 +3,6 @@
 </div>
 <?php if (!empty($notification)) { ?>
     <div class="notification is-info is-light notification-handling">
-        <button class="delete"></button>
         <?php echo $notification ?>
     </div>
 <?php } ?>
