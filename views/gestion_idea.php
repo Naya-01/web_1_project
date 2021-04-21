@@ -5,7 +5,6 @@
 
 <?php if (!empty($notification)) { ?>
     <div class="notification is-info is-light notification-handling">
-        <button class="delete"></button>
         <?php echo $notification ?>
     </div>
 <?php } ?>
@@ -33,7 +32,6 @@
                     <div class="buttons has-addons navbar-end">
                         <form class="buttons are-medium" action="index.php?action=gestion_idea" method="post" style="position:relative;">
                             <input type="hidden" name="idea_gestion_id" value="<?php echo $idea->html_id_idea()?>">
-                            <input class="button is-danger is-light is-small" name="desactiver" type="submit" value="Désactiver">
                             <?php if ($idea->status() != 'C') { ?>
                                 <input class="button is-danger is-light is-small" name="fermer" type="submit" value="Fermer">
                             <?php } if ($idea->status() == 'T') { ?>

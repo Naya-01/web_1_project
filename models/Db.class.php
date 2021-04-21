@@ -283,11 +283,12 @@ class Db{
         return $list_ideas;
     }
 
-    # Method used to display the comments of the local user. Used in profile (ProfilController).
+    # Method used to display the comments of the local user (without disabled one). Used in profile (ProfilController).
     public function select_comments_where_user_is($id_user) {
-        $query = 'SELECT * from comments WHERE id_user = :id_user';
+        $query = 'SELECT * from comments WHERE id_user = :id_user AND disable = :zero';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':zero', 0);
         $ps->execute();
         $comments= array();
         while($row = $ps->fetch()){
