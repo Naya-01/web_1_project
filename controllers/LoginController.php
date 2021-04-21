@@ -21,15 +21,14 @@ class LoginController {
 
         # Handling connection errors
         if (!empty($_POST['form_login'])) {
+            $condition = true;
             if (empty($_POST['email_login']) || empty($_POST['password_login'])) {
                 $notification = "Veuillez remplir les champs de connexion !";
-                $condition = true;
-
             } elseif (!$this->_db->valider_email($_POST['email_login'], $_POST['password_login'])) {
                 # Authentication is not correct
                 $notification = 'Vos données d\'authentification ne sont pas correctes.';
-                $condition = true;
-
+            }elseif ($this->_db->is_disabled($this->_db->getIdUser($_POST['email_login']))==1){
+                $notification="votre compte est désactivé";
             } else {
                 # The user is well authenticated
                 # A session variable $_SESSION['authentifie'] is created
@@ -39,7 +38,6 @@ class LoginController {
                 $_SESSION['username']= $this->_db->getUsername($_SESSION['id_user']);
                 $_SESSION['admin']= $this->_db->is_admin($_SESSION['id_user']);
                 $_SESSION['disabled']= $this->_db->is_disabled($_SESSION['id_user']);
-                if ($_SESSION['disabled'] == 1) $_SESSION = array();
 
                 # HTTP redirection to request the 'admin' page
                 header("Location: index.php?action=accueil");
