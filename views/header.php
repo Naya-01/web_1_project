@@ -9,6 +9,8 @@
 
     <link rel="shortcut icon" href="<?php echo VIEWS_PATH ?>/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="<?php echo VIEWS_PATH ?>/img/favicon.ico" type="image/x-icon">
+
+    <script src="<?php echo VIEWS_PATH . "javascript/style.js" ?>"></script>
 </head>
 <body>
 <?php if ($header_footer) { ?>
