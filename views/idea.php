@@ -28,10 +28,11 @@
 
             <?php foreach ($comments as $i => $comment) { ?>
                 <?php if ($idea->html_closed_date() > $comment->html_creation_date() ||$idea->html_closed_date()==null) { ?>
-                    <?php $background="background-color"; ?>
-                <?php }else{ ?>
-            <?php $background="has-background-warning"; ?>
-                    <?php } ?>
+                    <?php $background = "background-color"; ?>
+                <?php } else { ?>
+                    <?php $background = "has-background-warning"; ?>
+                <?php } ?>
+
                 <div class="comments row box <?php echo $background ?>"><!--one comment-->
                     <div class="columns">
                         <div class="column is-2">
@@ -44,7 +45,11 @@
                             </div>
                         </div>
                         <div class="column is-9">
-                            <p><?php echo $comment->html_text() ?>
+                            <p><?php if($comment->html_disable()==1){ ?>
+                                <?php echo "Ce commentaire a été supprimer" ?>
+                                <?php }else{?>
+                                <?php echo $comment->html_text() ?>
+                                <?php }?>
                             </p>
 
                         </div>

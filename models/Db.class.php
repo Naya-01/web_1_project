@@ -147,10 +147,9 @@ class Db{
     }
     #Disable the comment. Used in idea system (IdeaController).
     public function disable_comment($id_comment){
-        $query = 'UPDATE comments SET disable=:disable,text=:text WHERE id_comment=:id_comment';
+        $query = 'UPDATE comments SET disable=:disable WHERE id_comment=:id_comment';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_comment', $id_comment);
-        $ps->bindValue(':text', "ce commentaire a été supprimé");
         $ps->bindValue(':disable', 1);
         $ps->execute();
     }
@@ -259,7 +258,7 @@ class Db{
 
     # List of all comments linked to an idea. Used in idea system (IdeaController).
     public function select_comments_idea($id_idea) {
-        $query = 'SELECT * from comments WHERE id_idea=:id_idea AND disable=0';
+        $query = 'SELECT * from comments WHERE id_idea=:id_idea';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
