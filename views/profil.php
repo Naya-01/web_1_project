@@ -3,14 +3,12 @@
 </div>
 
 <!-- Profile card -->
-<div class="card card-profile">
+<div class="card card-theme blue-gradient-color">
     <div class="card-content">
         <div class="media">
             <div class="media-left">
                 <figure class="image is-48x48">
-                    <a href="https://bulma.io/images/placeholders/96x96.png">
-                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-                    </a>
+                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Profile image">
                 </figure>
             </div>
             <div class="media-content">
@@ -19,25 +17,40 @@
                 <p class="block is-size-6" style="color: <?php echo $statutColor ?>;"><?php echo $statutName ?></p>
             </div>
         </div>
+        <form enctype="multipart/form-data" action="index.php?action=profil" method="post">
+            <div class="file navbar-end is-small">
+                <label class="file-label">
+                    <input class="file-input" type="file" name="resume">
+                    <span class="file-cta">
+                        <span class="file-icon"><img src="<?php echo VIEWS_PATH ?>img/upload.png" alt="Upload image"></span>
+                        <span class="file-label">Changer de photo...</span>
+                    </span>
+                </label>
+            </div>
+        </form>
     </div>
 </div>
 
-<!-- Profile navbar -->
-<nav class="navbar is-transparent">
-    <div id="navbarExampleTransparentExample" class="navbar-menu">
-        <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-            <a class="navbar-item <?php if ($isPost) echo "is-active"?>" href="index.php?action=profil&category=post">
+<!-- Profile tabs -->
+<div class="tabs is-centered mb-4">
+    <ul>
+        <li class="<?php if ($isPost) echo "is-active"?>">
+            <a class="navbar-item" href="index.php?action=profil&category=post">
                 Mes postes
             </a>
-            <a class="navbar-item <?php if ($isLike) echo "is-active"?>" href="index.php?action=profil&category=like">
+        </li>
+        <li class="<?php if ($isLike) echo "is-active"?>">
+            <a href="index.php?action=profil&category=like">
                 Mes likes
             </a>
-            <a class="navbar-item <?php if ($isComment) echo "is-active"?>" href="index.php?action=profil&category=comment">
+        </li>
+        <li class="<?php if ($isComment) echo "is-active"?>">
+            <a href="index.php?action=profil&category=comment">
                 Mes commentaires
             </a>
-        </div>
-    </div>
-</nav>
+        </li>
+    </ul>
+</div>
 
 <!-- Display of requested content -->
 <?php foreach ($tab as $i => $element){
@@ -52,9 +65,9 @@
         $idea = $this->_db->select_idea($element->id_idea());
         $statut = $idea->html_status();
         $subject = $idea->html_subject();
-        $text = "Message : " . $idea->html_text();
+        $text = $idea->html_text();
         $date = $element->creation_date();
-        $comment = "Commentaire : " . $element->html_text();
+        $comment = $element->html_text();
     }
 
     if ($isComment) {
@@ -66,7 +79,7 @@
     }
     ?>
 
-    <div class="card card-profile">
+    <div class="card card-theme">
         <div class="card-content">
             <div class="media">
                 <div class="media-left">
@@ -80,10 +93,10 @@
                 </div>
             </div>
             <div class="content">
-                <?php echo $text ?>
+                <strong>Message : </strong><?php echo $text ?>
                 <?php if ($isComment) { ?>
                     <br>
-                    <?php echo $comment ?>
+                    <strong>Commentaire : </strong><?php echo $comment ?>
                 <?php } ?>
                 <br>
                 <time datetime="2011-11-18T14:54:39.929"><strong><?php echo $date ?></strong></time>

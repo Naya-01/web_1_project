@@ -11,7 +11,7 @@
 
 <!-- All ideas -->
 <?php foreach ($tabIdeas as $i => $idea) { ?>
-    <div class="card card-profile">
+    <div class="card card-theme">
         <div class="card-content">
             <div class="media">
                 <div class="media-left">
