@@ -8,7 +8,9 @@
         <div class="media">
             <div class="media-left">
                 <figure class="image is-48x48">
-                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                    <a href="https://bulma.io/images/placeholders/96x96.png">
+                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                    </a>
                 </figure>
             </div>
             <div class="media-content">
@@ -84,7 +86,7 @@
                     <?php echo $comment ?>
                 <?php } ?>
                 <br>
-                <time datetime="2016-1-1"><strong><?php echo $date ?></strong></time>
+                <time datetime="2011-11-18T14:54:39.929"><strong><?php echo $date ?></strong></time>
             </div>
         </div>
     </div>

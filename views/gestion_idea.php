@@ -10,26 +10,26 @@
 <?php } ?>
 
 <!-- All ideas -->
-<?php foreach ($tabIdeas as $i => $idea){ ?>
+<?php foreach ($tabIdeas as $i => $idea) { ?>
     <div class="card card-profile">
         <div class="card-content">
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-48x48">
-                        <img src="<?php echo VIEWS_PATH ?>img/etat/<?php echo $idea->html_status()?>.ico" alt="Placeholder image">
+                        <img src="<?php echo VIEWS_PATH ?>img/etat/<?php echo $idea->html_status()?>.ico" alt="Statut">
                     </figure>
                 </div>
                 <div class="media-content">
                     <p class="title is-4"><?php echo $idea->html_subject()?></p>
-                    <p class="subtitle is-6">By user</p>
+                    <p class="subtitle is-6">By <?php echo $this->_db->getUsername($idea->id_user()) ?></p>
                 </div>
             </div>
             <div class="content">
                 <?php echo $idea->html_text()?>
                 <br>
-                <time datetime="2016-1-1"><strong><?php echo $idea->html_submitted_date()?></strong></time>
+                <time datetime="2011-11-18T14:54:39.929"><strong><?php echo $idea->html_submitted_date()?></strong></time>
                 <div class="buttons has-addons navbar-end">
-                    <form class="buttons are-medium" action="index.php?action=gestion_idea" method="post" style="position:relative;">
+                    <form class="buttons are-medium" action="index.php?action=gestion_idea" method="post">
                         <input type="hidden" name="idea_gestion_id" value="<?php echo $idea->html_id_idea()?>">
                         <?php if ($idea->status() != 'C') { ?>
                             <input class="button is-danger is-light is-small" name="fermer" type="submit" value="Fermer">
