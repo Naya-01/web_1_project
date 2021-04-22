@@ -2,13 +2,20 @@
     <h1 class="title">Profil</h1>
 </div>
 
+<!-- Notification -->
+<?php if (!empty($notification)) { ?>
+    <div class="notification is-info is-light notification-handling">
+        <?php echo $notification ?>
+    </div>
+<?php } ?>
+
 <!-- Profile card -->
 <div class="card card-theme blue-gradient-color">
     <div class="card-content">
         <div class="media">
             <div class="media-left">
                 <figure class="image is-48x48">
-                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Profile image">
+                        <img class="is-rounded" src="<?php echo $_SESSION['image'] ?>" alt="Profile image">
                 </figure>
             </div>
             <div class="media-content">
@@ -20,12 +27,13 @@
         <form enctype="multipart/form-data" action="index.php?action=profil" method="post">
             <div class="file navbar-end is-small">
                 <label class="file-label">
-                    <input class="file-input" type="file" name="resume">
+                    <input class="file-input" type="file" name="userfile">
                     <span class="file-cta">
                         <span class="file-icon"><img src="<?php echo VIEWS_PATH ?>img/upload.png" alt="Upload image"></span>
                         <span class="file-label">Changer de photo...</span>
                     </span>
                 </label>
+                <input class="button is-small ml-1" type="submit" name="userfile" value="Soumettre">
             </div>
         </form>
     </div>

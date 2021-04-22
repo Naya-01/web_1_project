@@ -29,13 +29,12 @@
         $textstatut = "Activer";
     }
     ?>
-
     <div class="card card-theme">
         <div class="card-content">
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-48x48">
-                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Profile image">
+                        <img class="is-rounded" src="<?php echo $user->picture() ?>" alt="Profile image">
                     </figure>
                 </div>
                 <div class="media-content">

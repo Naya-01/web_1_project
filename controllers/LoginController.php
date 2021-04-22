@@ -38,6 +38,7 @@ class LoginController {
                 $_SESSION['username']= $this->_db->getUsername($_SESSION['id_user']);
                 $_SESSION['admin']= $this->_db->is_admin($_SESSION['id_user']);
                 $_SESSION['disabled']= $this->_db->is_disabled($_SESSION['id_user']);
+                $_SESSION['image'] = $this->_db->getImage($_SESSION['id_user']);
 
                 # HTTP redirection to request the 'admin' page
                 header("Location: index.php?action=accueil");

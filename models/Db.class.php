@@ -33,11 +33,12 @@ class Db{
 
     # Used in member registration (LoginController).
     public function insert_user($username, $email, $password) {
-        $query = 'INSERT INTO users (username,email,password) values (:username,:email,:password)';
+        $query = 'INSERT INTO users (username,email,password,picture) values (:username,:email,:password,:picture)';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':username', $username);
         $ps->bindValue(':email', $email);
         $ps->bindValue(':password', $password);
+        $ps->bindValue(':picture', VIEWS_PATH . 'img/profil.ico');
         $ps->execute();
     }
 
@@ -145,12 +146,21 @@ class Db{
         $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
     }
-    #Disable the comment. Used in idea system (IdeaController).
+    # Disable the comment. Used in idea system (IdeaController).
     public function disable_comment($id_comment){
         $query = 'UPDATE comments SET disable=:disable WHERE id_comment=:id_comment';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_comment', $id_comment);
         $ps->bindValue(':disable', 1);
+        $ps->execute();
+    }
+
+    # Modify image. Used in profile system (ProfileController).
+    public function modifyImage($id_user, $link) {
+        $query = 'UPDATE users SET picture = :picture WHERE id_user = :id_user';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':picture', $link);
+        $ps->bindValue(':id_user', $id_user);
         $ps->execute();
     }
 
@@ -162,6 +172,15 @@ class Db{
             ╚██████╔╝███████╗░░░██║░░░░░░██║░░░███████╗██║░░██║        ██║░╚═╝░██║███████╗░░░██║░░░██║░░██║╚█████╔╝██████╔╝██████╔╝
             ░╚═════╝░╚══════╝░░░╚═╝░░░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝        ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
     */
+
+    # Used in profile (ProfileController) to configure $_SESSION.
+    public function getImage($id) {
+        $query = 'SELECT picture from users WHERE id_user = :id';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id', $id);
+        $ps->execute();
+        return htmlspecialchars($ps->fetch()->picture);
+    }
 
     # Used in member registration (LoginController) to configure $_SESSION.
     public function getUsername($id) {

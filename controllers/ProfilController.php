@@ -24,10 +24,26 @@ class ProfilController {
             $statutName = "Utilisateur";
         }
 
-        #Deletes comments system
+        # Deletes comments system
         if(!empty($_POST['form_delete_comment'])){
             if(!$this->_db->is_comment_disable($_POST['comment_idea'])){
                 $this->_db->disable_comment($_POST['comment_idea']);
+            }
+        }
+
+        # Profile image upload
+        if (!empty($_FILES) and !empty($_FILES['userfile'])) {
+            if (($_FILES['userfile']['type'] == 'image/jpeg' or $_FILES['userfile']['type'] == 'image/png')) {
+                if (getimagesize($_FILES['userfile']['tmp_name'])['mime'] == 'image/jpeg'
+                    or getimagesize($_FILES['userfile']['tmp_name'])['mime'] == 'image/png') {
+
+                    $origine = $_FILES['userfile']['tmp_name'];
+                    $destination = VIEWS_PATH . "user_image/" . uniqid();
+                    move_uploaded_file($origine, $destination);
+                    $this->_db->modifyImage($_SESSION['id_user'], $destination);
+                    $_SESSION['image'] = $destination;
+                    $notification = "Votre photo de profil a été changée";
+                }
             }
         }
 
