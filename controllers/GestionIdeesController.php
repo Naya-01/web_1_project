@@ -26,7 +26,7 @@ class GestionIdeesController {
             } else if (!empty($_POST['accepter'])) {
                 $this->_db->setStatus($_POST['idea_gestion_id'], "A");
                 $this->_db->setAcceptedDate($_POST['idea_gestion_id']);
-                $notification = "Le poste a été acceptée.";
+                $notification = "Le poste a été accepté.";
             } else if (!empty($_POST['fermer'])) {
                 $this->_db->setStatus($_POST['idea_gestion_id'], "C");
                 $this->_db->setClosedDate($_POST['idea_gestion_id']);

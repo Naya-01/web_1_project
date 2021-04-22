@@ -26,7 +26,7 @@
 
     # Allows the display (or not) of the header and the update of the admin & disabled attributes
     $header_footer=true;
-    if(empty($_SESSION['authentifie'])){
+    if (empty($_SESSION['authentifie'])) {
         $header_footer=false;
     } else {
         $_SESSION['admin'] = $db->is_admin($_SESSION['id_user']);
@@ -41,12 +41,6 @@
     include(VIEWS_PATH. 'header.php');
 
     switch ($_GET['action']) {
-        /*
-        case 'admin':
-            require_once(CONTROLLERS_PATH.'AdminController.php');
-            $controller = new AdminController($db);
-            break;
-        */
         case 'accueil':
             require_once(CONTROLLERS_PATH.'AccueilController.php');
             $controller = new AccueilController($db);
