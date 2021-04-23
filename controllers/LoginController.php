@@ -52,11 +52,11 @@ class LoginController {
                 $notification = "Veuillez remplir les champs d'inscription !";
                 $condition =true;
 
-            } elseif ($this->_db->email_exists($_POST['email_register'])) {
+            } elseif ($this->_db->emailExists($_POST['email_register'])) {
                 $notification = 'L\'email existe déjà, choisissez une autre adresse mail.';
                 $condition =true;
 
-            }elseif ($this->_db->username_exists($_POST['username_register'])){
+            }elseif ($this->_db->usernameExists($_POST['username_register'])){
                 $notification = 'Le pseudo existe déjà, choisissez un autre pseudo.';
                 $condition =true;
 

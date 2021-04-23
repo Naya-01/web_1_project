@@ -237,22 +237,23 @@ class Db{
             ███████╗██║██████╔╝░░░██║░░░        ██║░╚═╝░██║███████╗░░░██║░░░██║░░██║╚█████╔╝██████╔╝██████╔╝
             ╚══════╝╚═╝╚═════╝░░░░╚═╝░░░        ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
     */
-
-    # List of ideas with a status other than 'T'. Used in the home display system (HomeController).
     /*
-    public function select_ideas() {
-        $query = 'SELECT * from ideas WHERE status != :status';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':status', "T");
-        $ps->execute();
-        $list_ideas= array();
-        while($row = $ps->fetch()){
-            $list_ideas[]= new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
-                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
+     *
+        # List of ideas with a status other than 'T'. Used in the home display system (HomeController).
+
+        public function select_ideas() {
+            $query = 'SELECT * from ideas WHERE status != :status';
+            $ps = $this->_db->prepare($query);
+            $ps->bindValue(':status', "T");
+            $ps->execute();
+            $list_ideas= array();
+            while($row = $ps->fetch()){
+                $list_ideas[]= new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                    $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
+            }
+            return $list_ideas;
         }
-        return $list_ideas;
-    }
-    */
+        */
 
     # List of all ideas order by date. Used in idea management (PostHandlingController).
     public function selectIdeasByDate() {
@@ -397,42 +398,6 @@ class Db{
      */
 
     # Returns if the username exists. Is used in member registration and login (LoginController).
-    public function username_exists($username) {
-        $query = 'SELECT * from users WHERE username = :username';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':username', $username);
-        $ps->execute();
-        return ($ps->rowcount() != 0);
-    }
-
-    # Returns if the email exists. Is used in member registration and login (LoginController).
-    public function email_exists($email) {
-        $query = 'SELECT * from users WHERE email=:email';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':email', $email);
-        $ps->execute();
-        return ($ps->rowcount() != 0);
-    }
-
-    # Returns if the vote exists. Is used in the like system (IdeaController) and Used in the home display system (HomeController).
-    public function vote_exist($id_user,$id_idea) {
-        $query = 'SELECT * from votes WHERE id_user=:id_user AND id_idea=:id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_user', $id_user);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-        return ($ps->rowcount() != 0);
-    }
-
-    # Returns if the idea exists. Is used in the idea display system (IdeaController).
-    public function idea_exist($id_idea){
-        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_idea', $id_idea);
-        $ps->execute();
-        return ($ps->rowcount() != 0);
-    }
-
     public function usernameExists($username) {
         $query = 'SELECT COUNT(id_user) as "exist" from users WHERE username = :username';
         $ps = $this->_db->prepare($query);
@@ -442,6 +407,7 @@ class Db{
         return $response;
     }
 
+    # Returns if the email exists. Is used in member registration and login (LoginController).
     public function emailExists($email) {
         $query = 'SELECT COUNT(id_user) as "exist" from users WHERE email = :email';
         $ps = $this->_db->prepare($query);
@@ -451,6 +417,7 @@ class Db{
         return $response;
     }
 
+    # Returns if the vote exists. Is used in the like system (IdeaController) and Used in the home display system (HomeController).
     public function voteExists($id_user, $id_idea) {
         $query = 'SELECT COUNT(*) as "exist" from votes WHERE id_user = :id_user AND id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
@@ -461,6 +428,7 @@ class Db{
         return $response;
     }
 
+    # Returns if the idea exists. Is used in the idea display system (IdeaController).
     public function ideaExists($id_idea){
         $query = 'SELECT COUNT(id_idea) as "exist" from ideas WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
@@ -512,3 +480,60 @@ class Db{
     }
 
 }
+
+
+
+
+/*
+    # Returns if the username exists. Is used in member registration and login (LoginController).
+    public function username_exists($username) {
+        $query = 'SELECT * from users WHERE username = :username';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':username', $username);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    # Returns if the email exists. Is used in member registration and login (LoginController).
+    public function email_exists($email) {
+        $query = 'SELECT * from users WHERE email=:email';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':email', $email);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    # Returns if the vote exists. Is used in the like system (IdeaController) and Used in the home display system (HomeController).
+    public function vote_exist($id_user,$id_idea) {
+        $query = 'SELECT * from votes WHERE id_user=:id_user AND id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    # Returns if the idea exists. Is used in the idea display system (IdeaController).
+    public function idea_exist($id_idea){
+        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        return ($ps->rowcount() != 0);
+    }
+
+    # List of ideas with a status other than 'T'. Used in the home display system (HomeController).
+
+        public function select_ideas() {
+            $query = 'SELECT * from ideas WHERE status != :status';
+            $ps = $this->_db->prepare($query);
+            $ps->bindValue(':status', "T");
+            $ps->execute();
+            $list_ideas= array();
+            while($row = $ps->fetch()){
+                $list_ideas[]= new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                    $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
+            }
+            return $list_ideas;
+        }
+*/

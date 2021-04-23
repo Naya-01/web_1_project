@@ -20,7 +20,7 @@ class HomeController{
         if (!empty($_POST['form_like'])) {
             $checkIdea=$this->_db->selectIdea($_POST['like_id_idea']);
             if($checkIdea->status() != 'C'){
-                if ($this->_db->vote_exist($_SESSION['id_user'],$_POST['like_id_idea'])) {
+                if ($this->_db->voteExists($_SESSION['id_user'],$_POST['like_id_idea'])) {
                     $notification_like="Vous avez déjà voté pour cette idée !";
                 } else {
                     $selectIdea=$this->_db->selectIdea($_POST['like_id_idea']);
