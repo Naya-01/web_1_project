@@ -22,7 +22,7 @@
                     <div class="column">
                         <div class="navbar-end">
                             <div class="navbar-item">
-                                <a class="button is-danger" href="index.php?action=accueil"> Annuler</a>
+                                <a class="button is-danger" href="index.php?action=home"> Annuler</a>
                                 <label><input class="button is-link" type="submit" value="Poster"
                                               name="form_post_idea"></label>
                             </div>
