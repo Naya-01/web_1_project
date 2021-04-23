@@ -337,51 +337,55 @@ class Db{
     }
 
     # Select the idea by it's status
-    public function selectIdeasWhereStatusIs($status){
-        $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea WHERE status=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
+    public function selectIdeasWhereStatusIs($status) {
+        $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
+                    WHERE status=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', $status);
         $ps->execute();
-
-        $list_ideas = array();
+        $listIdeas = array();
         while($row = $ps->fetch()){
-            $list_ideas[] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+            $listIdeas[] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
         }
-        return $list_ideas;
+        return $listIdeas;
     }
 
     # Select idea limit selectIdeasWithNumberLimit
-    public function selectIdeasWithNumberLimit($limit){
-        $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea WHERE status!=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC LIMIT :limit';
+    public function selectIdeasWithNumberLimit($limit) {
+        $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
+                    WHERE status!=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC LIMIT :limit';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "T");
         $ps->bindValue(':limit', $limit,PDO::PARAM_INT);
         $ps->execute();
-
-        $list_ideas = array();
+        $listIdeas = array();
         while($row = $ps->fetch()){
-            $list_ideas[] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+            $listIdeas[] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
         }
-        return $list_ideas;
+        return $listIdeas;
     }
 
     # List of ideas ascending / descending with a status other than 'T'. Used in the home display system (HomeController). selectIdeasSortedByLike
     public function selectIdeasSortedByLike($is_crescent){
-        if($is_crescent){
-            $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea WHERE status!=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) ASC';
-        }else{
-            $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea WHERE status!=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
+        if ($is_crescent) {
+            $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea WHERE status!=:status 
+                        GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) ASC';
+        } else {
+            $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea WHERE status!=:status 
+                        GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
         }
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "T");
         $ps->execute();
-
-        $list_ideas = array();
+        $listIdeas = array();
         while($row = $ps->fetch()){
-            $list_ideas[] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+            $listIdeas[] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
         }
 
-        return $list_ideas;
+        return $listIdeas;
     }
 
     /*
