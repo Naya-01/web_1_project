@@ -58,11 +58,8 @@ p{
     text-align: center;
     min-height: 150px;
 }
-.pseudo{
+.nickname{
     text-align: left;
-}
-#rayan{
-    align-items: center;
 }
 .off-button{
     pointer-events: none;
@@ -73,23 +70,23 @@ p{
     background-position: right;
     background-repeat: no-repeat;
 }
-#enCours{
+#submitted{
     background-image: url("../img/etat/T.ico") ;
 }
-#accepter{
+#accepted{
     background-image: url("../img/etat/A.ico") ;
 }
-#refuser{
+#refused{
     background-image: url("../img/etat/R.ico") ;
 }
-#fermer{
+#closed{
     background-image: url("../img/etat/C.ico") ;
 }
 
 #form_filter{
     text-align: left;
 }
-.sujet{
+.subject{
     word-break: normal;
 }
 

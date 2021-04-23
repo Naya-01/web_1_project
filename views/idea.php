@@ -36,7 +36,7 @@
                 <div class="comments row box <?php echo $background ?>"><!--one comment-->
                     <div class="columns">
                         <div class="column is-2">
-                            <div class="pseudo has-text-black">
+                            <div class="nickname has-text-black">
                                 <p class="block"><img class="icon" src="views/img/profil.ico"
                                                       alt="picture-user"><?php echo $this->_db->getUsername($comment->id_user()) ?>
                                 </p>

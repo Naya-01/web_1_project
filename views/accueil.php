@@ -23,9 +23,9 @@
                         <p><input type="submit" class="button-width button" value="Croissant" name="croissant"></p>
                         <p><input type="submit" class="button-width button" value="Décroissant" name="decroissant"></p>
                         <p><input type="button" class="button-width button is-dark off-button" value="Statut"></p>
-                        <p><input type="submit" class="button-width button" value="Accepté" id="accepter" name="form_accepted"></p>
-                        <p><input type="submit" class="button-width button" value="Refusé" id="refuser" name="form_refused"></p>
-                        <p><input type="submit" class="button-width button" value="Fermé" id="fermer" name="form_closed"></p>
+                        <p><input type="submit" class="button-width button" value="Accepté" id="accepted" name="form_accepted"></p>
+                        <p><input type="submit" class="button-width button" value="Refusé" id="refused" name="form_refused"></p>
+                        <p><input type="submit" class="button-width button" value="Fermé" id="closed" name="form_closed"></p>
                         <p><input type="button" class="button-width button is-dark off-button" value="Limite d'idée"></p>
                         <p><input type="submit" class="button-width button" value="3" name="form_3"></p>
                         <p><input type="submit" class="button-width button" value="10" name="form_10"></p>
@@ -33,10 +33,9 @@
                     </form>
                 </div>
 
-                <div class="column"> <!-- debut idée -->
-                    <div class="columns" id="rayan">
+                <div class="column"> <!-- Start ideas -->
+                    <div class="columns">
                         <div class="column is-one-quarter">
-                            <!--                        <p>Ajoute une idée</p>-->
                             <a class="button is-link box" href="index.php?action=newIdea">
                                 Ajouter une idée
                             </a>
@@ -45,13 +44,13 @@
                             <label class="button is-dark box">Liste des idées</label>
                         </div>
                     </div>
-                    <div class="rows"> <!--les idées-->
+                    <div class="rows"> <!--the ideas-->
 
                         <?php foreach ($tabIdeas as $i => $idea){ ?>
-                        <div class="row box background-color"><!--une idée-->
+                        <div class="row box background-color"><!--a idea-->
                             <div class="columns">
                                 <div class="column is-2">
-                                    <div class="pseudo has-text-black">
+                                    <div class="nickname has-text-black">
                                         <p class="block"><img class="icon" src="views/img/profil.ico"
                                                               alt="picture-user"> <?php echo $this->_db->getUsername($idea->id_user()) ?> </p>
                                         <img class="icon is-medium" src="views/img/etat/<?php echo $idea->html_status()?>.ico"
@@ -65,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="column is-9">
-                                    <div class="sujet">
+                                    <div class="subject">
                                         <h1 class="block title is-size-3"> Sujet N°<?php echo $i+1 ?>: <?php echo $idea->html_subject()?></h1>
                                         <p><?php echo $idea->text()?>
 
@@ -84,7 +83,7 @@
 
 
                     </div>
-                </div> <!-- fin idée -->
+                </div> <!-- end ideas -->
 
             </div>
 
