@@ -21,7 +21,7 @@
                 </div>
                 <div class="media-content">
                     <p class="title is-4"><?php echo $idea->html_subject()?></p>
-                    <p class="subtitle is-6">By <?php echo $this->_db->getUsername($idea->id_user()) ?></p>
+                    <p class="subtitle is-6">By <?php echo $usernameTab[$i]['user'] ?></p>
                 </div>
             </div>
             <div class="content">

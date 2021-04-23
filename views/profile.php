@@ -43,7 +43,7 @@
 <div class="tabs is-centered mb-4">
     <ul>
         <li class="<?php if (!empty($isPost)) echo "is-active"?>">
-            <a class="navbar-item" href="index.php?action=profil&category=post">
+            <a href="index.php?action=profil&category=post">
                 Mes postes
             </a>
         </li>
@@ -61,53 +61,28 @@
 </div>
 
 <!-- Display of requested content -->
-<?php foreach ($tab as $i => $element) {
-
-    # Definition of variables for each ideas/comments
-    if (!$isComment) {
-        $statut = $element->html_status();
-        $subject = $element->html_subject();
-        $text = $element->html_text();
-        $date = $element->html_submitted_date();
-    } else {
-        $idea = $this->_db->select_idea($element->id_idea());
-        $statut = $idea->html_status();
-        $subject = $idea->html_subject();
-        $text = $idea->html_text();
-        $date = $element->creation_date();
-        $comment = $element->html_text();
-    }
-
-    if ($isComment) {
-        $user = $this->_db->getUsername($idea->id_user());
-    } else if ($isLike)  {
-        $user = $this->_db->getUsername($element->id_user());
-    } else {
-        $user = "you";
-    }
-    ?>
-
+<?php foreach ($profileTab as $i => $element) { ?>
     <div class="card card-theme">
         <div class="card-content">
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-48x48">
-                        <img src="<?php echo VIEWS_PATH ?>img/etat/<?php echo $statut ?>.ico" alt="Placeholder image">
+                        <img src="<?php echo VIEWS_PATH ?>img/etat/<?php echo $profileTab[$i]['status'] ?>.ico" alt="Status image">
                     </figure>
                 </div>
                 <div class="media-content">
-                    <p class="title is-4"><?php echo $subject ?></p>
-                    <p class="subtitle is-6">By <?php echo $user ?></p>
+                    <p class="title is-4"><?php echo $profileTab[$i]['subject'] ?></p>
+                    <p class="subtitle is-6">By <?php echo $profileTab[$i]['user'] ?></p>
                 </div>
             </div>
             <div class="content">
-                <strong>Message : </strong><?php echo $text ?>
+                <strong>Message : </strong><?php echo $profileTab[$i]['text'] ?>
                 <?php if ($isComment) { ?>
                     <br>
-                    <strong>Commentaire : </strong><?php echo $comment ?>
+                    <strong>Commentaire : </strong><?php echo $profileTab[$i]['comment'] ?>
                 <?php } ?>
                 <br>
-                <time datetime="2011-11-18T14:54:39.929"><strong><?php echo $date ?></strong></time>
+                <time datetime="2011-11-18T14:54:39.929"><strong><?php echo $profileTab[$i]['date'] ?></strong></time>
             </div>
         </div>
     </div>
