@@ -236,7 +236,7 @@ class Db{
             ╚══════╝╚═╝╚═════╝░░░░╚═╝░░░        ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
     */
 
-    # List of ideas with a status other than 'T'. Used in the home display system (AccueilController).
+    # List of ideas with a status other than 'T'. Used in the home display system (HomeController).
     public function select_ideas() {
         $query = 'SELECT * from ideas WHERE status != :status';
         $ps = $this->_db->prepare($query);
@@ -374,7 +374,7 @@ class Db{
         return $list_ideas;
     }
 
-    # List of ideas ascending / descending with a status other than 'T'. Used in the home display system (AccueilController).
+    # List of ideas ascending / descending with a status other than 'T'. Used in the home display system (HomeController).
     public function select_table_idea_like($is_crescent){
         $query= 'SELECT * from ideas WHERE status != :status';
         $ps = $this->_db->prepare($query);
@@ -425,7 +425,7 @@ class Db{
         return ($ps->rowcount() != 0);
     }
 
-    # Returns if the vote exists. Is used in the like system (IdeaController) and Used in the home display system (AccueilController).
+    # Returns if the vote exists. Is used in the like system (IdeaController) and Used in the home display system (HomeController).
     public function vote_exist($id_user,$id_idea) {
         $query = 'SELECT * from votes WHERE id_user=:id_user AND id_idea=:id_idea';
         $ps = $this->_db->prepare($query);
@@ -485,5 +485,6 @@ class Db{
             $row->refused_date,$row->closed_date);
         return $idea;
     }
+
 
 }

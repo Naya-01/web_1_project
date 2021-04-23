@@ -18,7 +18,7 @@
             <div class="columns">
 
                 <div class="column is-2">
-                    <form action="?action=accueil" method="post" id="form_filter">
+                    <form action="?action=home" method="post" id="form_filter">
                         <p><input type="button" class="button-width button is-dark off-button" value="Popularité"></p>
                         <p><input type="submit" class="button-width button" value="Croissant" name="croissant"></p>
                         <p><input type="submit" class="button-width button" value="Décroissant" name="decroissant"></p>
@@ -55,7 +55,7 @@
                                                               alt="picture-user"> <?php echo $this->_db->getUsername($idea->id_user()) ?> </p>
                                         <img class="icon is-medium" src="views/img/etat/<?php echo $idea->html_status()?>.ico"
                                              alt="status-users">
-                                        <form action="?action=accueil" method="post">
+                                        <form action="?action=home" method="post">
                                             <input type="hidden" name="like_id_idea" value="<?php echo $idea->html_id_idea()?>">
                                             <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
                                                       alt="like-icon" name="form_like[]"></p>

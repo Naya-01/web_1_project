@@ -11,7 +11,7 @@ class LoginController {
 
         # Security
         if (!empty($_SESSION['authentifie'])) {
-            header("Location: index.php?action=accueil"); # redirection HTTP vers l'action accueil
+            header("Location: index.php?action=home"); # redirection HTTP vers l'action home
             die();
         }
 
@@ -41,7 +41,7 @@ class LoginController {
                 $_SESSION['image'] = $this->_db->getImage($_SESSION['id_user']);
 
                 # HTTP redirection to request the 'admin' page
-                header("Location: index.php?action=accueil");
+                header("Location: index.php?action=home");
                 die();
             }
         }

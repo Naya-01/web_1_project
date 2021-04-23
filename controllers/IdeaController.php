@@ -22,7 +22,7 @@ class IdeaController{
         if($this->_db->idea_exist($id_idea)){
             $idea = $this->_db->select_idea($id_idea);;
         }else{
-            header("Location: index.php?action=accueil");
+            header("Location: index.php?action=home");
             die();
         }
 

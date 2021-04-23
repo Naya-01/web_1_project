@@ -11,7 +11,7 @@ class NewIdeaController{
 
         # Security
         if (empty($_SESSION['authentifie'])) {
-            header("Location: index.php?action=login"); # redirection HTTP vers l'action accueil
+            header("Location: index.php?action=login"); # redirection HTTP vers l'action login
             die();
         }
 

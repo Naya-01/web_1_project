@@ -1,5 +1,5 @@
 <?php
-class AccueilController{
+class HomeController{
 
     private $_db;
 
@@ -60,6 +60,6 @@ class AccueilController{
 
 
 
-        require_once(VIEWS_PATH . 'accueil.php');
+        require_once(VIEWS_PATH . 'home.php');
     }
 }

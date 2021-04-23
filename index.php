@@ -19,7 +19,7 @@
     $db = Db::getInstance();
 
 
-    # If there is no GET variable 'action' in the URL, it is created here at the value 'accueil'
+    # If there is no GET variable 'action' in the URL, it is created here at the value 'home'
     if (empty($_GET['action'])) {
         $_GET['action'] = 'login';
     }
@@ -41,9 +41,9 @@
     include(VIEWS_PATH. 'header.php');
 
     switch ($_GET['action']) {
-        case 'accueil':
-            require_once(CONTROLLERS_PATH.'AccueilController.php');
-            $controller = new AccueilController($db);
+        case 'home':
+            require_once(CONTROLLERS_PATH.'HomeController.php');
+            $controller = new HomeController($db);
             break;
         case 'logout':
             require_once(CONTROLLERS_PATH.'LogoutController.php');
