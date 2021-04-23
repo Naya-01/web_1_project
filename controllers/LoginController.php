@@ -46,7 +46,7 @@ class LoginController {
             }
         }
 
-        # Handling registration errors
+        # Handling registration errors // vous pourriez vérifier aussi que l'email est correctement formaté selon une expressions régulière
         if (!empty($_POST['form_register'])) {
             if (empty($_POST['username_register']) || empty($_POST['password_register']) || empty($_POST['email_register'])) {
                 $notification = "Veuillez remplir les champs d'inscription !";

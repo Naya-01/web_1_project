@@ -1,5 +1,5 @@
 <?php
-class Db{
+class Db{ // OK
 
     private static $instance = null;
     private $_db;

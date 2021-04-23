@@ -1,4 +1,4 @@
-<?php
+<?php // OK
     # Definition of constants
     date_default_timezone_set('Europe/Brussels');
     define('VIEWS_PATH', 'views/');
