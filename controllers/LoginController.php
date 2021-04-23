@@ -48,22 +48,21 @@ class LoginController {
 
         # Handling registration errors
         if (!empty($_POST['form_register'])) {
+            $condition =true;
             if (empty($_POST['username_register']) || empty($_POST['password_register']) || empty($_POST['email_register'])) {
                 $notification = "Veuillez remplir les champs d'inscription !";
-                $condition =true;
 
             } elseif ($this->_db->emailExists($_POST['email_register'])) {
                 $notification = 'L\'email existe déjà, choisissez une autre adresse mail.';
-                $condition =true;
 
-            }elseif ($this->_db->usernameExists($_POST['username_register'])){
+            }elseif(!filter_var($_POST['email_register'], FILTER_VALIDATE_EMAIL)){
+                $notification = 'L\'email n\'a pas le bon format';
+            } elseif ($this->_db->usernameExists($_POST['username_register'])){
                 $notification = 'Le pseudo existe déjà, choisissez un autre pseudo.';
-                $condition =true;
 
             }else {
                 $this->_db->insertUser($_POST['username_register'], $_POST['email_register'], password_hash($_POST['password_register'], PASSWORD_BCRYPT));
                 $notification = 'Le membre ' . $_POST['username_register'] . ' a bien été créé';
-                $condition =true;
 
             }
         }
