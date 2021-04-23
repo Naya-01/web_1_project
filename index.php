@@ -57,17 +57,17 @@
             require_once(CONTROLLERS_PATH . 'IdeaController.php');
             $controller = new IdeaController($db);
             break;
-        case 'gestion_user':
-            require_once(CONTROLLERS_PATH.'GestionUtilisateurController.php');
-            $controller = new GestionUtilisateurController($db);
+        case 'user_handling':
+            require_once(CONTROLLERS_PATH . 'UserHandlingController.php');
+            $controller = new UserHandlingController($db);
             break;
-        case 'gestion_idea':
-            require_once(CONTROLLERS_PATH.'GestionIdeesController.php');
-            $controller = new GestionIdeesController($db);
+        case 'post_handling':
+            require_once(CONTROLLERS_PATH . 'PostHandlingController.php');
+            $controller = new PostHandlingController($db);
             break;
         case 'profil':
-            require_once(CONTROLLERS_PATH.'ProfilController.php');
-            $controller = new ProfilController($db);
+            require_once(CONTROLLERS_PATH . 'ProfileController.php');
+            $controller = new ProfileController($db);
             break;
         default:
             require_once(CONTROLLERS_PATH . 'LoginController.php');

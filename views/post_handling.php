@@ -29,13 +29,13 @@
                 <br>
                 <time datetime="2011-11-18T14:54:39.929"><strong><?php echo $idea->html_submitted_date()?></strong></time>
                 <div class="buttons has-addons navbar-end">
-                    <form class="buttons are-medium" action="index.php?action=gestion_idea" method="post">
-                        <input type="hidden" name="idea_gestion_id" value="<?php echo $idea->html_id_idea()?>">
+                    <form class="buttons are-medium" action="index.php?action=post_handling" method="post">
+                        <input type="hidden" name="post-handling-id" value="<?php echo $idea->html_id_idea()?>">
                         <?php if ($idea->status() != 'C') { ?>
-                            <input class="button is-danger is-light is-small" name="fermer" type="submit" value="Fermer">
+                            <input class="button is-danger is-light is-small" name="closed" type="submit" value="Fermer">
                         <?php } if ($idea->status() == 'T') { ?>
-                            <input class="button is-danger is-light is-small" name="refuser" type="submit" value="Refuser">
-                            <input class="button is-danger is-light is-small" name="accepter" type="submit" value="Accepter">
+                            <input class="button is-danger is-light is-small" name="refused" type="submit" value="Refuser">
+                            <input class="button is-danger is-light is-small" name="accepted" type="submit" value="Accepter">
                         <?php } ?>
                     </form>
                 </div>

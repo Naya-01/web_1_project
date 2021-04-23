@@ -1,5 +1,5 @@
 <?php
-class ProfilController {
+class ProfileController {
 
     private $_db;
 
@@ -37,9 +37,9 @@ class ProfilController {
                 if (getimagesize($_FILES['userfile']['tmp_name'])['mime'] == 'image/jpeg'
                     or getimagesize($_FILES['userfile']['tmp_name'])['mime'] == 'image/png') {
 
-                    $origine = $_FILES['userfile']['tmp_name'];
+                    $origin = $_FILES['userfile']['tmp_name'];
                     $destination = VIEWS_PATH . "user_image/" . uniqid();
-                    move_uploaded_file($origine, $destination);
+                    move_uploaded_file($origin, $destination);
                     $this->_db->modifyImage($_SESSION['id_user'], $destination);
                     $_SESSION['image'] = $destination;
                     $notification = "Votre photo de profil a été changée";
@@ -68,7 +68,7 @@ class ProfilController {
             }
         }
 
-        require_once(VIEWS_PATH . 'profil.php');
+        require_once(VIEWS_PATH . 'profile.php');
     }
 
 }

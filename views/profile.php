@@ -42,17 +42,17 @@
 <!-- Profile tabs -->
 <div class="tabs is-centered mb-4">
     <ul>
-        <li class="<?php if ($isPost) echo "is-active"?>">
+        <li class="<?php if (!empty($isPost)) echo "is-active"?>">
             <a class="navbar-item" href="index.php?action=profil&category=post">
                 Mes postes
             </a>
         </li>
-        <li class="<?php if ($isLike) echo "is-active"?>">
+        <li class="<?php if (!empty($isLike)) echo "is-active"?>">
             <a href="index.php?action=profil&category=like">
                 Mes likes
             </a>
         </li>
-        <li class="<?php if ($isComment) echo "is-active"?>">
+        <li class="<?php if (!empty($isComment)) echo "is-active"?>">
             <a href="index.php?action=profil&category=comment">
                 Mes commentaires
             </a>
@@ -61,7 +61,7 @@
 </div>
 
 <!-- Display of requested content -->
-<?php foreach ($tab as $i => $element){
+<?php foreach ($tab as $i => $element) {
 
     # Definition of variables for each ideas/comments
     if (!$isComment) {

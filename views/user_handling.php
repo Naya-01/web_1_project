@@ -23,10 +23,10 @@
 
     if ($user->disabled() == 0) {
         $disable = "actif";
-        $textstatut = "Désactiver";
+        $textstatus = "Désactiver";
     } else{
         $disable = "inactif";
-        $textstatut = "Activer";
+        $textstatus = "Activer";
     }
     ?>
     <div class="card card-theme">
@@ -45,10 +45,10 @@
             </div>
             <div class="content">
                 <div class="buttons has-addons navbar-end">
-                    <form class="buttons are-medium" action="index.php?action=gestion_user" method="post">
-                        <input type="hidden" name="user_gestion_id" value="<?php echo $user->id()?>">
-                        <input class="button is-danger is-light is-small" name="desactiver" type="submit" value="<?php echo $textstatut ?>">
-                        <input class="button is-danger is-light is-small" name="privilegier" type="submit" value="<?php echo $textprivilege ?>">
+                    <form class="buttons are-medium" action="index.php?action=user_handling" method="post">
+                        <input type="hidden" name="user-handling-id" value="<?php echo $user->id()?>">
+                        <input class="button is-danger is-light is-small" name="disabled" type="submit" value="<?php echo $textstatus ?>">
+                        <input class="button is-danger is-light is-small" name="privilege" type="submit" value="<?php echo $textprivilege ?>">
                     </form>
                 </div>
             </div>
