@@ -5,7 +5,7 @@
             <div class="column is-1 ">
                 <div class="pseudo has-text-black">
                     <p class="block"><img class="icon" src="views/img/profil.ico"
-                                          alt="picture-user"><?php echo $this->_db->getUsername($idea->id_user()) ?></p>
+                                          alt="picture-user"><?php echo $user ?></p>
                     <img class="icon is-medium" src="views/img/etat/<?php echo $idea->status() ?>.ico"
                          alt="status-users">
                     <form action="?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>" method="post">
@@ -38,7 +38,7 @@
                         <div class="column is-2">
                             <div class="nickname has-text-black">
                                 <p class="block"><img class="icon" src="views/img/profil.ico"
-                                                      alt="picture-user"><?php echo $this->_db->getUsername($comment->id_user()) ?>
+                                                      alt="picture-user"><?php echo $tabUsers[$i] ?>
                                 </p>
                                 <input type="hidden" name="answer_id_user"
                                        value="<?php echo $comment->html_id_user() ?>">

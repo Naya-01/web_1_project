@@ -65,4 +65,6 @@ class Comment {
         return htmlspecialchars($this->_creation_date);
     }
 
+
+
 }

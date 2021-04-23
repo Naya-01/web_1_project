@@ -486,5 +486,4 @@ class Db{
         return $idea;
     }
 
-
 }

@@ -52,7 +52,7 @@
                                 <div class="column is-2">
                                     <div class="nickname has-text-black">
                                         <p class="block"><img class="icon" src="views/img/profil.ico"
-                                                              alt="picture-user"> <?php echo $this->_db->getUsername($idea->id_user()) ?> </p>
+                                                              alt="picture-user"> <?php echo $tabUsers[$i] ?> </p>
                                         <img class="icon is-medium" src="views/img/etat/<?php echo $idea->html_status()?>.ico"
                                              alt="status-users">
                                         <form action="?action=home" method="post">
