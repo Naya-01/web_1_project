@@ -22,6 +22,7 @@ class IdeaController{
         if($this->_db->idea_exist($id_idea)){
             $idea = $this->_db->select_idea($id_idea);;
             $user=$this->_db->getUsername($idea->id_user());
+            $like=$this->_db->countLikes($idea->id_idea());
         }else{
             header("Location: index.php?action=home");
             die();

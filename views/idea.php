@@ -13,7 +13,7 @@
                         <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
                                   alt="like-icon" name="form_like[]"></p>
                     </form>
-                    <p class="is-size-4"> <?php echo $this->_db->countLikes($idea->id_idea()) ?> like(s)</p>
+                    <p class="is-size-4"> <?php echo $like ?> like(s)</p>
                 </div>
             </div>
             <div class="column is-9">

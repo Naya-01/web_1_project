@@ -28,7 +28,7 @@ class HomeController{
                         $notification_like ="vous ne pouvez pas voter pour votre propre publication!";
                     }else{
                         $notification_like = "Votre like été pris en compte.";
-                        $this->_db->insertVote($_SESSION['id_user'], $_POST['like_id_idea']);
+                        $this->_db->insert_vote($_SESSION['id_user'], $_POST['like_id_idea']);
                     }
                 }
             }else{
@@ -47,9 +47,9 @@ class HomeController{
         }else if(!empty($_POST['form_closed'])){
             $tabIdeas = $this->_db->selectIdeasWhereStatusIs("C");
         }else if(!empty($_POST['form_3'])){
-            $tabIdeas = $this->_db->selectIdeasWithNumberLimit("3");
+            $tabIdeas = $this->_db->selectIdeasWithNumberLimit(3);
         }else if(!empty($_POST['form_10'])){
-            $tabIdeas = $this->_db->selectIdeasWithNumberLimit("10");
+            $tabIdeas = $this->_db->selectIdeasWithNumberLimit(10);
         }else if(!empty($_POST['form_all'])){
             $tabIdeas = $this->_db->selectIdeasSortedByLike(false);
         } else if (!empty($_POST['croissant'])){
