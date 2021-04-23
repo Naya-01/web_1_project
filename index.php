@@ -18,6 +18,7 @@
     # Connection to the database
     $db = Db::getInstance();
 
+    var_dump($db->username_exists_bis("oucouc"));
 
     # If there is no GET variable 'action' in the URL, it is created here at the value 'home'
     if (empty($_GET['action'])) {
@@ -29,8 +30,8 @@
     if (empty($_SESSION['authentifie'])) {
         $header_footer=false;
     } else {
-        $_SESSION['admin'] = $db->is_admin($_SESSION['id_user']);
-        $_SESSION['disabled']= $db->is_disabled($_SESSION['id_user']);
+        $_SESSION['admin'] = $db->isAdmin($_SESSION['id_user']);
+        $_SESSION['disabled']= $db->isDisabled($_SESSION['id_user']);
         if ($_SESSION['disabled'] == 1) {
             $_SESSION = array();
             header("Location: index.php?action=login");

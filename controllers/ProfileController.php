@@ -26,8 +26,8 @@ class ProfileController {
 
         # Deletes comments system
         if(!empty($_POST['form_delete_comment'])){
-            if(!$this->_db->is_comment_disable($_POST['comment_idea'])){
-                $this->_db->disable_comment($_POST['comment_idea']);
+            if(!$this->_db->isCommentDisabled($_POST['comment_idea'])){
+                $this->_db->disableComment($_POST['comment_idea']);
             }
         }
 
@@ -54,15 +54,15 @@ class ProfileController {
         $isLike = false;
         if (!empty($_GET) and !empty($_GET['category'])) {
             if ($_GET['category'] == 'post') {
-                $tab = $this->_db->select_idea_where_user_is($_SESSION['id_user']);
+                $tab = $this->_db->selectIdeasWhereUserIs($_SESSION['id_user']);
                 $isPost = true;
 
             } else if ($_GET['category'] == 'comment') {
-                $tab = $this->_db->select_comments_where_user_is($_SESSION['id_user']);
+                $tab = $this->_db->selectCommentsWhereUserIs($_SESSION['id_user']);
                 $isComment = true;
 
             } else if ($_GET['category'] == 'like') {
-                $tab = $this->_db->select_idea_user_like($_SESSION['id_user']);
+                $tab = $this->_db->selectIdeasLikedBy($_SESSION['id_user']);
                 $isLike = true;
 
             }

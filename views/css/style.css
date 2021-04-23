@@ -136,3 +136,10 @@ p{
     margin-top: 5%;
     bottom: auto;
 }
+
+@media (max-width: 800px) {
+    .card-theme {
+        margin: 2% 3% 2% 3%;
+        border-radius: 10px;
+    }
+}

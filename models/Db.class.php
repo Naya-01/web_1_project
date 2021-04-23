@@ -32,8 +32,8 @@ class Db{
      */
 
     # Used in member registration (LoginController).
-    public function insert_user($username, $email, $password) {
-        $query = 'INSERT INTO users (username,email,password,picture) values (:username,:email,:password,:picture)';
+    public function insertUser($username, $email, $password) {
+        $query = 'INSERT INTO users (username, email, password, picture) values (:username, :email, :password, :picture)';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':username', $username);
         $ps->bindValue(':email', $email);
@@ -43,8 +43,9 @@ class Db{
     }
 
     # Used in the idea display system (IdeaController).
-    public function insert_idea($id_user, $subject, $text) {
-        $query = 'INSERT INTO ideas (id_user,subject,text,status,submitted_date) values (:id_user,:subject,:text,"T",:submitted_date)';
+    public function insertIdea($id_user, $subject, $text) {
+        $query = 'INSERT INTO ideas (id_user, subject, text, status, submitted_date) 
+                    values (:id_user, :subject, :text, "T", :submitted_date)';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
         $ps->bindValue(':subject', $subject);
@@ -53,9 +54,9 @@ class Db{
         $ps->execute();
     }
 
-    # Used in the idea display system (IdeaController).
-    public function insert_vote($id_user,$id_idea){
-        $query = 'INSERT INTO votes (id_user,id_idea) values (:id_user,:id_idea)';
+    # Used in the idea display system (IdeaController and NewIdeaController) to like ideas.
+    public function insertVote($id_user, $id_idea){
+        $query = 'INSERT INTO votes (id_user, id_idea) values (:id_user, :id_idea)';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
         $ps->bindValue(':id_idea', $id_idea);
@@ -63,8 +64,8 @@ class Db{
     }
 
     # Used in the idea display system (IdeaController).
-    public function insert_comment($id_idea,$id_user,$text) {
-        $query = 'INSERT INTO comments (id_user,id_idea,text,creation_date) values (:id_user,:id_idea,:text,:creation_date)';
+    public function insertComment($id_idea, $id_user, $text) {
+        $query = 'INSERT INTO comments (id_user, id_idea, text, creation_date) values (:id_user, :id_idea, :text, :creation_date)';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
         $ps->bindValue(':id_idea', $id_idea);
@@ -89,9 +90,9 @@ class Db{
             ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═════╝░╚═════╝░
     */
 
-    # Change the disable status. Used in user management (GestionUtilisateurController).
-    public function modify_disable($id_user) {
-        if ($this->is_disabled($id_user) == 1) $disable = 0;
+    # Change the disable status. Used in user management (UserHandlingController).
+    public function modifyDisableState($id_user) {
+        if ($this->isDisabled($id_user) == 1) $disable = 0;
         else $disable = 1;
         $query = 'UPDATE users SET disable = :disable WHERE id_user = :id_user';
         $ps = $this->_db->prepare($query);
@@ -100,9 +101,9 @@ class Db{
         $ps->execute();
     }
 
-    # Change the admin status. Used in user management (GestionUtilisateurController).
-    public function modify_admin($id_user) {
-        if ($this->is_admin($id_user)) $admin = 0;
+    # Change the privilege status. Used in user management (UserHandlingController).
+    public function modifyPrivilegeState($id_user) {
+        if ($this->isAdmin($id_user)) $admin = 0;
         else $admin = 1;
         $query = 'UPDATE users SET admin = :admin WHERE id_user = :id_user';
         $ps = $this->_db->prepare($query);
@@ -111,7 +112,7 @@ class Db{
         $ps->execute();
     }
 
-    # Change the idea status. Used in idea management (GestionIdeesController).
+    # Change the idea status. Used in idea management (PostHandlingController).
     public function setStatus($id_idea, $status) {
         $query = 'UPDATE ideas SET status = :status WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
@@ -120,7 +121,7 @@ class Db{
         $ps->execute();
     }
 
-    # Change the idea refused date. Used in idea management (GestionIdeesController).
+    # Change the idea refused date. Used in idea management (PostHandlingController).
     public function setRefusedDate($id_idea) {
         $query = 'UPDATE ideas SET refused_date = :refused_date WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
@@ -129,7 +130,7 @@ class Db{
         $ps->execute();
     }
 
-    # Change the idea accepted date. Used in idea management (GestionIdeesController).
+    # Change the idea accepted date. Used in idea management (PostHandlingController).
     public function setAcceptedDate($id_idea) {
         $query = 'UPDATE ideas SET accepted_date = :accepted_date WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
@@ -138,7 +139,7 @@ class Db{
         $ps->execute();
     }
 
-    # Change the idea closed date. Used in idea management (GestionIdeesController).
+    # Change the idea closed date. Used in idea management (PostHandlingController).
     public function setClosedDate($id_idea) {
         $query = 'UPDATE ideas SET closed_date = :closed_date WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
@@ -146,8 +147,9 @@ class Db{
         $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
     }
-    # Disable the comment. Used in idea system (IdeaController).
-    public function disable_comment($id_comment){
+
+    # Disable a comment. Used in idea system (IdeaController and ProfileController).
+    public function disableComment($id_comment){
         $query = 'UPDATE comments SET disable=:disable WHERE id_comment=:id_comment';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_comment', $id_comment);
@@ -184,7 +186,7 @@ class Db{
 
     # Used in member registration (LoginController) to configure $_SESSION.
     public function getUsername($id) {
-        $query = 'SELECT username from users WHERE id_user=:id';
+        $query = 'SELECT username from users WHERE id_user = :id';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id', $id);
         $ps->execute();
@@ -200,32 +202,32 @@ class Db{
         return $ps->fetch()->id_user;
     }
 
-    # Used in modify_admin method and to configure $_SESSION (LoginController).
-    public function is_admin($id_user) {
-        $query = 'SELECT * from users WHERE id_user=:id_user AND admin = 1';
+    # Used in modifyPrivilegeState function and to configure $_SESSION (LoginController and index.php).
+    public function isAdmin($id_user) {
+        $query = 'SELECT admin from users WHERE id_user = :id_user';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
         $ps->execute();
-        return ($ps->rowcount() != 0);
+        return $ps->fetch()->admin == 1;
     }
 
-    # Used in modify_disable method and to configure $_SESSION (LoginController).
-    public function is_disabled($id_user) {
-        $query = 'SELECT * from users WHERE id_user=:id_user AND disable = 1';
+    # Used in modifyDisableState function and to configure $_SESSION (LoginController and index.php).
+    public function isDisabled($id_user) {
+        $query = 'SELECT disable from users WHERE id_user=:id_user';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
         $ps->execute();
-        return ($ps->rowcount() != 0);
+        return $ps->fetch()->disable == 1;
     }
+
     # Used in idea system (IdeaController).
-    public function is_comment_disable($id_comment){
-        $query = 'SELECT * from comments WHERE id_comment=:id_comment AND disable = 1';
+    public function isCommentDisabled($id_comment){
+        $query = 'SELECT disable from comments WHERE id_comment = :id_comment';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_comment', $id_comment);
         $ps->execute();
-        return ($ps->rowcount() != 0);
+        return $ps->fetch()->disable == 1;
     }
-
 
     /*
             ██╗░░░░░██╗░██████╗████████╗        ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
@@ -237,6 +239,7 @@ class Db{
     */
 
     # List of ideas with a status other than 'T'. Used in the home display system (HomeController).
+    /*
     public function select_ideas() {
         $query = 'SELECT * from ideas WHERE status != :status';
         $ps = $this->_db->prepare($query);
@@ -244,158 +247,157 @@ class Db{
         $ps->execute();
         $list_ideas= array();
         while($row = $ps->fetch()){
-            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
-                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+            $list_ideas[]= new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
         }
         return $list_ideas;
     }
+    */
 
-    # List of all ideas. Used in idea management (GestionIdeesController).
-    public function select_T_ideas() {
-        $query = 'SELECT * from ideas';
+    # List of all ideas order by date. Used in idea management (PostHandlingController).
+    public function selectIdeasByDate() {
+        $query = 'SELECT * from ideas ORDER BY submitted_date DESC';
         $ps = $this->_db->prepare($query);
         $ps->execute();
-        $list_ideas= array();
-        while($row = $ps->fetch()){
-            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
-                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+        $listIdeas= array();
+        while($row = $ps->fetch()) {
+            $listIdeas[]= new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
         }
-        return $list_ideas;
+        return $listIdeas;
     }
 
-    # List of all users. Used in user management (GestionUtilisateurController).
-    public function select_users() {
+    # List of all users. Used in user management (UserHandlingController).
+    public function selectUsers() {
         $query = 'SELECT * from users';
         $ps = $this->_db->prepare($query);
         $ps->execute();
-        $list_users= array();
-        while($row = $ps->fetch()){
-            $list_users[]= new User($row->id_user, $row->email, $row->username, $row->password, $row->picture, $row->admin, $row->disable);
+        $listUsers= array();
+        while($row = $ps->fetch()) {
+            $listUsers[]= new User($row->id_user, $row->email, $row->username,
+                $row->password, $row->picture, $row->admin, $row->disable);
         }
-        return $list_users;
+        return $listUsers;
     }
 
     # List of all comments linked to an idea. Used in idea system (IdeaController).
-    public function select_comments_idea($id_idea) {
-        $query = 'SELECT * from comments WHERE id_idea=:id_idea';
+    public function selectCommentsWhereIdeaIs($id_idea) {
+        $query = 'SELECT * from comments WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
-        $comments= array();
-        while($row = $ps->fetch()){
-            $comments [] = new Comment($row->id_comment,$row->text,$row->id_idea,$row->id_user,$row->disable,$row->creation_date);
+        $listComments = array();
+        while($row = $ps->fetch()) {
+            $listComments[] = new Comment($row->id_comment, $row->text, $row->id_idea,
+                $row->id_user, $row->disable, $row->creation_date);
         }
-        return $comments;
+        return $listComments;
     }
 
-    # Method used to display the ideas of the local user. Used in profile (ProfilController).
-    public function select_idea_where_user_is($id_user) {
+    # Function used to display the ideas of the local user. Used in profile (ProfileController).
+    public function selectIdeasWhereUserIs($id_user) {
         $query = 'SELECT * from ideas WHERE id_user = :id_user';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
         $ps->execute();
-        $list_ideas= array();
-        while($row = $ps->fetch()){
-            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
-                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+        $listIdeas = array();
+        while($row = $ps->fetch()) {
+            $listIdeas[]= new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
         }
-        return $list_ideas;
+        return $listIdeas;
     }
 
-    # Method used to display the comments of the local user (without disabled one). Used in profile (ProfilController).
-    public function select_comments_where_user_is($id_user) {
-        $query = 'SELECT * from comments WHERE id_user = :id_user AND disable = :zero';
+    # Function used to display the comments of the local user (without disabled one). Used in profile (ProfileController).
+    public function selectCommentsWhereUserIs($id_user) {
+        $query = 'SELECT * from comments WHERE id_user = :id_user AND disable = 0';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
-        $ps->bindValue(':zero', 0);
         $ps->execute();
-        $comments= array();
-        while($row = $ps->fetch()){
-            $comments[] = new Comment($row->id_comment,$row->text,$row->id_idea,$row->id_user,$row->disable,$row->creation_date);
+        $listComments = array();
+        while($row = $ps->fetch()) {
+            $listComments[] = new Comment($row->id_comment, $row->text, $row->id_idea,
+                $row->id_user, $row->disable, $row->creation_date);
         }
-        return $comments;
+        return $listComments;
     }
 
-    # Method used to display the ideas liked by the local user. Used in profile (ProfilController).
-    public function select_idea_user_like($id_user) {
+    # Function used to display the ideas liked by the local user. Used in profile (ProfileController).
+    public function selectIdeasLikedBy($id_user) {
         $query = 'SELECT id.* from ideas id, votes vo WHERE id.id_idea = vo.id_idea AND vo.id_user = :id_user';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
         $ps->execute();
-        $list_ideas= array();
+        $listIdeas= array();
         while($row = $ps->fetch()){
-            $list_ideas[]= new Idea($row->id_idea,$row->subject,$row->text,$row->id_user
-                ,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
+            $listIdeas[]= new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
         }
-        return $list_ideas;
+        return $listIdeas;
     }
 
-    # Select the idea by it's status
-    public function select_status_idea($status){
+    # Select the idea by its status. Used in home (HomeController).
+    public function selectIdeasWhereStatusIs($status){
         $query = 'SELECT * from ideas WHERE status = :status';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "$status");
         $ps->execute();
-
-        $list_ideas = array();
-        $list_likes = array();
+        $listIdeas = array();
+        $listLikes = array();
         $i = 0;
         while($row = $ps->fetch()){
-            $list_ideas[$i] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
-            $list_likes[$i] = $this->countLikes($list_ideas[$i]->id_idea());
+            $listIdeas[$i] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
+            $listLikes[$i] = $this->countLikes($listIdeas[$i]->id_idea());
             $i++;
         }
-        array_multisort($list_likes, $list_ideas);
-        $list_ideas= array_reverse($list_ideas);
-        return $list_ideas;
+        array_multisort($listLikes, $listIdeas);
+        $listIdeas = array_reverse($listIdeas);
+        return $listIdeas;
     }
 
-    # Select idea limit
-    public function select_idea_limit($limit){
-        if($limit=="3"){
+    # Select ideas with a number limit with a status other than 'T'. Used in home (HomeController).
+    public function selectIdeasWithNumberLimit($limit){
+        if ($limit == "3") {
             $query = 'SELECT * from ideas WHERE status != :status LIMIT 3';
-        }elseif ($limit=="10"){
+        } else if ($limit == "10") {
             $query = 'SELECT * from ideas WHERE status != :status LIMIT 10';
         }
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "T");
         $ps->execute();
-
-        $list_ideas = array();
-        $list_likes = array();
+        $listIdeas = array();
+        $listLikes = array();
         $i = 0;
         while($row = $ps->fetch()){
-            $list_ideas[$i] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
-            $list_likes[$i] = $this->countLikes($list_ideas[$i]->id_idea());
+            $listIdeas[$i] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
+            $listLikes[$i] = $this->countLikes($listIdeas[$i]->id_idea());
             $i++;
         }
-        array_multisort($list_likes, $list_ideas);
-        $list_ideas= array_reverse($list_ideas);
-        return $list_ideas;
+        array_multisort($listLikes, $listIdeas);
+        $listIdeas = array_reverse($listIdeas);
+        return $listIdeas;
     }
 
     # List of ideas ascending / descending with a status other than 'T'. Used in the home display system (HomeController).
-    public function select_table_idea_like($is_crescent){
+    public function selectIdeasSortedByLike($is_crescent){
         $query= 'SELECT * from ideas WHERE status != :status';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "T");
         $ps->execute();
-
-        $list_ideas = array();
-        $list_likes = array();
+        $listIdeas = array();
+        $listLikes = array();
         $i = 0;
         while($row = $ps->fetch()){
-            $list_ideas[$i] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
-            $list_likes[$i] = $this->countLikes($list_ideas[$i]->id_idea());
+            $listIdeas[$i] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
+            $listLikes[$i] = $this->countLikes($listIdeas[$i]->id_idea());
             $i++;
         }
-
-        array_multisort($list_likes, $list_ideas);
-        if(!$is_crescent){
-            $list_ideas= array_reverse($list_ideas);
-        }
-
-        return $list_ideas;
+        array_multisort($listLikes, $listIdeas);
+        if (!$is_crescent) $listIdeas = array_reverse($listIdeas);
+        return $listIdeas;
     }
 
     /*
@@ -409,11 +411,20 @@ class Db{
 
     # Returns if the username exists. Is used in member registration and login (LoginController).
     public function username_exists($username) {
-        $query = 'SELECT * from users WHERE username=:username';
+        $query = 'SELECT * from users WHERE username = :username';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':username', $username);
         $ps->execute();
         return ($ps->rowcount() != 0);
+    }
+
+    public function username_exists_bis($username) {
+        $query = 'SELECT COUNT(id_user) as "exist" from users WHERE username = :username';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':username', $username);
+        $ps->execute();
+        var_dump($ps->fetch()->exist == '1');
+        return $ps->fetch()->exist == '1';
     }
 
     # Returns if the email exists. Is used in member registration and login (LoginController).

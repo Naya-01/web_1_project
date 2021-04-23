@@ -35,7 +35,7 @@ class PostHandlingController {
         }
 
         # List of all ideas
-        $tabIdeas = $this->_db->select_T_ideas();
+        $tabIdeas = $this->_db->selectIdeasByDate();
 
         # Create a username table
         $usernameTab = array();

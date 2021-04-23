@@ -28,7 +28,7 @@ class HomeController{
                         $notification_like ="vous ne pouvez pas voter pour votre propre publication!";
                     }else{
                         $notification_like = "Votre like été pris en compte.";
-                        $this->_db->insert_vote($_SESSION['id_user'], $_POST['like_id_idea']);
+                        $this->_db->insertVote($_SESSION['id_user'], $_POST['like_id_idea']);
                     }
                 }
             }else{
@@ -41,23 +41,23 @@ class HomeController{
         # Filter
         # List of ideas to display
         if(!empty($_POST['form_accepted'])){
-            $tabIdeas = $this->_db->select_status_idea("A");
+            $tabIdeas = $this->_db->selectIdeasWhereStatusIs("A");
         }else if(!empty($_POST['form_refused'])){
-            $tabIdeas =$this->_db->select_status_idea("R");
+            $tabIdeas =$this->_db->selectIdeasWhereStatusIs("R");
         }else if(!empty($_POST['form_closed'])){
-            $tabIdeas = $this->_db->select_status_idea("C");
+            $tabIdeas = $this->_db->selectIdeasWhereStatusIs("C");
         }else if(!empty($_POST['form_3'])){
-            $tabIdeas = $this->_db->select_idea_limit("3");
+            $tabIdeas = $this->_db->selectIdeasWithNumberLimit("3");
         }else if(!empty($_POST['form_10'])){
-            $tabIdeas = $this->_db->select_idea_limit("10");
+            $tabIdeas = $this->_db->selectIdeasWithNumberLimit("10");
         }else if(!empty($_POST['form_all'])){
-            $tabIdeas = $this->_db->select_table_idea_like(false);
+            $tabIdeas = $this->_db->selectIdeasSortedByLike(false);
         } else if (!empty($_POST['croissant'])){
-            $tabIdeas = $this->_db->select_table_idea_like(true);
+            $tabIdeas = $this->_db->selectIdeasSortedByLike(true);
         } else if (!empty($_POST['decroissant'])){
-            $tabIdeas = $this->_db->select_table_idea_like(false);
+            $tabIdeas = $this->_db->selectIdeasSortedByLike(false);
         } else {
-            $tabIdeas = $this->_db->select_table_idea_like(false);
+            $tabIdeas = $this->_db->selectIdeasSortedByLike(false);
         }
 
 

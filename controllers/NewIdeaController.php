@@ -30,7 +30,7 @@ class NewIdeaController{
 
                 } else {
                     $notification_post = "Idée ajouter";
-                    $this->_db->insert_idea($_SESSION['id_user'],$_POST['form_subject'], $_POST['form_subject_text']);
+                    $this->_db->insertIdea($_SESSION['id_user'],$_POST['form_subject'], $_POST['form_subject_text']);
                 }
             } else {
                 $notification_post = "Veuillez remplir les champs afin de publier une idée.";

@@ -27,8 +27,8 @@ class LoginController {
             } elseif (!$this->_db->valider_email($_POST['email_login'], $_POST['password_login'])) {
                 # Authentication is not correct
                 $notification = 'Vos données d\'authentification ne sont pas correctes.';
-            }elseif ($this->_db->is_disabled($this->_db->getIdUser($_POST['email_login']))==1){
-                $notification="votre compte est désactivé";
+            }elseif ($this->_db->isDisabled($this->_db->getIdUser($_POST['email_login']))==1){
+                $notification="Votre compte est désactivé";
             } else {
                 # The user is well authenticated
                 # A session variable $_SESSION['authentifie'] is created
@@ -36,8 +36,8 @@ class LoginController {
                 $_SESSION['email'] = $_POST['email_login'];
                 $_SESSION['id_user'] = $this->_db->getIdUser($_POST['email_login']);
                 $_SESSION['username']= $this->_db->getUsername($_SESSION['id_user']);
-                $_SESSION['admin']= $this->_db->is_admin($_SESSION['id_user']);
-                $_SESSION['disabled']= $this->_db->is_disabled($_SESSION['id_user']);
+                $_SESSION['admin']= $this->_db->isAdmin($_SESSION['id_user']);
+                $_SESSION['disabled']= $this->_db->isDisabled($_SESSION['id_user']);
                 $_SESSION['image'] = $this->_db->getImage($_SESSION['id_user']);
 
                 # HTTP redirection to request the 'admin' page
@@ -61,7 +61,7 @@ class LoginController {
                 $condition =true;
 
             }else {
-                $this->_db->insert_user($_POST['username_register'], $_POST['email_register'], password_hash($_POST['password_register'], PASSWORD_BCRYPT));
+                $this->_db->insertUser($_POST['username_register'], $_POST['email_register'], password_hash($_POST['password_register'], PASSWORD_BCRYPT));
                 $notification = 'Le membre ' . $_POST['username_register'] . ' a bien été créé';
                 $condition =true;
 
