@@ -36,9 +36,7 @@ class ProfileController {
             $imageTypeName = $_FILES['userfile']['type'];
             if (!empty($imageTypeName)) {
                 if ($imageTypeName == "image/jpeg" or $imageTypeName == "image/png" or $imageTypeName == "image/gif") {
-                    $imageTypeNameBySize = getimagesize($_FILES['userfile']['tmp_name'])['mime'];
-
-                    if ($imageTypeName == $imageTypeNameBySize) {
+                    if ($imageTypeName == getimagesize($_FILES['userfile']['tmp_name'])['mime']) {
                         $imageTypeName = "." . substr($imageTypeName, strpos($imageTypeName,"/") + 1);
 
                         # Delete old file
