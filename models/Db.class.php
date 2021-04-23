@@ -45,7 +45,7 @@ class Db {
         $ps->bindValue(':username', $username);
         $ps->bindValue(':email', $email);
         $ps->bindValue(':password', $password);
-        $ps->bindValue(':picture', VIEWS_PATH . 'img/profil.ico');
+        $ps->bindValue(':picture', DEFAULT_PROFILE_PIC);
         $ps->execute();
     }
 

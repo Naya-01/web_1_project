@@ -32,19 +32,29 @@ class ProfileController {
         }
 
         # Profile image upload
-        if (!empty($_FILES) and !empty($_FILES['userfile'])) {
-            if (($_FILES['userfile']['type'] == 'image/jpeg' or $_FILES['userfile']['type'] == 'image/png')) {
-                if (getimagesize($_FILES['userfile']['tmp_name'])['mime'] == 'image/jpeg'
-                    or getimagesize($_FILES['userfile']['tmp_name'])['mime'] == 'image/png') {
+        if (!empty($_FILES) and !empty($_FILES['userfile']) and !empty($_FILES['userfile']['name'])) {
+            $imageTypeName = $_FILES['userfile']['type'];
+            if (!empty($imageTypeName)) {
+                if ($imageTypeName == "image/jpeg" or $imageTypeName == "image/png" or $imageTypeName == "image/gif") {
+                    $imageTypeName = getimagesize($_FILES['userfile']['tmp_name'])['mime'];
 
-                    $origin = $_FILES['userfile']['tmp_name'];
-                    $destination = VIEWS_PATH . "user_image/" . uniqid();
-                    move_uploaded_file($origin, $destination);
-                    $this->_db->modifyImage($_SESSION['id_user'], $destination);
-                    $_SESSION['image'] = $destination;
-                    $notification = "Votre photo de profil a été changée";
+                    if ($imageTypeName == "image/jpeg" or $imageTypeName == "image/png" or $imageTypeName == "image/gif") {
+                        $imageTypeName = "." . substr($imageTypeName, strpos($imageTypeName,"/") + 1);
+
+                        # Delete old file
+                        $oldDestination = $this->_db->getImage($_SESSION['id_user']);
+                        if ($oldDestination != DEFAULT_PROFILE_PIC and file_exists($oldDestination)) unlink($oldDestination);
+
+                        $destination = VIEWS_PATH . "user_image/" . uniqid() . $imageTypeName;
+                        move_uploaded_file($_FILES['userfile']['tmp_name'], $destination);
+
+                        $this->_db->modifyImage($_SESSION['id_user'], $destination);
+                        $_SESSION['image'] = $destination;
+                        $notification = "Votre photo de profil a été changée";
+                    }
                 }
             }
+            if (empty($notification)) $notification = "L'image envoyée n'est pas conforme.";
         }
 
         # Access to likes, comments and ideas

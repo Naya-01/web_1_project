@@ -2,6 +2,7 @@
     # Definition of constants
     date_default_timezone_set('Europe/Brussels');
     define('VIEWS_PATH', 'views/');
+    define('DEFAULT_PROFILE_PIC', VIEWS_PATH . 'img/profil.ico');
     define('CONTROLLERS_PATH', 'controllers/');
     define('DATEDUJOUR', date('j/m/Y'));
     define('NOW', date('Y-m-d H:i:s'));
