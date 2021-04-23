@@ -332,67 +332,47 @@ class Db{
 
     # Select the idea by it's status
     public function select_status_idea($status){
-        $query = 'SELECT * from ideas WHERE status = :status';
+        $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea WHERE status=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
         $ps = $this->_db->prepare($query);
-        $ps->bindValue(':status', "$status");
+        $ps->bindValue(':status', $status);
         $ps->execute();
 
         $list_ideas = array();
-        $list_likes = array();
-        $i = 0;
         while($row = $ps->fetch()){
-            $list_ideas[$i] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
-            $list_likes[$i] = $this->countLikes($list_ideas[$i]->id_idea());
-            $i++;
+            $list_ideas[] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
         }
-        array_multisort($list_likes, $list_ideas);
-        $list_ideas= array_reverse($list_ideas);
         return $list_ideas;
     }
 
     # Select idea limit
     public function select_idea_limit($limit){
-        if($limit=="3"){
-            $query = 'SELECT * from ideas WHERE status != :status LIMIT 3';
-        }elseif ($limit=="10"){
-            $query = 'SELECT * from ideas WHERE status != :status LIMIT 10';
-        }
+        $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea WHERE status!=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC LIMIT :limit';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "T");
+        $ps->bindValue(':limit', $limit,PDO::PARAM_INT);
         $ps->execute();
 
         $list_ideas = array();
-        $list_likes = array();
-        $i = 0;
         while($row = $ps->fetch()){
-            $list_ideas[$i] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
-            $list_likes[$i] = $this->countLikes($list_ideas[$i]->id_idea());
-            $i++;
+            $list_ideas[] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
         }
-        array_multisort($list_likes, $list_ideas);
-        $list_ideas= array_reverse($list_ideas);
         return $list_ideas;
     }
 
     # List of ideas ascending / descending with a status other than 'T'. Used in the home display system (HomeController).
     public function select_table_idea_like($is_crescent){
-        $query= 'SELECT * from ideas WHERE status != :status';
+        if($is_crescent){
+            $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea WHERE status!=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) ASC';
+        }else{
+            $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea WHERE status!=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
+        }
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':status', "T");
         $ps->execute();
 
         $list_ideas = array();
-        $list_likes = array();
-        $i = 0;
         while($row = $ps->fetch()){
-            $list_ideas[$i] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
-            $list_likes[$i] = $this->countLikes($list_ideas[$i]->id_idea());
-            $i++;
-        }
-
-        array_multisort($list_likes, $list_ideas);
-        if(!$is_crescent){
-            $list_ideas= array_reverse($list_ideas);
+            $list_ideas[] = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,$row->refused_date,$row->closed_date);
         }
 
         return $list_ideas;
@@ -467,11 +447,11 @@ class Db{
 
     # Allows you to check the password-email correspondence. Used in the login system (LoginController)
     public function countLikes($id_idea){
-        $query = 'SELECT id_idea from votes WHERE id_idea=:id_idea';
+        $query = 'SELECT count(id_idea) as "like" FROM votes WHERE id_idea=:id_idea';
         $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_idea', $id_idea);
+        $ps->bindValue(':id_idea',$id_idea);
         $ps->execute();
-        return $ps->rowcount();
+        return $ps->fetch()->like;
     }
 
     # Allows the selection of an idea from its id. Used in the idea system (IdeaController).

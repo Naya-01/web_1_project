@@ -47,9 +47,9 @@ class HomeController{
         }else if(!empty($_POST['form_closed'])){
             $tabIdeas = $this->_db->select_status_idea("C");
         }else if(!empty($_POST['form_3'])){
-            $tabIdeas = $this->_db->select_idea_limit("3");
+            $tabIdeas = $this->_db->select_idea_limit(3);
         }else if(!empty($_POST['form_10'])){
-            $tabIdeas = $this->_db->select_idea_limit("10");
+            $tabIdeas = $this->_db->select_idea_limit(10);
         }else if(!empty($_POST['form_all'])){
             $tabIdeas = $this->_db->select_table_idea_like(false);
         } else if (!empty($_POST['croissant'])){
@@ -65,6 +65,7 @@ class HomeController{
         $tabLikes=array();
         foreach($tabIdeas as $i => $idea){
             $tabUsers[$i]=$this->_db->getUsername($tabIdeas[$i]->id_user());
+            $tabLikes[$i]=$this->_db->countLikes($tabIdeas[$i]->id_idea());
         }
 
 
