@@ -1,3 +1,4 @@
+<!-- Page title -->
 <div class="has-text-centered mt-5">
     <h1 class="title">Gestion des utilisateurs</h1>
 </div>
@@ -9,7 +10,7 @@
     </div>
 <?php } ?>
 
-<!-- All users -->
+<!-- User card -->
 <?php foreach ($tabUsers as $i => $user){
 
     # Definition of statutes for each member

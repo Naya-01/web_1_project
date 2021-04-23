@@ -37,7 +37,7 @@ class PostHandlingController {
         # List of all ideas
         $tabIdeas = $this->_db->select_T_ideas();
 
-
+        # Create a username table
         $usernameTab = array();
         foreach ($tabIdeas as $i => $idea) {
             $usernameTab[$i]['user'] = $this->_db->getUsername($idea->id_user());

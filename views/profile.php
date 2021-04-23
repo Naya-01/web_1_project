@@ -1,3 +1,4 @@
+<!-- Page title -->
 <div class="has-text-centered mt-5">
     <h1 class="title">Profil</h1>
 </div>

@@ -1,3 +1,4 @@
+<!-- Page title -->
 <div class="has-text-centered mt-5">
     <h1 class="title">Gestion des postes</h1>
 </div>
@@ -9,7 +10,7 @@
     </div>
 <?php } ?>
 
-<!-- All ideas -->
+<!-- Idea card -->
 <?php foreach ($tabIdeas as $i => $idea) { ?>
     <div class="card card-theme">
         <div class="card-content">
