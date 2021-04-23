@@ -36,6 +36,8 @@ class HomeController{
             }
         }
 
+
+
         # Filter
         # List of ideas to display
         if(!empty($_POST['form_accepted'])){
@@ -56,6 +58,13 @@ class HomeController{
             $tabIdeas = $this->_db->select_table_idea_like(false);
         } else {
             $tabIdeas = $this->_db->select_table_idea_like(false);
+        }
+
+
+        $tabUsers=array();
+        $tabLikes=array();
+        foreach($tabIdeas as $i => $idea){
+            $tabUsers[$i]=$this->_db->getUsername($tabIdeas[$i]->id_user());
         }
 
 

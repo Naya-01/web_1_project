@@ -21,6 +21,7 @@ class IdeaController{
         # Display of the selected idea / display of the idea put in the link
         if($this->_db->idea_exist($id_idea)){
             $idea = $this->_db->select_idea($id_idea);;
+            $user=$this->_db->getUsername($idea->id_user());
         }else{
             header("Location: index.php?action=home");
             die();
@@ -68,6 +69,11 @@ class IdeaController{
 
         # Displays the added comments
         $comments = $this->_db->select_comments_idea($id_idea);
+
+        $tabUsers=array();
+        foreach($comments as $i => $comment){
+            $tabUsers[$i]=$this->_db->getUsername($comments[$i]->id_user());
+        }
 
         require_once(VIEWS_PATH . 'idea.php');
     }
