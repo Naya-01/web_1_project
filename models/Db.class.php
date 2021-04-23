@@ -475,7 +475,6 @@ class Db {
             $row->accepted_date, $row->refused_date, $row->closed_date);
         return $idea;
     }
-
 }
 
 
