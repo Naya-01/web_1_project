@@ -19,11 +19,6 @@
     # Connection to the database
     $db = Db::getInstance();
 
-    //var_dump($db->usernameExists("ocouc"));
-    //var_dump($db->emailExists("rayan.abarkan@student.vinci.be"));
-    //var_dump($db->voteExists(11,13));
-    //var_dump($db->ideaExists(10));
-
     # If there is no GET variable 'action' in the URL, it is created here at the value 'home'
     if (empty($_GET['action'])) {
         $_GET['action'] = 'login';
