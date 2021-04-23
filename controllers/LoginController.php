@@ -24,7 +24,7 @@ class LoginController {
             $condition = true;
             if (empty($_POST['email_login']) || empty($_POST['password_login'])) {
                 $notification = "Veuillez remplir les champs de connexion !";
-            } elseif (!$this->_db->valider_email($_POST['email_login'], $_POST['password_login'])) {
+            } elseif (!$this->_db->validerEmail($_POST['email_login'], $_POST['password_login'])) {
                 # Authentication is not correct
                 $notification = 'Vos données d\'authentification ne sont pas correctes.';
             }elseif ($this->_db->isDisabled($this->_db->getIdUser($_POST['email_login']))==1){

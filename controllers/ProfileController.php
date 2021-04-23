@@ -73,7 +73,7 @@ class ProfileController {
         foreach ($tab as $i => $element) {
             if ($isComment) {
                 $profileTab[$i]['comment'] = $element->html_text();
-                $element = $this->_db->select_idea($element->id_idea());
+                $element = $this->_db->selectIdea($element->id_idea());
             }
             $profileTab[$i]['status'] = $element->html_status();
             $profileTab[$i]['subject'] = $element->html_subject();

@@ -384,7 +384,6 @@ class Db{
             $listIdeas[] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
                 $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
         }
-
         return $listIdeas;
     }
 
@@ -404,15 +403,6 @@ class Db{
         $ps->bindValue(':username', $username);
         $ps->execute();
         return ($ps->rowcount() != 0);
-    }
-
-    public function username_exists_bis($username) {
-        $query = 'SELECT COUNT(id_user) as "exist" from users WHERE username = :username';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':username', $username);
-        $ps->execute();
-        var_dump($ps->fetch()->exist == '1');
-        return $ps->fetch()->exist == '1';
     }
 
     # Returns if the email exists. Is used in member registration and login (LoginController).
@@ -443,6 +433,43 @@ class Db{
         return ($ps->rowcount() != 0);
     }
 
+    public function usernameExists($username) {
+        $query = 'SELECT COUNT(id_user) as "exist" from users WHERE username = :username';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':username', $username);
+        $ps->execute();
+        $response = $ps->fetch()->exist == '1';
+        return $response;
+    }
+
+    public function emailExists($email) {
+        $query = 'SELECT COUNT(id_user) as "exist" from users WHERE email = :email';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':email', $email);
+        $ps->execute();
+        $response = $ps->fetch()->exist == '1';
+        return $response;
+    }
+
+    public function voteExists($id_user, $id_idea) {
+        $query = 'SELECT COUNT(*) as "exist" from votes WHERE id_user = :id_user AND id_idea = :id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        $response = $ps->fetch()->exist == '1';
+        return $response;
+    }
+
+    public function ideaExists($id_idea){
+        $query = 'SELECT COUNT(id_idea) as "exist" from ideas WHERE id_idea = :id_idea';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_idea', $id_idea);
+        $ps->execute();
+        $response = $ps->fetch()->exist == '1';
+        return $response;
+    }
+
     /*
             ░█████╗░████████╗██╗░░██╗███████╗██████╗░       ███╗░░░███╗███████╗████████╗██╗░░██╗░█████╗░██████╗░░██████╗
             ██╔══██╗╚══██╔══╝██║░░██║██╔════╝██╔══██╗       ████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔══██╗██╔══██╗██╔════╝
@@ -453,20 +480,19 @@ class Db{
     */
 
     # Allows you to check the password-email correspondence. Used in the login system (LoginController)
-    public function valider_email($email, $password) {
+    public function validerEmail($email, $password) {
         $query = 'SELECT password from users WHERE email=:email';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':email', $email);
         $ps->execute();
-        if ($ps->rowcount() == 0)
-            return false;
+        if ($ps->rowcount() == 0) return false;
         $hash = $ps->fetch()->password;
         return password_verify($password, $hash);
     }
 
     # Allows you to check the password-email correspondence. Used in the login system (LoginController)
-    public function countLikes($id_idea){
-        $query = 'SELECT count(id_idea) as "like" FROM votes WHERE id_idea=:id_idea';
+    public function countLikes($id_idea) {
+        $query = 'SELECT count(id_idea) as "like" FROM votes WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_idea',$id_idea);
         $ps->execute();
@@ -474,14 +500,14 @@ class Db{
     }
 
     # Allows the selection of an idea from its id. Used in the idea system (IdeaController).
-    public function select_idea($id_idea){
-        $query = 'SELECT * from ideas WHERE id_idea=:id_idea';
+    public function selectIdea($id_idea) {
+        $query = 'SELECT * from ideas WHERE id_idea = :id_idea';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
         $row = $ps->fetch();
-        $idea = new Idea($row->id_idea,$row->subject,$row->text,$row->id_user,$row->status,$row->submitted_date,$row->accepted_date,
-            $row->refused_date,$row->closed_date);
+        $idea = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user, $row->status, $row->submitted_date,
+            $row->accepted_date, $row->refused_date, $row->closed_date);
         return $idea;
     }
 

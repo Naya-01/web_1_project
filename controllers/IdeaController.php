@@ -20,7 +20,7 @@ class IdeaController{
 
         # Display of the selected idea / display of the idea put in the link
         if($this->_db->idea_exist($id_idea)){
-            $idea = $this->_db->select_idea($id_idea);;
+            $idea = $this->_db->selectIdea($id_idea);;
             $user=$this->_db->getUsername($idea->id_user());
             $like=$this->_db->countLikes($idea->id_idea());
         }else{
@@ -30,7 +30,7 @@ class IdeaController{
 
         # Likes system
         if (!empty($_POST['form_like'])) {
-            $selectIdea=$this->_db->select_idea($_POST['like_id_idea']);
+            $selectIdea=$this->_db->selectIdea($_POST['like_id_idea']);
             if($selectIdea->status()!='C'){
                 if ($this->_db->vote_exist($_SESSION['id_user'],$_POST['like_id_idea'])) {
                     #cant vote again
