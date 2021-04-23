@@ -18,7 +18,7 @@
     # Connection to the database
     $db = Db::getInstance();
 
-    var_dump($db->username_exists_bis("oucouc"));
+    //var_dump($db->username_exists_bis("oucouc"));
 
     # If there is no GET variable 'action' in the URL, it is created here at the value 'home'
     if (empty($_GET['action'])) {
