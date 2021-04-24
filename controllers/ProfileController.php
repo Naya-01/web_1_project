@@ -81,17 +81,17 @@ class ProfileController {
         foreach ($tab as $i => $element) {
             if ($isComment) {
                 $profileTab[$i]['comment'] = $element->html_text();
+                $profileTab[$i]['date'] = $element->creation_date();
                 $element = $this->_db->selectIdea($element->id_idea());
+            } else {
+                $profileTab[$i]['date'] = $element->html_submitted_date();
             }
             $profileTab[$i]['status'] = $element->html_status();
             $profileTab[$i]['subject'] = $element->html_subject();
             $profileTab[$i]['text'] = $element->html_text();
-            $profileTab[$i]['date'] = $element->html_submitted_date();
             $profileTab[$i]['user'] = $this->_db->getUsername($element->id_user());
         }
 
-
         require_once(VIEWS_PATH . 'profile.php');
     }
-
 }

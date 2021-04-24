@@ -294,7 +294,7 @@ class Db {
 
     # Function used to display the ideas of the local user. Used in profile (ProfileController).
     public function selectIdeasWhereUserIs($id_user) {
-        $query = 'SELECT * from ideas WHERE id_user = :id_user';
+        $query = 'SELECT * from ideas WHERE id_user = :id_user ORDER BY submitted_date DESC';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
         $ps->execute();
@@ -308,7 +308,7 @@ class Db {
 
     # Function used to display the comments of the local user (without disabled one). Used in profile (ProfileController).
     public function selectCommentsWhereUserIs($id_user) {
-        $query = 'SELECT * from comments WHERE id_user = :id_user AND disable = 0';
+        $query = 'SELECT * from comments WHERE id_user = :id_user AND disable = 0 ORDER BY creation_date DESC';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
         $ps->execute();
