@@ -43,12 +43,12 @@ class ProfileController {
                         $oldDestination = $this->_db->getImage($_SESSION['id_user']);
                         if ($oldDestination != DEFAULT_PROFILE_PIC and file_exists($oldDestination)) unlink($oldDestination);
 
-                        $destination = VIEWS_PATH . "user_image/" . uniqid() . $imageTypeName;
+                        $destination = VIEWS_PATH . "img/user_image/" . uniqid() . $imageTypeName;
                         move_uploaded_file($_FILES['userfile']['tmp_name'], $destination);
 
                         $this->_db->modifyImage($_SESSION['id_user'], $destination);
                         $_SESSION['image'] = $destination;
-                        $notification = "Votre photo de profil a été changée";
+                        $notification = "Votre photo de profil a été changée.";
                     }
                 }
             }
