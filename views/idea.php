@@ -45,11 +45,13 @@
                             </div>
                         </div>
                         <div class="column is-9">
-                            <p><?php if($comment->html_disable()==1){ ?>
-                                <?php echo "Ce commentaire a été supprimer" ?>
-                                <?php }else{?>
+                            <p>
+<!--                                --><?php //if($comment->html_disable()==1){ ?>
+<!--                                --><?php //echo "Ce commentaire a été supprimer" ?>
+<!--                                --><?php //}else{?>
+<!--                                --><?php //echo $comment->html_text() ?>
+<!--                                --><?php //}?>
                                 <?php echo $comment->html_text() ?>
-                                <?php }?>
                             </p>
 
                         </div>

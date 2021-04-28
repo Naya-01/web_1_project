@@ -65,6 +65,8 @@ class Comment {
         return htmlspecialchars($this->_creation_date);
     }
 
-
+    public function set_text($text){
+        $this->_text=$text;
+    }
 
 }
