@@ -71,16 +71,16 @@ p{
     background-repeat: no-repeat;
 }
 #submitted{
-    background-image: url("../img/etat/T.ico") ;
+    background-image: url("../img/state/T.ico") ;
 }
 #accepted{
-    background-image: url("../img/etat/A.ico") ;
+    background-image: url("../img/state/A.ico") ;
 }
 #refused{
-    background-image: url("../img/etat/R.ico") ;
+    background-image: url("../img/state/R.ico") ;
 }
 #closed{
-    background-image: url("../img/etat/C.ico") ;
+    background-image: url("../img/state/C.ico") ;
 }
 
 #form_filter{

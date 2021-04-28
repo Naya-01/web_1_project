@@ -18,14 +18,14 @@
         <nav class="navbar is-info" id="navbar">
             <div class="navbar-brand">
                 <a class="navbar-item" href="index.php?action=home">
-                    <img src="<?php echo VIEWS_PATH ?>img/logo-blanc.png" alt="Youreview-logo">
+                    <img src="<?php echo VIEWS_PATH ?>img/large_icon.png" alt="Youreview logo">
                 </a>
             </div>
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
                         <a class="button is-dark" href="index.php?action=home">Accueil</a>
-                        <a class="button is-dark" href="index.php?action=profil">Profil</a>
+                        <a class="button is-dark" href="index.php?action=profile">Profil</a>
                         <?php if ($_SESSION['admin']) {?>
                             <a class="button is-dark" href="index.php?action=user_handling">Utilisateurs</a>
                             <a class="button is-dark" href="index.php?action=post_handling">Postes</a>

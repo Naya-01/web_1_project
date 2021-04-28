@@ -6,11 +6,11 @@
                 <div class="pseudo has-text-black">
                     <p class="block"><img class="icon" src="<?php echo DEFAULT_PROFILE_PIC ?>"
                                           alt="picture-user"><?php echo $user ?></p>
-                    <img class="icon is-medium" src="views/img/etat/<?php echo $idea->status() ?>.ico"
+                    <img class="icon is-medium" src="views/img/state/<?php echo $idea->status() ?>.ico"
                          alt="status-users">
                     <form action="?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>" method="post">
                         <input type="hidden" name="like_id_idea" value="<?php echo $idea->html_id_idea() ?>">
-                        <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
+                        <p><input class="icon is-medium" type="image" src="views/img/state/like.ico"
                                   alt="like-icon" name="form_like[]"></p>
                     </form>
                     <p class="is-size-4"> <?php echo $like ?> like(s)</p>
