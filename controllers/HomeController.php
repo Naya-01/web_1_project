@@ -64,7 +64,8 @@ class HomeController{
         $tabUsers=array();
         $tabLikes=array();
         foreach($tabIdeas as $i => $idea){
-            $tabUsers[$i]=$this->_db->getUsername($tabIdeas[$i]->id_user());
+            $tabUser[$i]=$this->_db->getUser($tabIdeas[$i]->id_user());
+//            $tabUsers[$i]=$this->_db->getUsername($tabIdeas[$i]->id_user());
             $tabLikes[$i] = $this->_db->countLikes($tabIdeas[$i]->id_idea());
         }
 
