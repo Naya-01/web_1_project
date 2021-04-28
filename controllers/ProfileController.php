@@ -40,8 +40,8 @@ class ProfileController {
                         $imageTypeName = "." . substr($imageTypeName, strpos($imageTypeName,"/") + 1);
 
                         # Delete old file
-                        $oldDestination = $this->_db->getImage($_SESSION['id_user']);
-                        if ($oldDestination != DEFAULT_PROFILE_PIC and file_exists($oldDestination)) unlink($oldDestination);
+                        if ($_SESSION['image'] != DEFAULT_PROFILE_PIC and file_exists($_SESSION['image']))
+                            unlink($_SESSION['image']);
 
                         $destination = VIEWS_PATH . "img/user_image/" . uniqid() . $imageTypeName;
                         move_uploaded_file($_FILES['userfile']['tmp_name'], $destination);
@@ -55,7 +55,7 @@ class ProfileController {
             if (empty($notification)) $notification = "L'image envoyée n'est pas conforme.";
         }
 
-        # Access to likes, comments and ideas
+        # Access to likes, comments or ideas
         $tab = array();
         $isComment = false;
         $isPost = false;

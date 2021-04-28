@@ -189,7 +189,7 @@ class Db {
         ╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░
     */
 
-    # Used in profile (ProfileController) to configure $_SESSION.
+    # Used in profile (ProfileController) to configure $_SESSION. PEUT ETRE SUPPRIMÉ
     public function getImage($id) {
         $query = 'SELECT picture from users WHERE id_user = :id';
         $ps = $this->_db->prepare($query);
@@ -227,7 +227,7 @@ class Db {
 
     # Used in modifyDisableState function and to configure $_SESSION (LoginController and index.php).
     public function isDisabled($id_user) {
-        $query = 'SELECT disable from users WHERE id_user=:id_user';
+        $query = 'SELECT disable from users WHERE id_user = :id_user';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_user', $id_user);
         $ps->execute();
@@ -241,6 +241,17 @@ class Db {
         $ps->bindValue(':id_comment', $id_comment);
         $ps->execute();
         return $ps->fetch()->disable == 1;
+    }
+
+    # Used in login (LoginController) to configure $_SESSION.
+    public function getUser($id_user) {
+        $query = 'SELECT id_user, username, admin, disable, picture from users WHERE id_user = :id_user';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':id_user', $id_user);
+        $ps->execute();
+        $row = $ps->fetch();
+        return new User($row->id_user, null, $row->username,
+            null, $row->picture, $row->admin, $row->disable);
     }
 
     /*

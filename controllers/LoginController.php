@@ -46,6 +46,7 @@ class LoginController {
             }
         }
 
+
         # Handling registration errors
         if (!empty($_POST['form_register'])) {
             $condition =true;
@@ -70,3 +71,31 @@ class LoginController {
         require_once(VIEWS_PATH . 'login.php');
     }
 }
+
+/*
+if (!empty($_POST['form_login'])) {
+    $condition = true;
+    if (empty($_POST['email_login']) or empty($_POST['password_login'])) {
+        $notification = "Veuillez remplir les champs de connexion !";
+
+    } else if (!$this->_db->validerEmail($_POST['email_login'], $_POST['password_login'])) {
+        $notification = 'Vos données d\'authentification ne sont pas correctes.';
+
+    } else if ($this->_db->isDisabled($this->_db->getIdUser($_POST['email_login'])) == 1) {
+        $notification="Votre compte est désactivé.";
+
+    } else {
+        $user = $this->_db->getUser($this->_db->getIdUser($_POST['email_login']));
+        $_SESSION['authentifie'] = 'ok';
+        $_SESSION['email'] = $_POST['email_login'];
+        $_SESSION['id_user'] = $user->id();
+        $_SESSION['username'] = $user->html_username();
+        $_SESSION['admin'] = $user->admin();
+        $_SESSION['disabled'] = $user->disabled();
+        $_SESSION['image'] = $user->picture();
+
+        header("Location: index.php?action=home");
+        die();
+    }
+}
+*/
