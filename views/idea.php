@@ -55,8 +55,10 @@
                                 <form action="?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>" method="post">
                                     <input type="hidden" name="comment_idea"
                                            value="<?php echo $comment->html_id_comment() ?>">
+                                    <?php if(!$comment->disable()){ ?>
                                     <p><input class="button is-danger" type="submit" value="Supprimer"
                                               name="form_delete_comment"></p>
+                                    <?php } ?>
                                 </form>
                             </div>
                         <?php } ?>
