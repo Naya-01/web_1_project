@@ -4,7 +4,7 @@
         <div class="columns background-color "><!--l'idée-->
             <div class="column is-1 ">
                 <div class="pseudo has-text-black">
-                    <p class="block"><img class="icon" src="views/img/profil.ico"
+                    <p class="block"><img class="icon" src="<?php echo DEFAULT_PROFILE_PIC ?>"
                                           alt="picture-user"><?php echo $user ?></p>
                     <img class="icon is-medium" src="views/img/etat/<?php echo $idea->status() ?>.ico"
                          alt="status-users">
@@ -37,7 +37,7 @@
                     <div class="columns">
                         <div class="column is-2">
                             <div class="nickname has-text-black">
-                                <p class="block"><img class="icon" src="views/img/profil.ico"
+                                <p class="block"><img class="icon" src="<?php echo DEFAULT_PROFILE_PIC ?>"
                                                       alt="picture-user"><?php echo $tabUsers[$i] ?>
                                 </p>
                                 <input type="hidden" name="answer_id_user"

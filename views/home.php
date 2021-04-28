@@ -51,7 +51,7 @@
                             <div class="columns">
                                 <div class="column is-2">
                                     <div class="nickname has-text-black">
-                                        <p class="block"><img class="icon" src="views/img/profil.ico"
+                                        <p class="block"><img class="icon" src="<?php echo DEFAULT_PROFILE_PIC ?>"
                                                               alt="picture-user"> <?php echo $tabUsers[$i] ?> </p>
                                         <img class="icon is-medium" src="views/img/etat/<?php echo $idea->html_status()?>.ico"
                                              alt="status-users">
