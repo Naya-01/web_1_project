@@ -15,14 +15,17 @@ class ProfileController {
             die();
         }
 
-        # Setting up the account status (views)
+        # Setting up the account status and informations (views)
         if ($_SESSION['admin']) {
-            $statutColor = "red";
-            $statutName = "Administrateur";
+            $localUser['status_color'] = "status-red";
+            $localUser['status_name'] = "Administrateur";
         } else {
-            $statutColor = "green";
-            $statutName = "Utilisateur";
+            $localUser['status_color'] = "status-green";
+            $localUser['status_name'] = "Utilisateur";
         }
+        $localUser['image'] = $_SESSION['image'];
+        $localUser['username'] = $_SESSION['username'];
+        $localUser['email'] = $_SESSION['email'];
 
         # Deletes comments system
         if(!empty($_POST['form_delete_comment'])){

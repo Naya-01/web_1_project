@@ -16,13 +16,15 @@
         <div class="media">
             <div class="media-left">
                 <figure class="image is-48x48">
-                        <img class="is-rounded" src="<?php echo $_SESSION['image'] ?>" alt="Profile image">
+                        <img class="is-rounded" src="<?php echo $localUser['image'] ?>" alt="Profile image">
                 </figure>
             </div>
             <div class="media-content">
-                <p class="title is-4"><?php echo $_SESSION['username'] ?></p>
-                <p class="subtitle is-6"><?php echo $_SESSION['email'] ?></p>
-                <p class="block is-size-6" style="color: <?php echo $statutColor ?>;"><?php echo $statutName ?></p>
+                <p class="title is-4"><?php echo $localUser['username'] ?></p>
+                <p class="subtitle is-6"><?php echo $localUser['email'] ?></p>
+                <p class="block is-size-6 <?php echo $localUser['status_color'] ?>">
+                    <?php echo $localUser['status_name'] ?>
+                </p>
             </div>
         </div>
         <form enctype="multipart/form-data" action="index.php?action=profil" method="post">

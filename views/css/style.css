@@ -114,7 +114,7 @@ p{
 }
 
 
-/*******************MANAGEMENT************************/
+/*******************MANAGEMENT AND PROFILE************************/
 
 .notification-handling {
     margin: 1% 20% 0 20%;
@@ -129,6 +129,13 @@ p{
     background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 }
 
+.status-green {
+    color: green;
+}
+.status-red {
+    color: red;
+}
+
 /*******************FOOTER************************/
 
 .footer {
@@ -137,6 +144,7 @@ p{
     bottom: auto;
 }
 
+/*******************MEDIA QUERIES************************/
 @media (max-width: 800px) {
     .card-theme {
         margin: 2% 3% 2% 3%;
