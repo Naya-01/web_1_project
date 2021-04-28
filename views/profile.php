@@ -87,6 +87,14 @@
                 <br>
                 <time datetime="2011-11-18T14:54:39.929"><strong><?php echo $profileTab[$i]['date'] ?></strong></time>
             </div>
+            <?php if ($isComment) { ?>
+                <div class="buttons has-addons navbar-end">
+                    <form class="buttons are-medium" action="index.php?action=profil&category=comment" method="post">
+                        <input type="hidden" name="comment-id" value="<?php echo $profileTab[$i]['id_comment']?>">
+                        <input class="button is-danger is-light is-small" name="form-delete-comment" type="submit" value="Supprimer">
+                    </form>
+                </div>
+            <?php } ?>
         </div>
     </div>
 <?php } ?>
