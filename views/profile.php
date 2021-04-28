@@ -27,7 +27,7 @@
                 </p>
             </div>
         </div>
-        <form enctype="multipart/form-data" action="index.php?action=profil" method="post">
+        <form enctype="multipart/form-data" action="index.php?action=profile" method="post">
             <div class="file navbar-end is-small">
                 <label class="file-label">
                     <input class="file-input" type="file" name="userfile">
@@ -36,7 +36,7 @@
                         <span class="file-label">Changer de photo...</span>
                     </span>
                 </label>
-                <input class="button is-small ml-1" type="submit" name="userfile" value="Soumettre">
+                <input class="button is-small ml-1" type="submit" name="userfile">
             </div>
         </form>
     </div>
@@ -46,17 +46,17 @@
 <div class="tabs is-centered mb-4">
     <ul>
         <li class="<?php if (!empty($isPost)) echo "is-active"?>">
-            <a href="index.php?action=profil&category=post">
+            <a href="index.php?action=profile&category=post">
                 Mes postes
             </a>
         </li>
         <li class="<?php if (!empty($isLike)) echo "is-active"?>">
-            <a href="index.php?action=profil&category=like">
+            <a href="index.php?action=profile&category=like">
                 Mes likes
             </a>
         </li>
         <li class="<?php if (!empty($isComment)) echo "is-active"?>">
-            <a href="index.php?action=profil&category=comment">
+            <a href="index.php?action=profile&category=comment">
                 Mes commentaires
             </a>
         </li>
@@ -70,7 +70,7 @@
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-48x48">
-                        <img src="<?php echo VIEWS_PATH ?>img/etat/<?php echo $profileTab[$i]['status'] ?>.ico" alt="Status image">
+                        <img src="<?php echo VIEWS_PATH ?>img/state/<?php echo $profileTab[$i]['status'] ?>.ico" alt="Status icon">
                     </figure>
                 </div>
                 <div class="media-content">
@@ -89,7 +89,7 @@
             </div>
             <?php if ($isComment) { ?>
                 <div class="buttons has-addons navbar-end">
-                    <form class="buttons are-medium" action="index.php?action=profil&category=comment" method="post">
+                    <form class="buttons are-medium" action="index.php?action=profile&category=comment" method="post">
                         <input type="hidden" name="comment-id" value="<?php echo $profileTab[$i]['id_comment']?>">
                         <input class="button is-danger is-light is-small" name="form-delete-comment" type="submit" value="Supprimer">
                     </form>

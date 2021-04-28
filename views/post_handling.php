@@ -17,7 +17,7 @@
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-48x48">
-                        <img src="<?php echo VIEWS_PATH ?>img/etat/<?php echo $idea->html_status()?>.ico" alt="Statut">
+                        <img src="<?php echo VIEWS_PATH ?>img/state/<?php echo $idea->html_status()?>.ico" alt="Statut">
                     </figure>
                 </div>
                 <div class="media-content">

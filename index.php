@@ -65,7 +65,7 @@
             require_once(CONTROLLERS_PATH . 'PostHandlingController.php');
             $controller = new PostHandlingController($db);
             break;
-        case 'profil':
+        case 'profile':
             require_once(CONTROLLERS_PATH . 'ProfileController.php');
             $controller = new ProfileController($db);
             break;
