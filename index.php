@@ -11,10 +11,10 @@
     session_start();
 
     # Automating the inclusion of model layer classes
-    function chargerClasse($classe) {
+    function loadClass($classe) {
         require_once('models/' . $classe . '.class.php');
     }
-    spl_autoload_register('chargerClasse');
+    spl_autoload_register('loadClass');
 
     # Connection to the database
     $db = Db::getInstance();
@@ -25,12 +25,12 @@
     }
 
     # Allows the display (or not) of the header and the update of the admin & disabled attributes
-    $header_footer=true;
+    $header_footer = true;
     if (empty($_SESSION['authentifie'])) {
-        $header_footer=false;
+        $header_footer = false;
     } else {
         $_SESSION['admin'] = $db->isAdmin($_SESSION['id_user']);
-        $_SESSION['disabled']= $db->isDisabled($_SESSION['id_user']);
+        $_SESSION['disabled'] = $db->isDisabled($_SESSION['id_user']);
         if ($_SESSION['disabled'] == 1) {
             $_SESSION = array();
             header("Location: index.php?action=login");
