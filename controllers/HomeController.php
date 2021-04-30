@@ -42,17 +42,15 @@ class HomeController{
         if(!empty($_POST['form_status'])){
             $tabIdeas = $this->_db->selectIdeasWhereStatusIs($_POST['form_status']);
         }else if(!empty($_POST['form_limit'])){
-            if(empty($_SESSION['popularity']))$_SESSION['popularity'] = 'uncrescent'; # If just connected, the session is empty so popularity is set on "Uncrescent"
             $_SESSION['limit'] = $_POST['form_limit'];
             $tabIdeas = $this->_db->selectIdeasWithNumberLimit($_SESSION['popularity'],$_SESSION['limit']);
         }else if (!empty($_POST['popularity'])){
             $_SESSION['popularity'] = $_POST['popularity'];
-            if(empty($_SESSION['limit']))$_SESSION['limit'] = 'all'; # If just connected, the session is empty so limit is set to all ideas
             $tabIdeas = $this->_db->selectIdeasWithNumberLimit($_SESSION['popularity'],$_SESSION['limit']);
         }else{ # Default
-            $_SESSION['popularity'] = 'uncrescent';
-            $_SESSION['limit'] = 'all'; # When arrived on the page, the limit is set to all ideas
-            $tabIdeas = $this->_db->selectIdeasSortedByLike(false);
+            $_SESSION['popularity'] = 'uncrescent'; # When arrived on the, the popularity is set to uncrescent by default
+            $_SESSION['limit'] = 'all'; # When arrived on the page, the limit is set to all ideas by default
+            $tabIdeas = $this->_db->selectIdeasWithNumberLimit($_SESSION['popularity'],$_SESSION['limit']);
         }
 
 
