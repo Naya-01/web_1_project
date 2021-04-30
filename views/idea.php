@@ -4,13 +4,13 @@
         <div class="columns background-color "><!--l'idée-->
             <div class="column is-1 ">
                 <div class="pseudo has-text-black">
-                    <p class="block"><img class="icon" src="views/img/profil.ico"
+                    <p class="block"><img class="icon" src="<?php echo DEFAULT_PROFILE_PIC ?>"
                                           alt="picture-user"><?php echo $user ?></p>
-                    <img class="icon is-medium" src="views/img/etat/<?php echo $idea->status() ?>.ico"
+                    <img class="icon is-medium" src="views/img/state/<?php echo $idea->status() ?>.ico"
                          alt="status-users">
                     <form action="?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>" method="post">
                         <input type="hidden" name="like_id_idea" value="<?php echo $idea->html_id_idea() ?>">
-                        <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
+                        <p><input class="icon is-medium" type="image" src="views/img/state/like.ico"
                                   alt="like-icon" name="form_like[]"></p>
                     </form>
                     <p class="is-size-4"> <?php echo $like ?> like(s)</p>
@@ -37,7 +37,7 @@
                     <div class="columns">
                         <div class="column is-2">
                             <div class="nickname has-text-black">
-                                <p class="block"><img class="icon" src="views/img/profil.ico"
+                                <p class="block"><img class="icon" src="<?php echo DEFAULT_PROFILE_PIC ?>"
                                                       alt="picture-user"><?php echo $tabUsers[$i] ?>
                                 </p>
                                 <input type="hidden" name="answer_id_user"
@@ -45,11 +45,8 @@
                             </div>
                         </div>
                         <div class="column is-9">
-                            <p><?php if($comment->html_disable()==1){ ?>
-                                <?php echo "Ce commentaire a été supprimer" ?>
-                                <?php }else{?>
+                            <p>
                                 <?php echo $comment->html_text() ?>
-                                <?php }?>
                             </p>
 
                         </div>
@@ -58,8 +55,10 @@
                                 <form action="?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>" method="post">
                                     <input type="hidden" name="comment_idea"
                                            value="<?php echo $comment->html_id_comment() ?>">
+                                    <?php if(!$comment->disable()){ ?>
                                     <p><input class="button is-danger" type="submit" value="Supprimer"
                                               name="form_delete_comment"></p>
+                                    <?php } ?>
                                 </form>
                             </div>
                         <?php } ?>

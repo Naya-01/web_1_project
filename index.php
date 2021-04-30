@@ -2,7 +2,7 @@
     # Definition of constants
     date_default_timezone_set('Europe/Brussels');
     define('VIEWS_PATH', 'views/');
-    define('DEFAULT_PROFILE_PIC', VIEWS_PATH . 'img/profil.ico');
+    define('DEFAULT_PROFILE_PIC', VIEWS_PATH . 'img/user_image/default_profile_pic.ico');
     define('CONTROLLERS_PATH', 'controllers/');
     define('DATEDUJOUR', date('j/m/Y'));
     define('NOW', date('Y-m-d H:i:s'));
@@ -11,10 +11,10 @@
     session_start();
 
     # Automating the inclusion of model layer classes
-    function chargerClasse($classe) {
+    function loadClass($classe) {
         require_once('models/' . $classe . '.class.php');
     }
-    spl_autoload_register('chargerClasse');
+    spl_autoload_register('loadClass');
 
     # Connection to the database
     $db = Db::getInstance();
@@ -25,12 +25,12 @@
     }
 
     # Allows the display (or not) of the header and the update of the admin & disabled attributes
-    $header_footer=true;
+    $header_footer = true;
     if (empty($_SESSION['authentifie'])) {
-        $header_footer=false;
+        $header_footer = false;
     } else {
         $_SESSION['admin'] = $db->isAdmin($_SESSION['id_user']);
-        $_SESSION['disabled']= $db->isDisabled($_SESSION['id_user']);
+        $_SESSION['disabled'] = $db->isDisabled($_SESSION['id_user']);
         if ($_SESSION['disabled'] == 1) {
             $_SESSION = array();
             header("Location: index.php?action=login");
@@ -65,7 +65,7 @@
             require_once(CONTROLLERS_PATH . 'PostHandlingController.php');
             $controller = new PostHandlingController($db);
             break;
-        case 'profil':
+        case 'profile':
             require_once(CONTROLLERS_PATH . 'ProfileController.php');
             $controller = new ProfileController($db);
             break;

@@ -51,13 +51,13 @@
                             <div class="columns">
                                 <div class="column is-2">
                                     <div class="nickname has-text-black">
-                                        <p class="block"><img class="icon" src="views/img/profil.ico"
-                                                              alt="picture-user"> <?php echo $tabUsers[$i] ?> </p>
+                                        <p class="block"><img class="icon" src="<?php echo $tabUser[$i]->html_picture() ?>"
+                                                              alt="picture-user"> <?php echo $tabUser[$i]->html_username() ?> </p>
                                         <img class="icon is-medium" src="views/img/etat/<?php echo $idea->html_status()?>.ico"
                                              alt="status-users">
                                         <form action="?action=home" method="post">
                                             <input type="hidden" name="like_id_idea" value="<?php echo $idea->html_id_idea()?>">
-                                            <p><input class="icon is-medium" type="image" src="views/img/etat/likee.ico"
+                                            <p><input class="icon is-medium" type="image" src="views/img/state/like.ico"
                                                       alt="like-icon" name="form_like[]"></p>
                                         </form>
                                         <p class="is-size-4 block"> <?php echo $tabLikes[$i]?> like(s)</p>

@@ -15,19 +15,10 @@ class ProfileController {
             die();
         }
 
-        # Setting up the account status (views)
-        if ($_SESSION['admin']) {
-            $statutColor = "red";
-            $statutName = "Administrateur";
-        } else {
-            $statutColor = "green";
-            $statutName = "Utilisateur";
-        }
-
         # Deletes comments system
-        if(!empty($_POST['form_delete_comment'])){
-            if(!$this->_db->isCommentDisabled($_POST['comment_idea'])){
-                $this->_db->disableComment($_POST['comment_idea']);
+        if(!empty($_POST['form-delete-comment'])){
+            if(!$this->_db->isCommentDisabled($_POST['comment-id'])){
+                $this->_db->disableComment($_POST['comment-id']);
             }
         }
 
@@ -40,8 +31,8 @@ class ProfileController {
                         $imageTypeName = "." . substr($imageTypeName, strpos($imageTypeName,"/") + 1);
 
                         # Delete old file
-                        $oldDestination = $this->_db->getImage($_SESSION['id_user']);
-                        if ($oldDestination != DEFAULT_PROFILE_PIC and file_exists($oldDestination)) unlink($oldDestination);
+                        if ($_SESSION['image'] != DEFAULT_PROFILE_PIC and file_exists($_SESSION['image']))
+                            unlink($_SESSION['image']);
 
                         $destination = VIEWS_PATH . "img/user_image/" . uniqid() . $imageTypeName;
                         move_uploaded_file($_FILES['userfile']['tmp_name'], $destination);
@@ -55,7 +46,19 @@ class ProfileController {
             if (empty($notification)) $notification = "L'image envoyée n'est pas conforme.";
         }
 
-        # Access to likes, comments and ideas
+        # Setting up the account status and informations (views)
+        if ($_SESSION['admin']) {
+            $localUser['status_color'] = "status-red";
+            $localUser['status_name'] = "Administrateur";
+        } else {
+            $localUser['status_color'] = "status-green";
+            $localUser['status_name'] = "Utilisateur";
+        }
+        $localUser['image'] = $_SESSION['image'];
+        $localUser['username'] = $_SESSION['username'];
+        $localUser['email'] = $_SESSION['email'];
+
+        # Access to likes, comments or ideas
         $tab = array();
         $isComment = false;
         $isPost = false;
@@ -82,6 +85,7 @@ class ProfileController {
             if ($isComment) {
                 $profileTab[$i]['comment'] = $element->html_text();
                 $profileTab[$i]['date'] = $element->creation_date();
+                $profileTab[$i]['id_comment'] = $element->id_comment();
                 $element = $this->_db->selectIdea($element->id_idea());
             } else {
                 $profileTab[$i]['date'] = $element->html_submitted_date();
