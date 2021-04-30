@@ -57,7 +57,7 @@ class LoginController {
                 $notification = 'L\'email existe déjà, choisissez une autre adresse mail.';
 
             }elseif(!filter_var($_POST['email_register'], FILTER_VALIDATE_EMAIL)){
-                $notification = 'L\'email n\'a pas le bon format';
+                $notification = 'Le format de votre email n\'est pas bon';
             } elseif ($this->_db->usernameExists($_POST['username_register'])){
                 $notification = 'Le pseudo existe déjà, choisissez un autre pseudo.';
 
