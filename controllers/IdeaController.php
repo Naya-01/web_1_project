@@ -73,7 +73,7 @@ class IdeaController{
 
         $tabUsers=array();
         foreach($comments as $i => $comment){
-            $tabUsers[$i]=$this->_db->getUsername($comments[$i]->id_user());
+            $tabUser[$i]=$this->_db->getUser($comment->id_user());
             if($comment->disable()==1){
                 $comments[$i]->set_text("Ce commentaire a été supprimé");
             }

@@ -37,8 +37,8 @@
                     <div class="columns">
                         <div class="column is-2">
                             <div class="nickname has-text-black">
-                                <p class="block"><img class="icon" src="<?php echo DEFAULT_PROFILE_PIC ?>"
-                                                      alt="picture-user"><?php echo $tabUsers[$i] ?>
+                                <p class="block"><img class="icon" src="<?php echo $tabUser[$i]->html_picture() ?>"
+                                                      alt="picture-user"><?php echo $tabUser[$i]->html_username() ?>
                                 </p>
                                 <input type="hidden" name="answer_id_user"
                                        value="<?php echo $comment->html_id_user() ?>">
