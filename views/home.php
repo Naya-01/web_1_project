@@ -20,16 +20,16 @@
                 <div class="column is-2">
                     <form action="?action=home" method="post" id="form_filter">
                         <p><input type="button" class="button-width button is-dark off-button" value="Popularité"></p>
-                        <p><input type="submit" class="button-width button" value="Croissant" name="croissant"></p>
-                        <p><input type="submit" class="button-width button" value="Décroissant" name="decroissant"></p>
+                        <p><button type="submit" class="button-width button" value="crescent" name="popularity">Croissant</button></p>
+                        <p><button type="submit" class="button-width button" value="uncrescent" name="popularity">Décroissant</button></p>
                         <p><input type="button" class="button-width button is-dark off-button" value="Statut"></p>
-                        <p><input type="submit" class="button-width button" value="Accepté" id="accepted" name="form_accepted"></p>
-                        <p><input type="submit" class="button-width button" value="Refusé" id="refused" name="form_refused"></p>
-                        <p><input type="submit" class="button-width button" value="Fermé" id="closed" name="form_closed"></p>
+                        <p><button type="submit" class="button-width button" value="A" id="accepted" name="form_status">Accepté</button></p>
+                        <p><button type="submit" class="button-width button" value="R" id="refused" name="form_status">Refusé</button></p>
+                        <p><button type="submit" class="button-width button" value="C" id="closed" name="form_status">Fermé</button></p>
                         <p><input type="button" class="button-width button is-dark off-button" value="Limite d'idée"></p>
-                        <p><input type="submit" class="button-width button" value="3" name="form_3"></p>
-                        <p><input type="submit" class="button-width button" value="10" name="form_10"></p>
-                        <p><input type="submit" class="button-width button" value="Tout" name="form_all"></p>
+                        <p><button type="submit" class="button-width button" value="3" name="form_limit">3</button></p>
+                        <p><button type="submit" class="button-width button" value="10" name="form_limit">10</button></p>
+                        <p><button type="submit" class="button-width button" value="all" name="form_limit">Tout</button></p>
                     </form>
                 </div>
 

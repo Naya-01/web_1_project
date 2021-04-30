@@ -37,35 +37,28 @@ class HomeController{
         }
 
 
-
         # Filter
         # List of ideas to display
-        if(!empty($_POST['form_accepted'])){
-            $tabIdeas = $this->_db->selectIdeasWhereStatusIs("A");
-        }else if(!empty($_POST['form_refused'])){
-            $tabIdeas =$this->_db->selectIdeasWhereStatusIs("R");
-        }else if(!empty($_POST['form_closed'])){
-            $tabIdeas = $this->_db->selectIdeasWhereStatusIs("C");
-        }else if(!empty($_POST['form_3'])){
-            $tabIdeas = $this->_db->selectIdeasWithNumberLimit(3);
-        }else if(!empty($_POST['form_10'])){
-            $tabIdeas = $this->_db->selectIdeasWithNumberLimit(10);
-        }else if(!empty($_POST['form_all'])){
-            $tabIdeas = $this->_db->selectIdeasSortedByLike(false);
-        } else if (!empty($_POST['croissant'])){
-            $tabIdeas = $this->_db->selectIdeasSortedByLike(true);
-        } else if (!empty($_POST['decroissant'])){
-            $tabIdeas = $this->_db->selectIdeasSortedByLike(false);
-        } else {
+        if(!empty($_POST['form_status'])){
+            $tabIdeas = $this->_db->selectIdeasWhereStatusIs($_POST['form_status']);
+        }else if(!empty($_POST['form_limit'])){
+            if(empty($_SESSION['popularity']))$_SESSION['popularity'] = 'uncrescent'; # If just connected, the session is empty so popularity is set on "Uncrescent"
+            $_SESSION['limit'] = $_POST['form_limit'];
+            $tabIdeas = $this->_db->selectIdeasWithNumberLimit($_SESSION['popularity'],$_SESSION['limit']);
+        }else if (!empty($_POST['popularity'])){
+            $_SESSION['popularity'] = $_POST['popularity'];
+            if(empty($_SESSION['limit']))$_SESSION['limit'] = 'all'; # If just connected, the session is empty so limit is set to all ideas
+            $tabIdeas = $this->_db->selectIdeasWithNumberLimit($_SESSION['popularity'],$_SESSION['limit']);
+        }else{ # Default
+            $_SESSION['popularity'] = 'uncrescent';
+            $_SESSION['limit'] = 'all'; # When arrived on the page, the limit is set to all ideas
             $tabIdeas = $this->_db->selectIdeasSortedByLike(false);
         }
 
 
-        $tabUsers=array();
-        $tabLikes=array();
+
         foreach($tabIdeas as $i => $idea){
             $tabUser[$i]=$this->_db->getUser($tabIdeas[$i]->id_user());
-//            $tabUsers[$i]=$this->_db->getUsername($tabIdeas[$i]->id_user());
             $tabLikes[$i] = $this->_db->countLikes($tabIdeas[$i]->id_idea());
         }
 
