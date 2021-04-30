@@ -53,7 +53,7 @@
                                     <div class="nickname has-text-black">
                                         <p class="block"><img class="icon" src="<?php echo $tabUser[$i]->html_picture() ?>"
                                                               alt="picture-user"> <?php echo $tabUser[$i]->html_username() ?> </p>
-                                        <img class="icon is-medium" src="views/img/etat/<?php echo $idea->html_status()?>.ico"
+                                        <img class="icon is-medium" src="views/img/state/<?php echo $idea->html_status()?>.ico"
                                              alt="status-users">
                                         <form action="?action=home" method="post">
                                             <input type="hidden" name="like_id_idea" value="<?php echo $idea->html_id_idea()?>">
