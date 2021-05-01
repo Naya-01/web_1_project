@@ -359,6 +359,20 @@ class Db {
         }
         return $listIdeas;
     }
+    #Dont delete I need it for later
+//    public function selectIdeasWhereStatusIs($status) {
+//        $query ='SELECT ideas.*,count(votes.id_idea) AS "likes" FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea
+//                    WHERE status=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
+//        $ps = $this->_db->prepare($query);
+//        $ps->bindValue(':status', $status);
+//        $ps->execute();
+//        $listIdeas = array();
+//        while($row = $ps->fetch()){
+//            $listIdeas[] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+//                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date,$ps-fetch()->likes);
+//        }
+//        return $listIdeas;
+//    }
 
     # Select idea limit selectIdeasWithNumberLimit
     public function selectIdeasWithNumberLimit($popularity,$limit) {
@@ -411,6 +425,7 @@ class Db {
         }
         return $listIdeas;
     }
+
 
     /*
         ███████╗██╗░░██╗██╗░██████╗████████╗        ███████╗██╗░░░██╗███╗░░██╗░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗
