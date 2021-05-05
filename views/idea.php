@@ -40,6 +40,9 @@
                                 <p class="block"><img class="icon" src="<?php echo $tabUser[$i]->html_picture() ?>"
                                                       alt="picture-user"><?php echo $tabUser[$i]->html_username() ?>
                                 </p>
+                                <p>
+                                    <?php echo $comment->html_creation_date() ?>
+                                </p>
                                 <input type="hidden" name="answer_id_user"
                                        value="<?php echo $comment->html_id_user() ?>">
                             </div>
