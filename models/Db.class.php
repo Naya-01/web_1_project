@@ -379,23 +379,22 @@ class Db {
         if($popularity == 'crescent'){
             if($limit!='all'){
                 $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
-                    WHERE status!=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) ASC LIMIT :limit';
+                    GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) ASC LIMIT :limit';
             }else{
                 $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
-                    WHERE status!=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) ASC';
+                    GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) ASC';
             }
         }else{
             if($limit!='all'){
                 $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
-                    WHERE status!=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC LIMIT :limit';
+                    GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC LIMIT :limit';
             }else{
                 $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
-                    WHERE status!=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
+                    GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
             }
 
         }
         $ps = $this->_db->prepare($query);
-        $ps->bindValue(':status', "T");
         if($limit!='all')$ps->bindValue(':limit', $limit,PDO::PARAM_INT);
         $ps->execute();
         $listIdeas = array();
