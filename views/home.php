@@ -23,6 +23,7 @@
                         <p><button type="submit" class="button-width button" value="crescent" name="popularity">Croissant</button></p>
                         <p><button type="submit" class="button-width button" value="uncrescent" name="popularity">Décroissant</button></p>
                         <p><input type="button" class="button-width button is-dark off-button" value="Statut"></p>
+                        <p><button type="submit" class="button-width button" value="T" id="submitted" name="form_status">Soumise</button></p>
                         <p><button type="submit" class="button-width button" value="A" id="accepted" name="form_status">Accepté</button></p>
                         <p><button type="submit" class="button-width button" value="R" id="refused" name="form_status">Refusé</button></p>
                         <p><button type="submit" class="button-width button" value="C" id="closed" name="form_status">Fermé</button></p>
