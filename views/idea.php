@@ -1,6 +1,5 @@
 <section id="contenu">
 
-    <?php if ($idea->status() != "T") { ?>
         <div class="columns background-color "><!--l'idée-->
             <div class="column is-1 ">
                 <div class="pseudo has-text-black">
@@ -86,7 +85,5 @@
                 </form>
             </div>
         </div>
-    <?php } else { ?>
-        <p class="is-size-3 box has-background-danger notif-home">Vous ne pouvez accèder a une idée non traité !!!</p>
-    <?php } ?>
+
 </section>
