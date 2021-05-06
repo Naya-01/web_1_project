@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="column is-9">
                                     <div class="subject">
-                                        <h1 class="block title is-size-3"> Sujet N°<?php echo $i+1 ?>: <?php echo $idea->html_subject()?></h1>
+                                        <h1 class="block title is-size-3"><a href="index.php?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>">Sujet N°<?php echo $i+1 ?>: <?php echo $idea->html_subject()?></a></h1>
                                         <p><?php echo $idea->text()?>
 
                                         </p>
