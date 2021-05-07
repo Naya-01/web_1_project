@@ -1,6 +1,5 @@
 <section id="contenu">
 
-    <?php if ($idea->status() != "T") { ?>
         <div class="columns background-color "><!--l'idée-->
             <div class="column is-1 ">
                 <div class="pseudo has-text-black">
@@ -39,6 +38,9 @@
                             <div class="nickname has-text-black">
                                 <p class="block"><img class="icon" src="<?php echo $tabUser[$i]->html_picture() ?>"
                                                       alt="picture-user"><?php echo $tabUser[$i]->html_username() ?>
+                                </p>
+                                <p>
+                                    <?php echo $comment->html_creation_date() ?>
                                 </p>
                                 <input type="hidden" name="answer_id_user"
                                        value="<?php echo $comment->html_id_user() ?>">
@@ -83,7 +85,5 @@
                 </form>
             </div>
         </div>
-    <?php } else { ?>
-        <p class="is-size-3 box has-background-danger notif-home">Vous ne pouvez accèder a une idée non traité !!!</p>
-    <?php } ?>
+
 </section>
