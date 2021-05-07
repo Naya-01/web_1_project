@@ -33,8 +33,9 @@
                     <form class="buttons are-medium" action="index.php?action=post_handling" method="post">
                         <input type="hidden" name="post-handling-id" value="<?php echo $idea->html_id_idea()?>">
                         <?php if ($idea->status() != 'C') { ?>
+                            <?php if ($idea->status() != 'T') { ?>
                                 <input class="button is-danger is-light is-small" name="closed" type="submit" value="Fermer">
-                            <?php if ($idea->status() != 'R') { ?>
+                            <?php } if ($idea->status() != 'R') { ?>
                                 <input class="button is-danger is-light is-small" name="refused" type="submit" value="Refuser">
                             <?php } if ($idea->status() != 'A') { ?>
                                 <input class="button is-danger is-light is-small" name="accepted" type="submit" value="Accepter">
