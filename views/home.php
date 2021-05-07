@@ -22,6 +22,8 @@
                         <p><input type="button" class="button-width button is-dark off-button" value="Popularité"></p>
                         <p><button type="submit" class="button-width button" value="crescent" name="popularity">Croissant</button></p>
                         <p><button type="submit" class="button-width button" value="uncrescent" name="popularity">Décroissant</button></p>
+                        <p><input type="button" class="button-width button is-dark off-button" value="Date"></p>
+                        <p><button type="submit" class="button-width button" value="latest" name="date">Récent</button></p>
                         <p><input type="button" class="button-width button is-dark off-button" value="Statut"></p>
                         <p><button type="submit" class="button-width button" value="T" id="submitted" name="form_status">Soumise</button></p>
                         <p><button type="submit" class="button-width button" value="A" id="accepted" name="form_status">Accepté</button></p>
@@ -61,7 +63,7 @@
                                             <p><input class="icon is-medium" type="image" src="views/img/state/like.ico"
                                                       alt="like-icon" name="form_like[]"></p>
                                         </form>
-                                        <p class="is-size-4 block"> <?php echo $tabLikes[$i]?> like(s)</p>
+                                        <p class="is-size-4 block"> <?php echo $idea->html_likes()?> like(s)</p>
                                     </div>
                                 </div>
                                 <div class="column is-9">
@@ -77,6 +79,7 @@
                                     <a class="button is-link is-small" href="index.php?action=idea&id_idea=<?php echo $idea->html_id_idea() ?>">
                                            Répondre
                                     </a>
+                                    <p> <?php echo $idea->html_submitted_date()?> </p>
                                 </div>
                             </div>
                         </div>

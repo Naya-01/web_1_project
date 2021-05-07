@@ -264,14 +264,34 @@ class Db {
     */
 
     # List of all ideas order by date. Used in idea management (PostHandlingController).
-    public function selectIdeasByDate() {
-        $query = 'SELECT * from ideas ORDER BY submitted_date DESC';
+    public function selectIdeasByDate($limit=NULL) {
+        #Used in ProfilController
+        if($limit==null){
+            $query = 'SELECT * from ideas ORDER BY submitted_date DESC';
+            $ps = $this->_db->prepare($query);
+            $ps->execute();
+            $listIdeas= array();
+            while($row = $ps->fetch()) {
+                $listIdeas[]= new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                    $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
+            }
+            return $listIdeas;
+
+        }elseif ($limit!="all"){ #Used for the filter (HomeController)
+            $query ='SELECT ideas.*,count(votes.id_idea) AS "likes" FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
+                    GROUP BY ideas.id_idea ORDER BY  ideas.submitted_date DESC LIMIT :limit';
+        }else{
+                $query ='SELECT ideas.*,count(votes.id_idea) AS "likes" FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
+                    GROUP BY ideas.id_idea ORDER BY ideas.submitted_date DESC';
+
+        }
         $ps = $this->_db->prepare($query);
+        if($limit!='all')$ps->bindValue(':limit', $limit,PDO::PARAM_INT);
         $ps->execute();
         $listIdeas= array();
         while($row = $ps->fetch()) {
             $listIdeas[]= new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
-                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date,$row->likes);
         }
         return $listIdeas;
     }
@@ -346,22 +366,8 @@ class Db {
     }
 
     # Select the idea by it's status
-    public function selectIdeasWhereStatusIs($status) {
-        $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
-                    WHERE status=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':status', $status);
-        $ps->execute();
-        $listIdeas = array();
-        while($row = $ps->fetch()){
-            $listIdeas[] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
-                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
-        }
-        return $listIdeas;
-    }
-    #Dont delete I need it for later
 //    public function selectIdeasWhereStatusIs($status) {
-//        $query ='SELECT ideas.*,count(votes.id_idea) AS "likes" FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea
+//        $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea
 //                    WHERE status=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
 //        $ps = $this->_db->prepare($query);
 //        $ps->bindValue(':status', $status);
@@ -369,27 +375,41 @@ class Db {
 //        $listIdeas = array();
 //        while($row = $ps->fetch()){
 //            $listIdeas[] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
-//                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date,$ps-fetch()->likes);
+//                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
 //        }
 //        return $listIdeas;
 //    }
+    #Dont delete I need it for later
+    public function selectIdeasWhereStatusIs($status) {
+        $query ='SELECT ideas.*,count(votes.id_idea) AS "likes" FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea
+                    WHERE status=:status GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
+        $ps = $this->_db->prepare($query);
+        $ps->bindValue(':status', $status);
+        $ps->execute();
+        $listIdeas = array();
+        while($row = $ps->fetch()){
+            $listIdeas[] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date,$row->likes);
+        }
+        return $listIdeas;
+    }
 
     # Select idea limit selectIdeasWithNumberLimit
     public function selectIdeasWithNumberLimit($popularity,$limit) {
         if($popularity == 'crescent'){
             if($limit!='all'){
-                $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
+                $query ='SELECT ideas.*,count(votes.id_idea) AS "likes" FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
                     GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) ASC LIMIT :limit';
             }else{
-                $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
+                $query ='SELECT ideas.*,count(votes.id_idea) AS "likes" FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
                     GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) ASC';
             }
         }else{
             if($limit!='all'){
-                $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
+                $query ='SELECT ideas.*,count(votes.id_idea) AS "likes" FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
                     GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC LIMIT :limit';
             }else{
-                $query ='SELECT ideas.* FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
+                $query ='SELECT ideas.*,count(votes.id_idea) AS "likes" FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea 
                     GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
             }
 
@@ -400,7 +420,7 @@ class Db {
         $listIdeas = array();
         while($row = $ps->fetch()){
             $listIdeas[] = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user,
-                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date);
+                $row->status, $row->submitted_date, $row->accepted_date, $row->refused_date, $row->closed_date,$row->likes);
         }
         return $listIdeas;
     }
@@ -496,24 +516,16 @@ class Db {
         return password_verify($password, $hash);
     }
 
-    # Allows you to check the password-email correspondence. Used in the login system (LoginController)
-    public function countLikes($id_idea) {
-        $query = 'SELECT count(id_idea) as "like" FROM votes WHERE id_idea = :id_idea';
-        $ps = $this->_db->prepare($query);
-        $ps->bindValue(':id_idea',$id_idea);
-        $ps->execute();
-        return $ps->fetch()->like;
-    }
-
     # Allows the selection of an idea from its id. Used in the idea system (IdeaController).
     public function selectIdea($id_idea) {
-        $query = 'SELECT * from ideas WHERE id_idea = :id_idea';
+        $query ='SELECT ideas.*,count(votes.id_idea) AS "likes" FROM ideas LEFT JOIN votes ON ideas.id_idea = votes.id_idea
+                    WHERE ideas.id_idea=:id_idea GROUP BY ideas.id_idea ORDER BY count(votes.id_idea) DESC';
         $ps = $this->_db->prepare($query);
         $ps->bindValue(':id_idea', $id_idea);
         $ps->execute();
         $row = $ps->fetch();
         $idea = new Idea($row->id_idea, $row->subject, $row->text, $row->id_user, $row->status, $row->submitted_date,
-            $row->accepted_date, $row->refused_date, $row->closed_date);
+            $row->accepted_date, $row->refused_date, $row->closed_date,$row->likes);
         return $idea;
     }
 }

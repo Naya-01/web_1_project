@@ -10,8 +10,9 @@ class Idea {
     private $_accepted_date;
     private $_refused_date;
     private $_closed_date;
+    private $_likes;
 
-    public function __construct($id_idea, $subject, $text, $id_user, $status, $submitted_date, $accepted_date, $refused_date, $closed_date) {
+    public function __construct($id_idea, $subject, $text, $id_user, $status, $submitted_date, $accepted_date, $refused_date, $closed_date,$likes=NULL) {
         $this->_id_idea = $id_idea;
         $this->_subject = $subject;
         $this->_text = $text;
@@ -21,6 +22,7 @@ class Idea {
         $this->_accepted_date = $accepted_date;
         $this->_refused_date = $refused_date;
         $this->_closed_date = $closed_date;
+        $this->_likes=$likes;
     }
 
     public function id_idea() {
@@ -59,6 +61,10 @@ class Idea {
         return $this->_closed_date;
     }
 
+    public function likes(){
+        return $this->_likes;
+    }
+
     public function html_id_idea() {
         return htmlspecialchars($this->_id_idea);
     }
@@ -95,5 +101,8 @@ class Idea {
         return htmlspecialchars($this->_closed_date);
     }
 
+    public function html_likes(){
+        return htmlspecialchars($this->_likes);
+    }
 
 }

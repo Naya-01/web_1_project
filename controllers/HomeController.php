@@ -47,7 +47,9 @@ class HomeController{
         }else if (!empty($_POST['popularity'])){
             $_SESSION['popularity'] = $_POST['popularity'];
             $tabIdeas = $this->_db->selectIdeasWithNumberLimit($_SESSION['popularity'],$_SESSION['limit']);
-        }else{ # Default
+        }else if(!empty($_POST['date'])){
+            $tabIdeas =$this->_db->selectIdeasByDate($_SESSION['limit']);
+        } else{ # Default
             $_SESSION['popularity'] = 'uncrescent'; # When arrived on the, the popularity is set to uncrescent by default
             $_SESSION['limit'] = 'all'; # When arrived on the page, the limit is set to all ideas by default
             $tabIdeas = $this->_db->selectIdeasWithNumberLimit($_SESSION['popularity'],$_SESSION['limit']);
@@ -57,7 +59,6 @@ class HomeController{
 
         foreach($tabIdeas as $i => $idea){
             $tabUser[$i]=$this->_db->getUser($tabIdeas[$i]->id_user());
-            $tabLikes[$i] = $this->_db->countLikes($tabIdeas[$i]->id_idea());
         }
 
 

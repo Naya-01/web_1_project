@@ -21,8 +21,7 @@ class IdeaController{
         # Display of the selected idea / display of the idea put in the link
         if($this->_db->ideaExists($id_idea)){
             $idea = $this->_db->selectIdea($id_idea);;
-            $user=$this->_db->getUsername($idea->id_user());
-            $like=$this->_db->countLikes($idea->id_idea());
+            $user=$this->_db->getUser($idea->id_user());
         }else{
             header("Location: index.php?action=home");
             die();
