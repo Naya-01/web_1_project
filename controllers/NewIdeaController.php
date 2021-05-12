@@ -26,10 +26,10 @@ class NewIdeaController{
                     $notification_post = "Vous avez dépassé les 60 caractères autorisés pour le sujet !";
 
                 }else if(strlen($text) > 200) {
-                    $notification_post = "Vous avez dépassé les 200 caractères autorisés pour la description!";
+                    $notification_post = "Vous avez dépassé les 200 caractères autorisés pour la description !";
 
                 } else {
-                    $notification_post = "Idée ajouter";
+                    $notification_post = "Idée ajoutée";
                     $this->_db->insertIdea($_SESSION['id_user'],$_POST['form_subject'], $_POST['form_subject_text']);
                 }
             } else {

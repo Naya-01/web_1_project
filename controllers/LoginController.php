@@ -32,13 +32,14 @@ class LoginController {
             } else {
                 # The user is well authenticated
                 # A session variable $_SESSION['authentifie'] is created
+                $user = $this->_db->getUser($this->_db->getIdUser($_POST['email_login']));
                 $_SESSION['authentifie'] = 'ok';
                 $_SESSION['email'] = $_POST['email_login'];
-                $_SESSION['id_user'] = $this->_db->getIdUser($_POST['email_login']);
-                $_SESSION['username']= $this->_db->getUsername($_SESSION['id_user']);
-                $_SESSION['admin']= $this->_db->isAdmin($_SESSION['id_user']);
-                $_SESSION['disabled']= $this->_db->isDisabled($_SESSION['id_user']);
-                $_SESSION['image'] = $this->_db->getImage($_SESSION['id_user']);
+                $_SESSION['id_user'] = $user->id();
+                $_SESSION['username'] = $user->html_username();
+                $_SESSION['admin'] = $user->admin();
+                $_SESSION['disabled'] = $user->disabled();
+                $_SESSION['image'] = $user->picture();
 
                 # HTTP redirection to request the 'admin' page
                 header("Location: index.php?action=home");
@@ -98,4 +99,14 @@ if (!empty($_POST['form_login'])) {
         die();
     }
 }
+
+
+
+$_SESSION['authentifie'] = 'ok';
+                $_SESSION['email'] = $_POST['email_login'];
+                $_SESSION['id_user'] = $this->_db->getIdUser($_POST['email_login']);
+                $_SESSION['username']= $this->_db->getUsername($_SESSION['id_user']);
+                $_SESSION['admin']= $this->_db->isAdmin($_SESSION['id_user']);
+                $_SESSION['disabled']= $this->_db->isDisabled($_SESSION['id_user']);
+                $_SESSION['image'] = $this->_db->getImage($_SESSION['id_user']);
 */
