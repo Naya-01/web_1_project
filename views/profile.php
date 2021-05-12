@@ -85,7 +85,7 @@
                     <strong>Commentaire : </strong><?php echo $profileTab[$i]['comment'] ?>
                 <?php } ?>
                 <br>
-                <time datetime="2011-11-18T14:54:39.929"><strong><?php echo $profileTab[$i]['date'] ?></strong></time>
+                <strong><?php echo $profileTab[$i]['date'] ?></strong>
             </div>
             <?php if ($isComment) { ?>
                 <div class="buttons has-addons navbar-end">

@@ -84,7 +84,7 @@ class ProfileController {
         foreach ($tab as $i => $element) {
             if ($isComment) {
                 $profileTab[$i]['comment'] = $element->html_text();
-                $profileTab[$i]['date'] = $element->creation_date();
+                $profileTab[$i]['date'] = $element->html_creation_date();
                 $profileTab[$i]['id_comment'] = $element->id_comment();
                 $element = $this->_db->selectIdea($element->id_idea());
             } else {

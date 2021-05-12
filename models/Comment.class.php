@@ -62,7 +62,9 @@ class Comment {
     }
 
     public function html_creation_date() {
-        return htmlspecialchars($this->_creation_date);
+        $timestamp = strtotime($this->_creation_date);
+        $newDate=date('d-m-y H:i:s',$timestamp);
+        return htmlspecialchars($newDate);
     }
 
     public function set_text($text){
