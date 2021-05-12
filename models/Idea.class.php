@@ -86,7 +86,9 @@ class Idea {
     }
 
     public function html_submitted_date() {
-        return htmlspecialchars($this->_submitted_date);
+        $timestamp = strtotime($this->_submitted_date);
+        $newDate=date('d-m-y H:i:s',$timestamp);
+        return htmlspecialchars($newDate);
     }
 
     public function html_accepted_date() {
